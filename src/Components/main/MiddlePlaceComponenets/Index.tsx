@@ -12,7 +12,7 @@ function Index() {
 
             <div className="w-full h-auto flex justify-center items-center">
                 {/* تقسیم بندی صغحه به سه قسمت سطری */}
-                <div className="grid grid-rows-3 gap-5 w-full dark:bg-slate-900">
+                <div className="grid grid-rows-3 gap-5 w-full dark:bg-slate-950">
                     {/* دیو مربوط به لوگو */}
                 <div className="row-start-1 flex justify-center pt-3">
                     <svg width="138" height="138" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -11,7 +11,7 @@ function BottomMenu () {
         {/*----------- < sm ---------- */}
 {/* منوی پایینی برای کوچکتر از sm */}
 <div className="sm:hidden" style={{fontFamily: 'VAZIR'}}>
-    <div className="fixed z-40 bottom-0 right-0 left-0 bg-slate-100 dark:bg-slate-900">
+    <div className="fixed z-40 bottom-0 right-0 left-0 bg-slate-100 dark:bg-slate-950">
         <div className="grid grid-cols-5">
             {/* مارکت من */}
             <div className="col-start-1  dark:text-white flex justify-center item-center pt-2  dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">

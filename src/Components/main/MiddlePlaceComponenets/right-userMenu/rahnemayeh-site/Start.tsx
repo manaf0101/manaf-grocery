@@ -1,7 +1,7 @@
 function Start () {
     return (
         <>
-        <div className="w-full h-full dark:bg-slate-900 relative">
+        <div className="w-full h-full dark:bg-slate-950 relative">
             kndcvdcvxcvxcvxcvxcvxcvxcvxcv
         </div>
         </>
