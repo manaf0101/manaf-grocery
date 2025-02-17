@@ -8,8 +8,8 @@ import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
 // کامپوننت های قسمت میانی Theuser
 import RahnemayehSite from "./Components/main/MiddlePlaceComponenets/right-userMenu/rahnemayeh-site/RahnemayehSite";
-import Documents      from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/Market";
-import Ettehadieh     from "./Components/main/MiddlePlaceComponenets/right-userMenu/mineMarket/MineMarket";
+import Documents      from "./Components/main/MiddlePlaceComponenets/right-userMenu/documentss/Documents";
+import Ettehadieh     from "./Components/main/MiddlePlaceComponenets/right-userMenu/ettehadieh/Ettehadieh";
 import Gavanin        from "./Components/main/MiddlePlaceComponenets/right-userMenu/gavanin/Gavanin";
 import Mahdodiatha    from "./Components/main/MiddlePlaceComponenets/right-userMenu/mahdodiatha/Mahdodiatha";
 import EtebarehTejary from "./Components/main/MiddlePlaceComponenets/right-userMenu/etebareh tejary/EtebarehTejary";
@@ -58,12 +58,12 @@ function App () {
             },
 
             {
-            path : `${userMenuPaths}market` ,
+            path : `${userMenuPaths}documents` ,
             element : <Documents />
             },
 
             {
-            path : `${userMenuPaths}mine-market`,
+            path : `${userMenuPaths}ettehadieh`,
             element : <Ettehadieh /> 
             },
             {

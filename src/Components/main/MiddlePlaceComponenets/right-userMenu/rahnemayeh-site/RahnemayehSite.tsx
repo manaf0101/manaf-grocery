@@ -12,7 +12,7 @@ function RahnemayehSite() {
                 </section>
                 {/* حاشیه راه راه مورب */}
 
-                <section className="relative dark:bg-slate-950  col-start-2 col-ddk lg:col-ddd h-full w-full flex flex-col">
+                <section className="relative dark:bg-slate-900  col-start-2 col-ddk lg:col-ddd h-full w-full flex flex-col">
                     {/* heading */}
                     <Heading />
                     {/* heading */}

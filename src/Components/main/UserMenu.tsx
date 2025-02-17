@@ -14,9 +14,9 @@ function UserMenu () {
         <>
 {/* --------------------------برای بزگ تر از lg */}
         {/* aside مربوط به منوی  */}
-        <aside className=" h-fit bg-slate-50 dark:bg-slate-950  pr-8" dir="rtl" style={{fontFamily : 'VAZIR'}}>
+        <aside className=" h-fit bg-slate-50 dark:bg-slate-900  pr-8" dir="rtl" style={{fontFamily : 'VAZIR'}}>
         {/* دیو اسکرول دار */}
-            <div className="dark:bg-slate-950  h-screen overflow-y-scroll scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-slate-400 scrollbar-track-rounded-full scrollbar-thumb-rounded-full dark:scrollbar-track-slate-400 scrollbar-track-slate-200 pt-3 pb-3 ">
+            <div className="dark:bg-slate-900  h-screen overflow-y-scroll scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-slate-400 scrollbar-track-rounded-full scrollbar-thumb-rounded-full dark:scrollbar-track-slate-400 scrollbar-track-slate-200 pt-3 pb-3 ">
             {/* منوی کاربری */}
                 {/* نوشته و سرتیتر منوی کاربری */}
                  <div className="grid grid-cols-1 cursor-pointer">
@@ -35,14 +35,14 @@ function UserMenu () {
                     </li>
 
                     <li className="row-start-2 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white"> 
-                    <Link to={`${basePath}market`}>
-                         مارکت 
+                    <Link to={`${basePath}documents`}>
+                         مستندات 
                     </Link>
                     </li>
 
                     <li className="row-start-3 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white"> 
-                    <Link to={`${basePath}mine-market`}>
-                         مارکت من
+                    <Link to={`${basePath}ettehadieh`}>
+                         اتحادیه
                     </Link>
                     </li>
 

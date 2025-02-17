@@ -26,10 +26,10 @@ function ClickMenuIcon({visable , showCart , closeIt} : ClickMenuIcon) {
         {/* برای کوچکتر از lg */}
 {/* ---------زمانی ظاهر می شود که روی آیکون منو کلیک شود--------- */}
     {/* aside کلی */}
-        <div className = {`lg:hidden fixed top-0 right-0  w-full  bg-slate-950 h-full bg-opacity-50 z-40 transition-all duration-200 ease-linear cart-overaly ${visable}`}  dir="rtl">
-            <aside className={`fixed  right-0 top-0 h-full bg-white dark:bg-slate-950 z-50 w-2/3 sm:w-1/2 transition-all duration-200 ease-linear ${showCart}`}>
+        <div className = {`lg:hidden fixed top-0 right-0  w-full  bg-black h-full bg-opacity-50 z-40 transition-all duration-200 ease-linear cart-overaly ${visable}`}  dir="rtl">
+            <aside className={`fixed  right-0 top-0 h-full bg-white dark:bg-slate-900 z-50 w-2/3 sm:w-1/2 transition-all duration-200 ease-linear ${showCart}`}>
         {/* دیو اسکرول دار */}
-            <div className="dark:bg-slate-950 h-full overflow-y-scroll scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-slate-400 scrollbar-track-rounded-full scrollbar-thumb-rounded-full dark:scrollbar-track-slate-400 scrollbar-track-slate-200 pt-3 pb-3 ">
+            <div className="dark:bg-slate-900 h-full overflow-y-scroll scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-slate-400 scrollbar-track-rounded-full scrollbar-thumb-rounded-full dark:scrollbar-track-slate-400 scrollbar-track-slate-200 pt-3 pb-3 ">
             {/* منوی کاربری */}
                 {/* نوشته و سرتیتر منوی کاربری */}
                  <div className="grid grid-cols-2 cursor-pointer">
@@ -51,13 +51,13 @@ function ClickMenuIcon({visable , showCart , closeIt} : ClickMenuIcon) {
                                 </Link>
                             </li>
                             <li className="row-start-2 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
-                                <Link onClick={closeIt} to={`${basePath}market`}>
-                                    مارکت
+                                <Link onClick={closeIt} to={`${basePath}documents`}>
+                                    مستندات
                                 </Link>
                             </li>
                             <li className="row-start-3 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
-                                <Link onClick={closeIt} to={`${basePath}mine-market`}>
-                                    مارکت من
+                                <Link onClick={closeIt} to={`${basePath}ettehadieh`}>
+                                    اتحادیه
                                 </Link>
                             </li>
                             <li className="row-start-4 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
