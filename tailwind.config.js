@@ -13,7 +13,9 @@ export default {
         'regal-purple' : 'rgb(71 30 72)' , 
         'search-box' : 'rgb(227 227 227)' ,
         'search-box-dark' : 'rgb(51 58 69)' ,
-        'gg' : '#ffffff'
+        'gg' : '#ffffff' , 
+        'gg-1' : '#1b2e35' ,
+        'gg-2' : '#dca001' , 
       } ,
       screens : {
         xsss : '20px' , 
