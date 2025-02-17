@@ -1,0 +1,8 @@
+#search-box:focus-visible {
+    outline: 0px;
+}
+
+
+:focus-visible {
+    outline: 0px;
+}

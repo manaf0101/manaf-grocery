@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* خطوط راه راه مورب کنار صفحه در حالت تاریک */
+@layer utilities {
+  .bg-stripes-dark {
+    background-image: repeating-linear-gradient(52.7deg, #9e9996 0, #9e9996 0.5px, #0f172a 0px, #0f172a 13px);
+    background-size: 200px 150px;
+  }
+/* خطوط راه راه مورب کنار صفحه در حالت تاریک */
+
+/* خطوط راه راه مورب کنار صفحه در حالت روشن */
+  .bg-stripes-light {
+    background-image: repeating-linear-gradient(52.7deg, #000000 0, #000000 0.5px, #f1f5f9 0px, #f1f5f9 13px);
+    background-size: 200px 150px;
+  }
+/* خطوط راه راه مورب کنار صفحه در حالت روشن */
+
+}
+
+@font-face {
+  font-family: 'VAZIR';
+  src: url('../public/fonts/Vazirmatn-Regular.woff2');
+}
+
+body {
+  font-family: 'VAZIR';
+}

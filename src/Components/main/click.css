@@ -1,0 +1,16 @@
+.cart-overaly {
+visibility: hidden;
+}
+
+.transparentBcg {
+    visibility: visible;
+  }
+
+
+.cart {
+    transform: translateX(100%);
+}
+
+.showCart {
+    transform: translateX(0);
+  }
