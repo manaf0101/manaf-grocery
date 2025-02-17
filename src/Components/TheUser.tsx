@@ -53,7 +53,7 @@ function TheUser () {
         {/*منوی بالا - زیر کامپوننت عکس و پروفایل*/}
            <div className="hidden sm:grid relative">
              <div className="sticky top-0 z-40"><UpperMenu openUserMenu={smallAside}/></div>
-             <div className="w-full h-full z-20 lg:hidden dark:bg-slate-900" dir="rtl"><Outlet /></div>
+             <div className="w-full h-full z-20 lg:hidden dark:bg-slate-950" dir="rtl"><Outlet /></div>
              <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible}/>
            </div>
         {/*منوی بالا - زیر کامپوننت عکس و پروفایل*/}        
@@ -66,15 +66,15 @@ function TheUser () {
      <div className="relative col-span-4 grid grid-cols-subgrid  h-auto">  
 {/*...................این کد : h-[calc(100vh-5rem)] باعث می شود ویژگی sticky , به طور صحیح 
 ......................عمل کند و با رسیدن اسکرول به انتهای صفحه ، ابن ویژگی قطع نشود*/}
-           <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-900  h-[calc(100vh-5rem)]">  
+           <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">  
                   <UserMenu /> 
            </div>  
-            <div className=" h-screen col-start-2 col-span-3 p-0 dark:bg-slate-900" dir="rtl">  
+            <div className=" h-screen col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
                <Outlet />  
             </div>  
       </div>  
       {/* منوی سمت چپ */}
-    <div className="relative col-start-5 col-span-1  dark:bg-slate-900 h-auto" dir="ltr">
+    <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
        <UserMenuLeft />
     </div>  
       {/* منوی سمت چپ */}
@@ -88,7 +88,7 @@ function TheUser () {
     {/* برای زمانی که کوچکتر از lg باشد و روی علامت منوی سه خط کلیک شود */}
     <div className="sm:hidden relative w-full ">
       <div className="sticky top-0 z-40"><UpperMenu openUserMenu={smallAside}/></div>
-      <div className="w-full h-auto dark:bg-slate-900" dir="rtl"><Outlet /></div>
+      <div className="w-full h-auto dark:bg-slate-950" dir="rtl"><Outlet /></div>
       <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible}/>
     {/* منوی پایینی برای کوچکتر از sm */}
     <BottomMenu />

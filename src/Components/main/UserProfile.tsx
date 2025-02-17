@@ -60,7 +60,7 @@ const [theme]  =  useDarkMood()
         <>
 {/*----------- < sm ---------- */}
         {/* دو ستون مربوط به پروفایل و نام تجاری سایت و منوی کاربری در کوچکتر از ---sm--- */}
-        <div className='sm:hidden bg-slate-100 dark:bg-slate-900 grid grid-cols-2'>
+        <div className='sm:hidden bg-slate-100 dark:bg-slate-950 grid grid-cols-2'>
             {/* ستون مربوط به نام تجاری */}
             <div className='col-start-1 bg-slate-200 dark:bg-slate-500  flex justify-center items-center pl-2 text-white'>
             <p  className= " text-slate-600 dark:text-white " style={{fontFamily : 'cursive'}}>manaf grocery</p>
@@ -92,7 +92,7 @@ const [theme]  =  useDarkMood()
 
 {/* -----------sm<----------- */}
     {/*سه ستون مربوط به عکس و نام کاربری برای نمایش گر های بزرگتر از -----sm------*/}    
-        <div className="hidden sm:grid bg-slate-100 dark:sm:bg-slate-900  sm:grid-cols-3">
+        <div className="hidden sm:grid bg-slate-100 dark:sm:bg-slate-950  sm:grid-cols-3">
 
             {/*ستون مرکزی*/}
             <div className="col-start-2 col-span-1 flex justify-center items-center dark:text-slate-100">
@@ -117,7 +117,7 @@ const [theme]  =  useDarkMood()
     {/*سه ستون مربوط به عکس و نام کاربری برای نمایش گر های بزرگتر از -----sm------*/}    
   
         {/*تک خط سفید زیر نام و عکس پروفایل برای نمایش گر های بزرگتر از ------sm-----*/}
-    <div className='hidden sm:grid sm:grid-cols-3 bg-slate-100 dark:sm:bg-slate-900'>
+    <div className='hidden sm:grid sm:grid-cols-3 bg-slate-100 dark:sm:bg-slate-950'>
         <div className='col-start-2 col-span-1'>
             <hr className='dark:text-white size-full mb-2'/>
         </div>
