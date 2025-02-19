@@ -63,13 +63,13 @@ function TheUser () {
     {/* row 2 */}
 <div className="row-start-2 relative ">
   <div className="hidden relative lg:grid md:grid-cols-5 h-auto" dir="rtl">  
-     <div className="relative col-span-4 grid grid-cols-subgrid  h-auto">  
+     <div className="relative col-start-1 col-span-4 grid grid-cols-subgrid dark:bg-slate-950  h-auto">  
 {/*...................این کد : h-[calc(100vh-5rem)] باعث می شود ویژگی sticky , به طور صحیح 
 ......................عمل کند و با رسیدن اسکرول به انتهای صفحه ، ابن ویژگی قطع نشود*/}
            <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">  
                   <UserMenu /> 
            </div>  
-            <div className=" h-screen col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
+            <div className=" h-full col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
                <Outlet />  
             </div>  
       </div>  

@@ -1,12 +1,12 @@
 import Heading from "../../Heading"
 import MakingMarket from "./Making-market"
 import JoinUs from "./JoinUs-market"
-import Craousel from "./craousel"
+import PauseOnHover from "./Carousel"
 
 function Market() {
     return (
         <>
-            <section className="relative w-full h-full flex flex-col">
+            <section className="relative w-full h-full flex flex-col ">
                 {/* heading */}
                 <Heading />
                 {/* heading */}
@@ -20,7 +20,7 @@ function Market() {
                 {/*مارکت خود را بسازید*/}
 
                 {/* carousel */}
-        
+                <PauseOnHover />
                 {/* carousel */}
 
             </section>
