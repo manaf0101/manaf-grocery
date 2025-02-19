@@ -16,6 +16,9 @@ export default {
         'gg' : '#ffffff' , 
         'gg-1' : '#1b2e35' ,
         'gg-2' : '#dca001' , 
+        'gg-3' : '#f5f5ff'  , 
+        'gg-3-dark' : '#d0d9ff' , 
+        'gg-4' : '#6d75f4'
       } ,
       screens : {
         xsss : '20px' , 
@@ -41,7 +44,6 @@ export default {
     require('tailwind-scrollbar')({
       nocompatible: true,
       preferredStrategy: 'pseudoelements',
-    // برای استفاده از تنظیمات tailwind-scrollbar  می باشد 
   }),
   ],
 }

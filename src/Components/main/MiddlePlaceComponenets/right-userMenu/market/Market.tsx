@@ -1,6 +1,7 @@
 import Heading from "../../Heading"
 import MakingMarket from "./Making-market"
 import JoinUs from "./JoinUs-market"
+import Craousel from "./craousel"
 
 function Market() {
     return (
@@ -17,6 +18,10 @@ function Market() {
                 {/*مارکت خود را بسازید*/}
                 <JoinUs />
                 {/*مارکت خود را بسازید*/}
+
+                {/* carousel */}
+        
+                {/* carousel */}
 
             </section>
         </>
