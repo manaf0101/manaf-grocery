@@ -69,7 +69,7 @@ function TheUser () {
            <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">  
                   <UserMenu /> 
            </div>  
-            <div className=" h-full col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
+            <div className=" h-screen col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
                <Outlet />  
             </div>  
       </div>  
