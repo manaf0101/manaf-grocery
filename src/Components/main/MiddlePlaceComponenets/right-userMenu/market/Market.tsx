@@ -1,7 +1,7 @@
 import Heading from "../../Heading"
 import MakingMarket from "./Making-market"
 import JoinUs from "./JoinUs-market"
-import PauseOnHover from "./Carousel"
+import PauseOnHover from "./PauseOnHover"
 
 function Market() {
     return (
