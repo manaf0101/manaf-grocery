@@ -17,8 +17,8 @@ function PauseOnHover() {
       pauseOnHover: true
     };
     return (
-      <div className="slider-container mt-2">
-        <Slider {...settings}>
+      <div className=" slider-container mt-2 ">
+        <Slider  {...settings}>
           <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
           </div>
           <div>
