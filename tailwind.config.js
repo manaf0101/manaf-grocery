@@ -36,6 +36,9 @@ export default {
       } ,
       gridColumnStart : {
         'ddg' : 'grid-column-start:29;'
+      } ,
+      gridTemplateColumns : {
+        '15' : 'repeat(15, minmax(0, 1fr))'
       }
     },
   },

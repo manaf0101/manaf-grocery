@@ -1,6 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 
 
+
 function Slider2() {
   return (
     <Carousel pause={'hover'} interval={1} prevLabel={null}>

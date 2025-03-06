@@ -3,7 +3,7 @@
 function MakingMarket() {
     return (
         <>
-            <div className="flex justify-center items-center w-full h-96 bg-[url(../../../../../../public/pictures/making-market.jpg)] bg-cover bg-center  bg-no-repeat pt-7">
+            <div className="flex justify-center items-center w-full h-96  bg-[url(../../../../../../public/pictures/making-market.jpg)] bg-cover bg-center pt-32 pb-32">
                 <section className="grid grid-rows-2 gap-4 w-auto h-auto">
                     <div className="row-start-1  backdrop-blur-xl rounded-xl flex justify-center items-center">
                         <p className="font-mono p-0 font-extrabold text-gg-1 text-2xl">به بازار بزرگ آنلاین خوش آمدید .</p>

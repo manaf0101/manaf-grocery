@@ -5,7 +5,7 @@ import DiagonalStripes from "./DiagonalStripes"
 function RahnemayehSite() {
     return (
         <>
-            <section className="grid grid-cols-ddf h-full w-full">
+            <section className="grid grid-cols-ddf h-screen w-full">
                 {/* حاشیه راه راه مورب */}
                 <section className="hidden lg:grid col-start-1">
                     <DiagonalStripes />

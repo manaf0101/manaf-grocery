@@ -3,7 +3,7 @@ import './heading.css'
 function Heading () {
     return(
         <>
-        <div className="w-full h-auto pr-3 pl-3 pt-2 pb-2 sticky top-10 z-30 sm:top-20 lg:top-10 bg-gg dark:bg-slate-950 " dir="rtl">
+        <div className=" backdrop-blur-sm w-full h-auto pr-3 pl-3 pt-2 pb-2 sticky top-10 z-30 sm:top-20 lg:top-10  dark:bg-slate-950 " dir="rtl">
             <div className="grid grid-cols-12 gap-2">
                 {/* site's logo */}
                 <div className="col-start-1 flex justify-center items-center">
@@ -25,7 +25,7 @@ function Heading () {
                 {/* v-1.00 */}
 
                 {/* search-bar */}
-                <div className="col-start-3 col-span-9 bg-search-box dark:bg-search-box-dark rounded-3xl p-2 flex flex-row items-center" dir="rtl">
+                <div className=" col-start-3 col-span-9 bg-search-box dark:bg-search-box-dark rounded-3xl p-2 flex flex-row items-center" dir="rtl">
                        {/* ذره بین */}
                         <div>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@ function Heading () {
                         </div>
                        {/* ذره بین */}
 
-                       <div className="w-full pr-1">
+                       <div className="w-full pr-1 ">
                         <form action="">
                             <input style={{fontFamily:'VAZIR'}} id='search-box' className=" w-full  bg-search-box dark:bg-search-box-dark" type="text" placeholder="جستجو . . ." />
                         </form>

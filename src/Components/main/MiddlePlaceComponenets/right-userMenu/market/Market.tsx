@@ -3,11 +3,12 @@ import MakingMarket from "./Making-market"
 import JoinUs from "./JoinUs-market"
 import PauseOnHover from "./Carousel"
 import Slider2 from "./slider2"
+import Category from "./Category"
 
 function Market() {
     return (
         <>
-            <section className=" w-full h-full flex flex-col ">
+            <section className="flex flex-col w-full h-full ">
                 {/* heading */}
                 <Heading />
                 {/* heading */}
@@ -29,6 +30,12 @@ function Market() {
                 <Slider2 />
                 </div>
                 {/* carousel */}
+
+                {/* خرید براساس دسته بندی */}
+                <Category />
+                {/* خرید براساس دسته بندی */}
+
+                <div className="w-full h-80"></div>
             </section>
         </>
     )

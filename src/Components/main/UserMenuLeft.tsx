@@ -5,7 +5,7 @@ return (
     <>
         <div className= " sticky top-10 h-auto dark:bg-slate-950">
            <div className="h-[calc(100vh-5rem)]">
-            <aside className="h-fit pl-8" style={{fontFamily : 'VAZIR'}}>
+            <aside className="h-fit pl-8 dark:bg-slate-950" style={{fontFamily : 'VAZIR'}}>
              <div className="h-screen overflow-y-scroll  scrollbar-thin dark:scrollbar-thumb-slate-700 scrollbar-thumb-slate-400 scrollbar-track-rounded-full scrollbar-thumb-rounded-full dark:scrollbar-track-slate-400 scrollbar-track-slate-200 pt-3 pb-3">
                 {/*نوشته و سرتیتر  : در این صفحه*/}    
                 <div className="grid grid-cols-1 cursor-pointer">
