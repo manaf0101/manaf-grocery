@@ -10,7 +10,7 @@ function Category () {
             {/* نوشته ی خرید بر اساس دسته بندی */}
 
             {/* دسته بندی ها - اسلایدر */}
-            <div className="pr-10 pl-10 mt-6">
+            <div className="pr-0 pl-0 mt-10">
                 <CategorySlider />
             </div>
             {/* دسته بندی ها - اسلایدر */}

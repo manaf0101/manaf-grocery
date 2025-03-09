@@ -3,7 +3,7 @@ import './heading.css'
 function Heading () {
     return(
         <>
-        <div className=" backdrop-blur-sm w-full h-auto pr-3 pl-3 pt-2 pb-2 sticky top-10 z-30 sm:top-20 lg:top-10  dark:bg-slate-950 " dir="rtl">
+        <div className=" backdrop-blur-sm dark:backdrop-blur-3xl w-full h-auto pr-3 pl-3 pt-2 pb-2 sticky top-10 z-30 sm:top-20 lg:top-10 " dir="rtl">
             <div className="grid grid-cols-12 gap-2">
                 {/* site's logo */}
                 <div className="col-start-1 flex justify-center items-center">

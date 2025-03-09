@@ -1,6 +1,4 @@
 #search-box:focus-visible {
     outline: 0px;
-    display: flex;
-    flex-direction: row-reverse
 }
 

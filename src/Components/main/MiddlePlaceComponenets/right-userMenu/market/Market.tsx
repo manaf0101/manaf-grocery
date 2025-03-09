@@ -3,7 +3,7 @@ import MakingMarket from "./Making-market"
 import JoinUs from "./JoinUs-market"
 import PauseOnHover from "./Carousel"
 import Slider2 from "./slider2"
-import Category from "./Category"
+import Category from "./category part/Category"
 
 function Market() {
     return (
