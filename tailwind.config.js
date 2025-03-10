@@ -18,7 +18,8 @@ export default {
         'gg-2' : '#dca001' , 
         'gg-3' : '#f5f5ff'  , 
         'gg-3-dark' : '#d0d9ff' , 
-        'gg-4' : '#6d75f4'
+        'gg-4' : '#6d75f4' , 
+        'gg-5' : '#b8c0e2' , 
       } ,
       screens : {
         xsss : '20px' , 

@@ -31,6 +31,8 @@ function Market() {
                 </div>
                 {/* carousel */}
 
+                <hr className="dark:text-white mt-5"/>
+
                 {/* خرید براساس دسته بندی */}
                 <Category />
                 {/* خرید براساس دسته بندی */}
