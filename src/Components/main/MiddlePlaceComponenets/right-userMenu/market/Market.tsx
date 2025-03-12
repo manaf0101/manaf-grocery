@@ -4,6 +4,7 @@ import JoinUs from "./JoinUs-market"
 import PauseOnHover from "./Carousel"
 import Slider2 from "./slider2"
 import Category from "./category part/Category"
+import TopSellers from "./Top-Sellers part/TopSellers"
 
 function Market() {
     return (
@@ -36,6 +37,11 @@ function Market() {
                 {/* خرید براساس دسته بندی */}
                 <Category />
                 {/* خرید براساس دسته بندی */}
+
+                {/* فروشندگان برتر */}
+                <TopSellers />
+                {/* فروشندگان برتر */}
+
 
                 <div className="w-full h-80"></div>
             </section>

@@ -17,7 +17,12 @@ import { FaBookOpen } from "react-icons/fa";
 import Slider from 'react-slick';
 import Items from "./Items";
 
+// جهت کتابخانه ی  Aos
+import { useEffect } from "react";
+import Aos from "aos";
+// جهت کتابخانه ی  Aos
 
+// فلش سمت چپ
 const SampleNextArrow = (props: any) => {
   const { onClick } = props;
   return (
@@ -28,7 +33,9 @@ const SampleNextArrow = (props: any) => {
     </div>
   );
 };
+// فلش سمت چپ
 
+// فلش سمت راست
 const SamplePrevArrow = (props: any) => {
   const { onClick } = props;
   return (
@@ -37,8 +44,18 @@ const SamplePrevArrow = (props: any) => {
     </div>
   );
 };
+// فلش سمت راست
+
 
 function CategorySlider() {
+
+  // جهت کتابخانه ی  Aos
+      useEffect(() => {
+        Aos.init({ duration: 1000 });
+      }, []);
+      // جهت کتابخانه ی  Aos
+
+    // تنظیمات دیو اسلایدر
   const settings = {
     className: "center",
     centerMode: true,
@@ -60,6 +77,7 @@ function CategorySlider() {
       }
     ]
   };
+    // تنظیمات دیو اسلایدر
 
   return (
     <>
@@ -84,7 +102,8 @@ function CategorySlider() {
         `}
       </style>
 
-      <section className="w-full h-auto">
+      <section data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom" className="w-full h-auto">
         <div className="slider-container">
           <Slider {...settings}>
             <Items tag="مواد غذایی" children = {<IoFastFood className="size-16"/>}/>
