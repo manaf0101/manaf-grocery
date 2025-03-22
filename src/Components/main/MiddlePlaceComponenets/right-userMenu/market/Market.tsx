@@ -5,6 +5,8 @@ import PauseOnHover from "./Carousel"
 import Slider2 from "./slider2"
 import Category from "./category part/Category"
 import TopSellers from "./Top-Sellers part/TopSellers"
+import ProductList from "./suggestions/ProductList"
+import Footer from "../../Footer/Footer"
 
 function Market() {
     return (
@@ -41,6 +43,19 @@ function Market() {
                 {/* فروشندگان برتر */}
                 <TopSellers />
                 {/* فروشندگان برتر */}
+
+                <hr className="dark:text-white mt-5 mr-32 ml-32"/>
+
+                {/* پیشنهادات */}
+                <ProductList />
+                {/* پیشنهادات */}
+
+                <hr className="dark:text-white mt-5 mr-32 ml-32"/>
+
+                {/* footer */}
+                <Footer />
+                {/* footer */}
+                
 
 
                 <div className="w-full h-80"></div>

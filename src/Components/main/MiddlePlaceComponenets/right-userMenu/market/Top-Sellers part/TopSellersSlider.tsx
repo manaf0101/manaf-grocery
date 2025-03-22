@@ -11,7 +11,7 @@ import SellerProfile from "./SellerProfile";
 const SampleNextArrow = (props: any) => {
   const { onClick } = props;
   return (
-    <div dir="ltr" className="fdd  dark:bg-slate-800 m-1 rounded-sm"
+    <div dir="ltr" className="fdd  m-1 rounded-sm"
       onClick={onClick}
     >
       <MdArrowBackIosNew className="size-10 rounded-lg bg-gg-3" />
@@ -24,7 +24,7 @@ const SampleNextArrow = (props: any) => {
 const SamplePrevArrow = (props: any) => {
   const { onClick } = props;
   return (
-    <div className="fdd  dark:bg-slate-800 m-1 rounded-sm" dir="rtl" onClick={onClick}>
+    <div className="fdd m-1 rounded-sm" dir="rtl" onClick={onClick}>
       <MdArrowForwardIos className="size-10 rounded-lg bg-gg-3" />
     </div>
   );
@@ -86,6 +86,7 @@ function TopSellersSlider() {
               flex-direction: column;
               justify-content: center;
           }
+
             
         `}
       </style>

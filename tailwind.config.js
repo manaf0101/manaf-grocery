@@ -20,13 +20,15 @@ export default {
         'gg-3-dark' : '#d0d9ff' , 
         'gg-4' : '#6d75f4' , 
         'gg-5' : '#b8c0e2' , 
+        'footer-1' : 'rgb(247 247 247)' ,
       } ,
       screens : {
         xsss : '20px' , 
         sm : '700px'
       } , 
       height : {
-        'h-100' : '100%'
+        'h-100' : '100%' ,
+        '6.5' : '6.5rem'
       } ,
       gridTemplateColumns : {
         'ddf' : 'repeat(29, minmax(0, 1fr));'
@@ -40,6 +42,9 @@ export default {
       } ,
       gridTemplateColumns : {
         '15' : 'repeat(15, minmax(0, 1fr))'
+      } ,
+      width : {
+        '6.5' : '6.5rem'
       }
     },
   },

@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import 'aos/dist/aos.css';
 import 'react-circular-progressbar/dist/styles.css';
+import "react-loading-skeleton/dist/skeleton.css";
 
 
 
