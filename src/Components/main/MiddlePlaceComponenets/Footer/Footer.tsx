@@ -1,5 +1,6 @@
 import LogoFooter from "./LogoFooter"
 import CommitmentsFooter from "./CommitmentsFooter"
+import Darbareh from "./Darbareh"
 
 
 function Footer() {
@@ -11,12 +12,18 @@ function Footer() {
             {/* دیو خالی سطر اول */}
 
             {/* لوگو و ایمیل جهت تخفیف ها */}
-            <LogoFooter />
+            <LogoFooter id="marketSection5"/>
             {/* لوگو و ایمیل جهت تخفیف ها */}
 
             {/* تعهدات */}
             <CommitmentsFooter />
             {/* تعهدات */}
+
+            <hr className="dark:text-white "/>
+
+            {/* آخرین */}
+            <Darbareh id="marketSection6"/>
+            {/* آخرین */}
 
         </footer>
         </>

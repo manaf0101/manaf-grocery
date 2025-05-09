@@ -2,7 +2,7 @@ function CommitmentsFooter() {
     return (
         <>
         {/* کلی */}
-        <section className="hidden md:grid relative w-full h-80 bg-footer-1 dark:bg-slate-800">
+        <section className="hidden md:grid relative w-full h-40 bg-footer-1 dark:bg-slate-800">
             <div className="w-full h-auto flex flex-row justify-center items-center relative gap-5">
                 {/* پرداخت امن از درگاه بانکی */}
                 <div className="grid grid-rows-2 relative w-auto h-auto">

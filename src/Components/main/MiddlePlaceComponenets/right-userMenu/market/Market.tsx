@@ -7,8 +7,10 @@ import Category from "./category part/Category"
 import TopSellers from "./Top-Sellers part/TopSellers"
 import ProductList from "./suggestions/ProductList"
 import Footer from "../../Footer/Footer"
+import { FaCopyright } from "react-icons/fa";
 
 function Market() {
+
     return (
         <>
             <section className="flex flex-col w-full h-full ">
@@ -21,7 +23,7 @@ function Market() {
                 {/* ساخت مارکت خود */}
 
                 {/*مارکت خود را بسازید*/}
-                <JoinUs />
+                <JoinUs id="marketSection1"/>
                 {/*مارکت خود را بسازید*/}
 
                 {/* carousel */}
@@ -37,11 +39,11 @@ function Market() {
                 <hr className="dark:text-white mt-5"/>
 
                 {/* خرید براساس دسته بندی */}
-                <Category />
+                <Category id="marketSection2"/>
                 {/* خرید براساس دسته بندی */}
 
                 {/* فروشندگان برتر */}
-                <TopSellers />
+                <TopSellers id="marketSection3"/>
                 {/* فروشندگان برتر */}
 
                 <hr className="dark:text-white mt-5 mr-32 ml-32"/>
@@ -58,7 +60,12 @@ function Market() {
                 
 
 
-                <div className="w-full h-80"></div>
+                <div className="w-full h-auto bg-footer-1 dark:bg-slate-950 dark:text-white flex flex-row justify-center gap-2" dir="rtl">
+                    <p>تمای حقوق برای بازار آنلاین</p>
+                    <a className="text-blue-600">manaf grocery</a>
+                    <p>می باشد</p>
+                    <FaCopyright />
+                </div>
             </section>
         </>
     )

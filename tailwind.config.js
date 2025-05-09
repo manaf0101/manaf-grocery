@@ -21,6 +21,8 @@ export default {
         'gg-4' : '#6d75f4' , 
         'gg-5' : '#b8c0e2' , 
         'footer-1' : 'rgb(247 247 247)' ,
+        'footer-2' : '#172934' ,
+        'footer-3' : '#a39e9b' , 
       } ,
       screens : {
         xsss : '20px' , 

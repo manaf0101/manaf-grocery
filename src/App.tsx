@@ -8,7 +8,7 @@ import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
 // کامپوننت های قسمت میانی Theuser
 import RahnemayehSite from "./Components/main/MiddlePlaceComponenets/right-userMenu/rahnemayeh-site/RahnemayehSite";
-import Documents      from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/Market";
+import Market      from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/Market";
 import Ettehadieh     from "./Components/main/MiddlePlaceComponenets/right-userMenu/mineMarket/MineMarket";
 import Gavanin        from "./Components/main/MiddlePlaceComponenets/right-userMenu/gavanin/Gavanin";
 import Mahdodiatha    from "./Components/main/MiddlePlaceComponenets/right-userMenu/mahdodiatha/Mahdodiatha";
@@ -16,6 +16,10 @@ import EtebarehTejary from "./Components/main/MiddlePlaceComponenets/right-userM
 import Settings       from "./Components/main/MiddlePlaceComponenets/right-userMenu/settingss/Settings";
 import Hamkary        from "./Components/main/MiddlePlaceComponenets/right-userMenu/hamkary/Hamkary";
 // کامپوننت های قسمت میانی Theuser
+
+// CONTEXT بولد شدن ساید بار سمت چپ
+import { ActiveSectionProvider } from "./Components/contexts/ActiveSectionContext";
+// CONTEXT بولد شدن ساید بار سمت چپ
 
 
 import {
@@ -59,7 +63,7 @@ function App () {
 
             {
             path : `${userMenuPaths}market` ,
-            element : <Documents />
+            element : <Market />
             },
 
             {
@@ -97,7 +101,10 @@ function App () {
       ]);
 
     return (
-        <RouterProvider router={router} />
+      <ActiveSectionProvider>
+           <RouterProvider router={router} />
+      </ActiveSectionProvider>
+     
     )
    
 }

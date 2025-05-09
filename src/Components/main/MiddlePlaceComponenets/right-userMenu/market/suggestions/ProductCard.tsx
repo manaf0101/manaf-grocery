@@ -2,13 +2,32 @@ import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+// برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+import { useActiveSection } from "../../../../../contexts/ActiveSectionContext";
+import {useInView} from 'react-intersection-observer'
+// برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+
+
 type ProductCard = {
     products: {
         name: string;
         image: string;
-    }[]
+    }[] ,
+
+    id : string
 }
-const ProductCard = ({ products }: ProductCard) => {
+const ProductCard = ({ products , id }: ProductCard) => {
+        // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+        const {setActiveSection} = useActiveSection() ;
+        const {ref , inView} = useInView({threshold : 0.5})
+    
+            useEffect(() => {
+                if (inView) {
+                    setActiveSection(id)
+                }
+            } , [id , inView , setActiveSection])
+        // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -176,11 +195,11 @@ const ProductCard = ({ products }: ProductCard) => {
             {/* نوشته ی پیشنهادات */}
             <div data-aos="fade-up"
                 data-aos-anchor-placement="center-bottom" className="flex justify-center items-center dark:text-white text-lg hidden sm:grid mt-4" style={{ fontFamily: 'VAZIR' }}>
-                <p className="bg-gg-5 dark:bg-slate-800 p-2 rounded-md">پیشنهادات</p>
+                <p  className="bg-gg-5 dark:bg-slate-800 p-2 rounded-md">پیشنهادات</p>
             </div>
             {/* نوشته ی پیشنهادات */}
 
-            <section className="gap-2 pr-5 pl-5 mt-4 h-auto w-auto flex flex-col hidden sm:grid" >
+            <section id={id} ref={ref} className="gap-2 pr-5 pl-5 mt-4 h-auto w-auto flex flex-col hidden sm:grid" >
                 {/* ۱-کلی */}
                 <section data-aos="fade-up"
                     data-aos-anchor-placement="center-bottom" className=" grid grid-cols-2 gap-2 w-full h-auto " dir="rtl">
