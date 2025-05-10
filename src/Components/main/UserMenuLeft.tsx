@@ -49,7 +49,7 @@ function UserMenuLeft() {
                                             className={`row-start-${index + 1
                                                 } row-span-1 border-l-2 pl-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${activeSection ===
                                                     `marketSection${index + 1}`
-                                                    ? "text-blue-500 font-bold border-blue-500"
+                                                    ? "text-stone-800  border-stone-800 dark:text-white dark:border-white"
                                                     : ""
                                                 }`}
                                         >

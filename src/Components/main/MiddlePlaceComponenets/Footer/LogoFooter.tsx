@@ -13,28 +13,28 @@ import Button from 'react-bootstrap/Button';
 // مربوط به دکمه ی ارسال
 
 
-    // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
-    import { useActiveSection } from '../../../contexts/ActiveSectionContext';
-    import {useInView} from 'react-intersection-observer'
-        // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+// برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+import { useActiveSection } from '../../../contexts/ActiveSectionContext';
+import { useInView } from 'react-intersection-observer'
+// برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
 
 
 interface LogoFooterProps {
-    id : string
+    id: string
 }
 
 
-function LogoFooter({id} : LogoFooterProps) {
-        // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
-        const {setActiveSection} = useActiveSection() ;
-        const {ref , inView} = useInView({threshold : 0.5})
-    
-        useEffect(() => {
-            if (inView) {
-                setActiveSection(id)
-            }
-        } , [inView , id , setActiveSection])
-        // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+function LogoFooter({ id }: LogoFooterProps) {
+    // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+    const { setActiveSection } = useActiveSection();
+    const { ref, inView } = useInView({ threshold: 0.5 })
+
+    useEffect(() => {
+        if (inView) {
+            setActiveSection(id)
+        }
+    }, [inView, id, setActiveSection])
+    // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
 
     // مربوط به دکمه ی ارسال
     const [isLoading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ function LogoFooter({id} : LogoFooterProps) {
 
     return (
         <>
-            {/* برای اسکرین های موبایل */}
+            {/* برای اسکرین های بزرگ */}
             {/* کلی */}
             <section className="hidden md:grid relative w-full h-80 bg-footer-1 dark:bg-slate-800">
                 <div className="grid grid-cols-2 relative" dir="rtl">
@@ -104,7 +104,7 @@ function LogoFooter({id} : LogoFooterProps) {
                     {/* سمت راست - لوگو و توضیح */}
 
                     {/* سمت چپ - ایمیل و شبکه های اجتماعی */}
-                    <div id='marketSection5' className="col-start-2">
+                    <div className="col-start-2">
                         {/* کلی */}
                         <div className="grid grid-rows-2 ">
                             {/* ایمیل تخفیف */}
@@ -120,29 +120,30 @@ function LogoFooter({id} : LogoFooterProps) {
                                         className='mt-2 rounded-2xl'
                                         variant="secondary"
                                         disabled={isLoading}
-                                        onClick={isLoading ? () => {} : handleClick}
+                                        onClick={isLoading ? () => { } : handleClick}
                                     >
                                         {isLoading ? 'در حال ارسال ...' : 'ارسال'}
                                     </Button>
                                 </form>
+                                {/* فرم */}
                             </div>
                             {/* ایمیل تخفیف */}
                             {/* .................. */}
                             {/* مارا درشبکه های اجتماعی دنبال کنید */}
                             <div className='row-start-2 pt-16 flex flex-col justify-center items-center'>
                                 {/* متن */}
-                                <p ref={ref} id={id} className='dark:text-white' style={{fontFamily:'VAZIR'}}>
+                                <p ref={ref} id={id} className='dark:text-white' style={{ fontFamily: 'VAZIR' }}>
                                     مارا در شبکه های اجتماعی دنبال کنید
                                 </p>
                                 {/* متن */}
 
                                 {/* آیکون ها */}
                                 <div className='gap-4 mt-3 flex flex-row relative w-full h-auto justify-center items-center' dir='ltr'>
-                                <FaSquareInstagram className='size-5 dark:text-white'/>
-                                <FaLinkedin className='size-5 dark:text-white'/>
-                                <BsTelegram className='size-5 dark:text-white'/>
-                                <IoLogoWhatsapp className='size-5 dark:text-white'/>
-                                <FaSquareXTwitter className='size-5 dark:text-white'/>
+                                    <FaSquareInstagram className='size-5 dark:text-white' />
+                                    <FaLinkedin className='size-5 dark:text-white' />
+                                    <BsTelegram className='size-5 dark:text-white' />
+                                    <IoLogoWhatsapp className='size-5 dark:text-white' />
+                                    <FaSquareXTwitter className='size-5 dark:text-white' />
                                 </div>
                                 {/* آیکون ها */}
                             </div>
@@ -154,7 +155,59 @@ function LogoFooter({id} : LogoFooterProps) {
                 </div>
             </section>
             {/* کلی */}
-            {/* برای اسکرین های موبایل */}
+            {/* برای اسکرین های بزرگ */}
+
+            {/* .............................................................. */}
+
+            {/* برای اسکرین هخای موبایل */}
+            {/* کلی موبایل */}
+            <section className='md:hidden bg-footer-1 dark:bg-slate-800 h-60 w-full'>
+                <div className='flex flex-col justify-center items-center w-full h-full'>
+                    {/* ایمیل تخفیف- موبایل */}
+                    <div className='w-full h-1/2  flex flex-col justify-center items-center'>
+                        {/*متن-موبایل*/}
+                        <p className="mt-2 dark:text-white" style={{ fontFamily: 'VAZIR' }}>برای اطلاع از تخفیف ها ایمیل خود را وارد کنید</p>
+                        {/*متن-موبایل*/}
+
+                        {/* فرم - موبایل*/}
+                        <form className="mt-2 w-full flex flex-col justify-center items-center">
+                            <input className="w-80 h-8 bg-slate-200 discountEmail rounded-md pr-3" placeholder='ایمیل' type="text" />
+                            <Button
+                                className='mt-2 rounded-2xl'
+                                variant="secondary"
+                                disabled={isLoading}
+                                onClick={isLoading ? () => { } : handleClick}
+                            >
+                                {isLoading ? 'در حال ارسال ...' : 'ارسال'}
+                            </Button>
+                        </form>
+                        {/* فرم - موبایل*/}
+                    </div>
+                    {/* ایمیل تخفیف- موبایل */}
+                    {/* ................................... */}
+                    {/* شبکه های اجتماعی - موبایل */}
+                    <div className="w-full h-1/2 flex flex-col justify-center items-center">
+                        {/*متن-موبایل*/}
+                        <p className='dark:text-white' style={{ fontFamily: 'VAZIR' }}>
+                            مارا در شبکه های اجتماعی دنبال کنید
+                        </p>
+                        {/*متن-موبایل*/}
+
+                        {/*آیکون ها-موبایل*/}
+                        <div className='gap-4 mt-3 flex flex-row relative w-full h-auto justify-center items-center' dir='ltr'>
+                            <FaSquareInstagram className='size-5 dark:text-white' />
+                            <FaLinkedin className='size-5 dark:text-white' />
+                            <BsTelegram className='size-5 dark:text-white' />
+                            <IoLogoWhatsapp className='size-5 dark:text-white' />
+                            <FaSquareXTwitter className='size-5 dark:text-white' />
+                        </div>
+                        {/*آیکون ها-موبایل*/}
+                    </div>
+                    {/* شبکه های اجتماعی - موبایل */}
+                </div>
+            </section>
+            {/* کلی موبایل */}
+            {/* برای اسکرین هخای موبایل */}
         </>
     )
 }

@@ -1,5 +1,6 @@
 import { ReactNode , useEffect } from "react"
 import { SiMautic } from "react-icons/si";
+import FormSelect from 'react-bootstrap/FormSelect'
 
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
     import { useActiveSection } from "../../../contexts/ActiveSectionContext";
@@ -55,8 +56,8 @@ function Darbareh({id} : DarbarehProps) {
 
     return (
         <>
-        {/* کلی و گریدینت دار */}
-        <section id="marketSection6" className="hidden md:grid pt-3  relative dark:bg-gradient-to-tr from-regal-blue from-0% to-60% to-slate-800 bottom-0  w-full h-80">
+        {/* کلی و گریدینت دار برای اسکرین های بزرگ*/}
+        <section  className="hidden md:grid pt-3  relative dark:bg-gradient-to-tr from-regal-blue from-0% to-60% to-slate-800 bottom-0  w-full h-80">
             {/* تقسیم بندی چهار ستونه */}
             <section className="w-full h-full relative grid grid-cols-4 dark:text-white">
                 {/* بازار */}
@@ -126,7 +127,20 @@ function Darbareh({id} : DarbarehProps) {
             </section>
             {/* تقسیم بندی چهار ستونه */}
         </section>
-        {/* کلی و گریدینت دار */}
+        {/* کلی و گریدینت دار برای اسکرین های بزرگ*/}
+
+        {/* ................................................................... */}
+
+            {/* برای اسکرین های موبایل */}
+            <section className="md:hidden  w-full h-40">
+                <FormSelect>
+                    <option>Open this select menu</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </FormSelect>
+            </section>
+            {/* برای اسکرین های موبایل */}
         </>
     )
 }
