@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 export function getUserName() {
     const { userId } = useParams();
-    const [userNamesValus] = useLocalStorage<any>('userNames', '');
+    const [userNamesValus] = useLocalStorage<any>('users', '');
 
     const res = userNamesValus.filter((item: any) => {
         return item.userId === userId;
@@ -17,3 +17,4 @@ export function getUserName() {
     }
     return theUser;
 }
+

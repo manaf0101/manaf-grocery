@@ -1,11 +1,12 @@
 
 import { getUserName } from '../getUserName';
+import { Link } from 'react-router-dom';
 
 function Index() {
 
     const userName = getUserName();
     
-    const welcomeText = `سلام ${userName} عزیز .`
+    const welcomeText = `سلام ${userName === 'guest'?'کاربر':userName} عزیز .`
 
     return (
         <>
@@ -53,7 +54,7 @@ function Index() {
                             <p><a className="text-blue-600" href="...">manaf grocery</a></p>
                             <p>خوش آمدید . </p>
                             <p>جهت آشنایی و استفاده از سایت وارد</p>
-                            <p><a className="text-blue-600" href="...">منوی کاربری </a>شوید .</p>
+                            <p><Link className="text-blue-600" to={'/TheUserPage/:userId/main/userMenu/rahnemayeh-site'}>راهنمای سایت </Link>شوید .</p>
                          </div>
                         </div>
                         {/* قسمت نوشته ها  */}

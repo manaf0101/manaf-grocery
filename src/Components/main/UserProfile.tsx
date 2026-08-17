@@ -1,5 +1,6 @@
 import Image from 'react-bootstrap/Image';
 import imageSrc from '../../../public/pictures/1696162108939.jpg'; 
+import imageIcon from '../../../public/pictures/icon-7797704_1280.png'
 import { useLocalStorage } from "../../Hooks/useLocalStorage" 
 import { useParams } from 'react-router-dom';  
 import useDarkMood from '../../Hooks/useDarkMood';
@@ -32,7 +33,7 @@ const [theme]  =  useDarkMood()
 //استخراج نام کاربر صاحب اکانت .....................
 
     // کلیه کاربران را از localStorage می گیرد 
-    const [userNamesValus] = useLocalStorage<any>('userNames' , '')
+    const [userNamesValus] = useLocalStorage<any>('users' , '')
     // کلیه کاربران را از localStorage می گیرد 
 
     // تابعی که از بین کاربران ، کاربری را پیدا میکند که صفحه متعلق به اوست 
@@ -52,6 +53,13 @@ const [theme]  =  useDarkMood()
         return theUser
     }
     // استخراج نام کاربری کاربر مربوطه
+
+    // انتخاب عکس مربوطه
+  const userImage = () => {
+        const userName = theUserUserName();
+        return userName === 'guest' ? imageIcon : imageSrc;
+    }
+    // انتخاب عکس مربوطه
   
 //استخراج نام کاربر صاحب اکانت .....................
     
@@ -74,7 +82,7 @@ const [theme]  =  useDarkMood()
                     {/* سطر مربوط به عکس */}
                     <div className='row-start-1 row-span-1 flex justify-center items-center'>
                     <div>
-                    <Image src={imageSrc}  title='image' alt='profile image' style={{ width: '50px', height: '50px' }} roundedCircle  />
+                    <Image src={userImage()}  title='image' alt='profile image' style={{ width: '50px', height: '50px' }} roundedCircle  />
                     </div>
                     </div>
                     {/* سطر مربوط به عکس */}
@@ -101,7 +109,7 @@ const [theme]  =  useDarkMood()
                 {/* سطر مربوط به عکس */}
                  <div className="row-start-1 row-span-1 flex justify-center items-center">
                     <div>
-                    <Image src={imageSrc}  title='image' alt='profile image' style={{ width: '50px', height: '50px' }} roundedCircle  />
+                    <Image src={userImage()}  title='image' alt='profile image' style={{ width: '50px', height: '50px' }} roundedCircle  />
                     </div>
                  </div>
                 {/* سطر مربوط به عکس */}

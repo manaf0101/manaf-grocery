@@ -1,10 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import { useEffect } from 'react';
+import { Link } from "react-router-dom"
+import { useParams } from 'react-router-dom';
 
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
 import { useActiveSection } from '../../../../contexts/ActiveSectionContext';
 import {useInView} from 'react-intersection-observer'
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+
 
 
 interface JoinUsProps {
@@ -13,6 +16,15 @@ interface JoinUsProps {
 
 
 function JoinUs({id} : JoinUsProps) {
+
+    // دستیابی به userId کاربر
+    const { userId } = useParams<{ userId: string }>();
+    // دستیابی به userId کاربر
+    
+
+
+    // مسیر پایه
+    const basePath = `/TheUserPage/${userId}/main/userMenu/`;
 
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
     const {setActiveSection} = useActiveSection() ;
@@ -36,7 +48,9 @@ function JoinUs({id} : JoinUsProps) {
 
                 <div className="col-start-2 col-span-1 flex justify-center items-center">
                     <Button id={id} ref={ref} className='bg-gg-4' style={{fontFamily:'VAZIR'}} variant="primary" size="lg">
-                        ایجاد فروشگاه 
+                        <Link to={`${basePath}mine-market`}>
+                            ایجاد فروشگاه
+                        </Link>
                     </Button>
                 </div>
 

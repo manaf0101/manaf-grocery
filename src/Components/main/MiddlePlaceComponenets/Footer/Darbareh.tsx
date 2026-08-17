@@ -1,6 +1,6 @@
-import { ReactNode , useEffect } from "react"
+import { ReactNode , useEffect , useState} from "react"
 import { SiMautic } from "react-icons/si";
-import FormSelect from 'react-bootstrap/FormSelect'
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
     import { useActiveSection } from "../../../contexts/ActiveSectionContext";
@@ -52,6 +52,11 @@ function Darbareh({id} : DarbarehProps) {
             }
         } , [inView , id , setActiveSection])
         // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
+
+
+        const [isOpenFirst, setIsOpenFirst] = useState(false);
+        const [isOpenSecond, setIsOpenSecond] = useState(false);
+        const [isOpenThird, setIsOpenThirs] = useState(false);
 
 
     return (
@@ -111,6 +116,9 @@ function Darbareh({id} : DarbarehProps) {
                     </ul>
                     {/* لیست */}
                 </div>
+                {/* خرید و فروش */}
+
+
                 {/* با ما بینهایت خرید کنید */}
                 <div style={{fontFamily : 'vazir'}} className="dark:text-white text-2xl  col-start-4 h-full w-full col-span-1 flex flex-col gap-4 justify-center items-center">
                     <div className="relative bg-slate-300 dark:bg-slate-500  dark:text-white  flex flex-col justify-center items-center gap-4 p-4 rounded-md">
@@ -131,16 +139,148 @@ function Darbareh({id} : DarbarehProps) {
 
         {/* ................................................................... */}
 
+
+{/* برای اسکرین های موبایل */}
+<section className="bg-footer-1 dark:bg-slate-800  md:hidden w-full h-auto flex flex-col pr-4 pl-4" dir="rtl">
+    {/* Menu 1 */}
+    <div>
+        <button
+            onClick={() => setIsOpenFirst(!isOpenFirst)}
+            className="w-full p-2  bg-footer-1 dark:bg-slate-800 text-right flex items-center justify-between"
+        >
+            <p className="dark:text-white">بازار</p>
+            <MdOutlineArrowDropDown
+                className={`transition-transform duration-300${
+                    isOpenFirst ? "rotate-180" : "rotate-0"
+                }`}
+            />
+        </button>
+        <div
+            className={`overflow-hidden transition-all duration-300 ${
+                isOpenFirst ? "max-h-40" : "max-h-0"
+            }`}
+        >
+                        <ul
+                            className="p-2 bg-footer-1 dark:bg-slate-800 overflow-y-scroll"
+                            style={{
+                                maxHeight: "160px",
+                                scrollbarWidth: "none", // For Firefox
+                                msOverflowStyle: "none", // For IE and Edge
+                            }}
+                        >
+                            <style>
+                                {`
+                                    /* For Chrome, Edge, and Safari */
+                                    ul::-webkit-scrollbar {
+                                        display: none;
+                                    }
+                                `}
+                            </style>
+                            <MenueFooterList>مجله باسلام</MenueFooterList>
+                            <MenueFooterList>درباره باسلام</MenueFooterList>
+                            <MenueFooterList>به‌روزرسانی‌های باسلام</MenueFooterList>
+                            <MenueFooterList>فرصت‌های شغلی</MenueFooterList>
+                            <MenueFooterList>اعتماد به باسلام</MenueFooterList>
+                            <MenueFooterList>شیوه کار باسلام</MenueFooterList>
+                            <MenueFooterList>قوانین و شرایط بازار</MenueFooterList>
+                            <MenueFooterList>شرکای ما</MenueFooterList>
+                        </ul>
+        </div>
+        <hr className="border-t border-black dark:border-white" />
+    </div>
+    {/* Menu 1 */}
+
+    {/* Menu 2 */}
+    <div>
+        <button
+            onClick={() => setIsOpenSecond(!isOpenSecond)}
+            className="w-full p-2 bg-footer-1 dark:bg-slate-800 text-right flex items-center justify-between"
+        >
+                        <p className="dark:text-white">پشتیبانی</p>
+            <MdOutlineArrowDropDown
+                className={`transition-transform duration-300 ${
+                    isOpenSecond ? "rotate-180" : "rotate-0"
+                }`}
+            />
+        </button>
+        <div
+            className={`overflow-hidden transition-all duration-300 ${
+                isOpenSecond ? "max-h-40" : "max-h-0"
+            }`}
+        >
+                        <ul
+                            className="p-2 bg-footer-1 dark:bg-slate-800 overflow-y-scroll"
+                            style={{
+                                maxHeight: "160px",
+                                scrollbarWidth: "none", // For Firefox
+                                msOverflowStyle: "none", // For IE and Edge
+                            }}
+                        >
+                            <style>
+                                {`
+                                    /* For Chrome, Edge, and Safari */
+                                    ul::-webkit-scrollbar {
+                                        display: none;
+                                    }
+                                `}
+                            </style>
+                        <MenueFooterList>تماس با ما</MenueFooterList>
+                        <MenueFooterList>سوالات متداول</MenueFooterList>
+                        <MenueFooterList>پیگیری سفارش‌ها</MenueFooterList>
+                        <MenueFooterList>گزارش خطای فنی</MenueFooterList>
+                        <MenueFooterList>پیشنهاد امکان جدید</MenueFooterList>
+                        </ul>
+        </div>
+        <hr className="border-t border-black dark:border-white" />
+    </div>
+    {/* Menu 2 */}
+
+    {/* Menu 3 */}
+    <div>
+        <button
+            onClick={() => setIsOpenThirs(!isOpenThird)}
+            className="w-full p-2 bg-footer-1 dark:bg-slate-800 text-right flex items-center justify-between"
+        >
+                         <p className="dark:text-white">خرید و فروش</p> 
+            <MdOutlineArrowDropDown
+                className={`transition-transform duration-300 ${
+                    isOpenThird ? "rotate-180" : "rotate-0"
+                }`}
+            />
+        </button>
+        <div
+            className={`overflow-hidden transition-all duration-300 ${
+                isOpenThird ? "max-h-40" : "max-h-0"
+            }`}
+        >
+                        <ul
+                            className="p-2 bg-footer-1 dark:bg-slate-800 overflow-y-scroll"
+                            style={{
+                                maxHeight: "160px",
+                                scrollbarWidth: "none", // For Firefox
+                                msOverflowStyle: "none", // For IE and Edge
+                            }}
+                        >
+                            <style>
+                                {`
+                                    /* For Chrome, Edge, and Safari */
+                                    ul::-webkit-scrollbar {
+                                        display: none;
+                                    }
+                                `}
+                            </style>
+                        <MenueFooterList>فروش در فروشگاه</MenueFooterList>
+                        <MenueFooterList>کیف پول من</MenueFooterList>
+                        <MenueFooterList>مدیریت فروشگاه</MenueFooterList>
+                        </ul>
+        </div>
+
+    </div>
+    {/* Menu 3 */}
+            <div className="h-14"></div>
+</section>
             {/* برای اسکرین های موبایل */}
-            <section className="md:hidden  w-full h-40">
-                <FormSelect>
-                    <option>Open this select menu</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </FormSelect>
-            </section>
-            {/* برای اسکرین های موبایل */}
+
         </>
     )
 }

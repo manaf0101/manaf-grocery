@@ -27,7 +27,7 @@ function SignUp () {
 
 
     const [warningText , setWarningText] = useState('text-red-600 hidden')
-    const [value , setValue] = useLocalStorage('users' , '')
+    const [value] = useLocalStorage('users' , '')
     const emailInputValue = useRef<HTMLInputElement>(null)
     const passwordInputValue = useRef<HTMLInputElement>(null)
 

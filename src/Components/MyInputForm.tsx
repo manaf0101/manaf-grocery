@@ -48,7 +48,7 @@ function MyInputForm ({handleClick ,setWarningText , setButtonStyle,setPasswordB
                 } else {
                     setPasswordButtonStyle("dark:bg-slate-900 border-slate-600 border-2 p-1 rounded-lg text-base w-full")
                     setInputPasswordStyle("p-1  dark:bg-slate-900  w-full rounded-lg border-2 border-slate-600 focus-visible:outline-none dark:caret-teal-400")
-                    setPasswordWarningStyele(" hidden")
+                    setPasswordWarningStyele("hidden")
                 }
              }
 

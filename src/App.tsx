@@ -9,7 +9,7 @@ import Index from "./Components/main/MiddlePlaceComponenets/Index";
 // کامپوننت های قسمت میانی Theuser
 import RahnemayehSite from "./Components/main/MiddlePlaceComponenets/right-userMenu/rahnemayeh-site/RahnemayehSite";
 import Market      from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/Market";
-import Ettehadieh     from "./Components/main/MiddlePlaceComponenets/right-userMenu/mineMarket/MineMarket";
+import MineMarket     from "./Components/main/MiddlePlaceComponenets/right-userMenu/mineMarket/MineMarket";
 import Gavanin        from "./Components/main/MiddlePlaceComponenets/right-userMenu/gavanin/Gavanin";
 import Mahdodiatha    from "./Components/main/MiddlePlaceComponenets/right-userMenu/mahdodiatha/Mahdodiatha";
 import EtebarehTejary from "./Components/main/MiddlePlaceComponenets/right-userMenu/etebareh tejary/EtebarehTejary";
@@ -20,7 +20,6 @@ import Hamkary        from "./Components/main/MiddlePlaceComponenets/right-userM
 // CONTEXT بولد شدن ساید بار سمت چپ
 import { ActiveSectionProvider } from "./Components/contexts/ActiveSectionContext";
 // CONTEXT بولد شدن ساید بار سمت چپ
-
 
 import {
     createBrowserRouter,
@@ -44,10 +43,10 @@ function App () {
         path : '/MyInput' , 
         element : < MyInput />,
         } ,
-        // {
-        //   path : '/MyInput/:userId/userName',
-        //   element : <MyInputuserName />
-        // } ,
+        {
+          path : '/MyInput/:userId/userName' ,
+          element : < MyInput />,
+        } , 
         {
           path : '/signUP' ,
           element : <SignUp /> 
@@ -68,7 +67,7 @@ function App () {
 
             {
             path : `${userMenuPaths}mine-market`,
-            element : <Ettehadieh /> 
+            element : <MineMarket /> 
             },
             {
               path : `${userMenuPaths}Gavanin`,
@@ -97,14 +96,12 @@ function App () {
             { index: true, element: <Index /> },
           ],
         }
-        
       ]);
 
     return (
       <ActiveSectionProvider>
            <RouterProvider router={router} />
       </ActiveSectionProvider>
-     
     )
    
 }

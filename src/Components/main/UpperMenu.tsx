@@ -78,7 +78,7 @@ const [theme]  =  useDarkMood() ;
 <div>
     <ul className="hidden sm:grid bg-slate-100 dark:bg-slate-950 gap-2 grid-cols-5 md:grid-cols-7 pb-2" dir="rtl" style={{fontFamily : 'VAZIR'}}>
         {/* لوگوی خانه */}
-        <li className=" md:col-start-1 md:col-span-1 border-l-2 border-r-2 border-slate-200 mr-2 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
+        <li style={{cursor : "pointer"}} className=" md:col-start-1 md:col-span-1 border-l-2 border-r-2 border-slate-200 mr-2 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
           <p className="dark:text-white "><RiHome2Line className="size-5"/></p>
           <p className="dark:text-white pr-1">خانه</p>            
         </li>
@@ -96,14 +96,14 @@ const [theme]  =  useDarkMood() ;
         {/* لوگوی تنظیم مود */}
 
         {/* تماس با ما */}
-        <li className=" md:col-start-3 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
+        <li style={{cursor : "pointer"}} className=" md:col-start-3 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
         <p className="dark:text-white"><SlCallIn className="size-6 pl-1"/></p>
         <p className="dark:text-white text-nowrap">تماس با ما</p>
         </li>
         {/* تماس ما */}
 
         {/* درباره با ما */}
-        <li className="md:col-start-4 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
+        <li style={{cursor : "pointer"}} className="md:col-start-4 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
         <p className="dark:text-white"><HiUserGroup className="size-7 pl-1"/></p>
         <p className="dark:text-white">درباره  ما</p>
         </li>
