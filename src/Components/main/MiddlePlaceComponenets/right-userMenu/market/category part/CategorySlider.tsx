@@ -17,7 +17,7 @@ import { FaBookOpen } from "react-icons/fa";
 import Slider from 'react-slick';
 import Items from "./Items";
 
-// جهت کتابخانه ی  Aos
+// جهت کتابخانه ی  Aos وقتی اسکرول می کنیم به پایین ، آیتم ها را با حالت مکس می آورد
 import { useEffect } from "react";
 import Aos from "aos";
 // جهت کتابخانه ی  Aos

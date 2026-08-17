@@ -2,6 +2,7 @@
 // .نکته ای را بگوید که شاید در هنگام مطالعه کد ، برای خواننده سوال باشد .
 
 
+
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { VscArrowSmallRight } from "react-icons/vsc";
@@ -79,24 +80,19 @@ function MyInputuserName() {
    const userNameRef = useRef<HTMLInputElement>(null)
     // استفاده در input
 
-        // برای گرفتن userId از قسمت دامین که همراه با نام کابری ذخیره شود
-       // const hash = location.hash.substring(1); // از # به بعد .........  
-       // const firstSlashIndex = hash.indexOf('/');  
-        // const result = firstSlashIndex !== -1 ? hash.substring(0, firstSlashIndex) : hash;            
-     // برای گرفتن userId از قسمت دامین که همراه با نام کابری ذخیره شود
 
-    const userId = useParams<{ userId: string }>().userId || ''; // گرفتن userId از پارامترهای مسیر
-    const result = userId; // استفاده از userId به عنوان result 
+
+    const userId = useParams<{ userId: string }>().userId || ''; 
+    const result = userId; 
  
 
-    // state هایی برای عملیات سیو شدن
-//    const [userNamesValus , setUserNamesValus] = useLocalStorage('userNames' , userNames)
+
 
 
 const storedUsers = JSON.parse(
       localStorage.getItem("users") || "[]"
     );
-    // state هایی برای عملیات سیو شدن
+
 
     // متن اخطار در صورت تکراری بودن نام کاربری یا کمتر از 4 کاراکتر بودن آن
     const[warningText , setWarningText]  = useState("mt-4 text-red-600 hidden")
@@ -114,7 +110,7 @@ const newUserName = userNameRef.current?.value || "";
 
      // بررسی میکند آیا نام کاربری تکراری است یا نه ؟ 
     const usernameExists = storedUsers.some((item : any) =>   
-        item.userName.toLowerCase() === newUserName.toLowerCase()  
+        item.username.toLowerCase() === newUserName.toLowerCase()  
     );   
      // بررسی میکند آیا نام کاربری تکراری است یا نه ؟ 
 
@@ -160,7 +156,7 @@ const newUserName = userNameRef.current?.value || "";
         navigate(`/TheUserPage/${result}/main`)
         // رفتن به دامین جدید که صفحه ی کاربری خود کاربر می باشد.
 }
-// این تابع برای سیو شدن یوزرنیم بعد از کلیک کردن روی دکمه ی next می باشد .
+
 
     return (
         <>
@@ -199,9 +195,6 @@ const newUserName = userNameRef.current?.value || "";
    async function  handleClickuserEmail(e : FormEvent ) {
         e.preventDefault()
               
-        // if(userNames !== '') {
-        //     handleClickUserNameSubmit({userName : userNames})
-        // }
 
         // بررسی کادر پسوورد که در صورت نداشتن 8 کاراکتر ، هشدار دهد
         if (MyInputUserPasswordRef.current?.value.length) {
@@ -213,7 +206,7 @@ const newUserName = userNameRef.current?.value || "";
         // بررسی کادر پسوورد که در صورت نداشتن 8 کاراکتر ، هشدار دهد
 
         
-        // هنگام وارد شدن پسورد توسط کاربر ، مقادیر در localstorage ذخیره می شوند . 
+        
             if (MyInputUserPasswordRef.current.value.length > 7 ) {
                     
              let newUserPass : any = MyInputUserPasswordRef.current?.value 

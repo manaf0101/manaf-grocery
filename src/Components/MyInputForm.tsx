@@ -27,6 +27,18 @@ function MyInputForm ({handleClick ,setWarningText , setButtonStyle,setPasswordB
 
         }
         onChange={(e) => {
+
+
+        // اگر تغییر مربوط به username است،
+        // کاری با stateهای MyInput نداشته باش
+        const target = e.target as HTMLInputElement
+        if (target.name === "ffss") {
+            return;
+        }
+        // اگر تغییر مربوط به username است،
+        // کاری با stateهای MyInput نداشته باش
+
+
             if (e.currentTarget.input?.value.includes('@gmail.com')) {
                 // تابعی که استایل دکمه ی continue را عوض می کند
                 setButtonStyle(

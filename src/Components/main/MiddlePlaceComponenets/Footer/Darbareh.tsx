@@ -40,7 +40,7 @@ interface DarbarehProps {
     id : string
 }
 
-
+ 
 function Darbareh({id} : DarbarehProps) {
         // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
         const {setActiveSection} = useActiveSection() ;
