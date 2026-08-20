@@ -143,7 +143,7 @@ const newUserName = userNameRef.current?.value || "";
         // .then(function (response) {
         //     console.log(response);
         //   })
-        //   .catch(function (error) {
+        //   .catch(function (error) { this is data server
         //     console.log(error);
         //   });
         // ارسال اطلاعات به دیتا بیس
