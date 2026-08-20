@@ -47,7 +47,7 @@ const [theme]  =  useDarkMood()
         let theUser  =  'guest'
         if (res) {
             res.forEach((item : any) => {
-                theUser = item.userName
+                theUser = item.username
             })
         } 
         return theUser
