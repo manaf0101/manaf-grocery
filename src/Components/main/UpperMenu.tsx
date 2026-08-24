@@ -3,6 +3,7 @@ import { FiSun } from "react-icons/fi";
 import { BsMoonStars } from "react-icons/bs";
 import { SlCallIn } from "react-icons/sl";
 import { HiUserGroup } from "react-icons/hi";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import useDarkMood from "../../Hooks/useDarkMood";
 import { useEffect , useState} from "react";
 import NavUpperUserMenu from "./NavUpperUserMenu";
@@ -108,6 +109,13 @@ const [theme]  =  useDarkMood() ;
         <p className="dark:text-white">درباره  ما</p>
         </li>
         {/* درباره با ما */}
+
+        {/*سبد خرید*/}
+        <li style={{cursor : "pointer"}} className=" md:col-start-5 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
+        <p className="dark:text-white"><MdOutlineShoppingCart className="size-6 pl-1"/></p>
+        <p className="dark:text-white text-nowrap">سبد خرید</p>
+        </li>
+        {/*سبد خرید*/}
 
         {/* manaf grocery */}
         <li className=" md:col-span-2 md:col-start-6 md:pl-0 flex justify-end items-center ">

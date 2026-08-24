@@ -15,6 +15,7 @@ import Mahdodiatha    from "./Components/main/MiddlePlaceComponenets/right-userM
 import EtebarehTejary from "./Components/main/MiddlePlaceComponenets/right-userMenu/etebareh tejary/EtebarehTejary";
 import Settings       from "./Components/main/MiddlePlaceComponenets/right-userMenu/settingss/Settings";
 import Hamkary        from "./Components/main/MiddlePlaceComponenets/right-userMenu/hamkary/Hamkary";
+import MyProfile from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyProfile";
 // کامپوننت های قسمت میانی Theuser
 
 // CONTEXT بولد شدن ساید بار سمت چپ
@@ -92,6 +93,11 @@ function App () {
               path : `${userMenuPaths}Hamkary` ,
               element : <Hamkary />
             } ,
+
+            {
+              path : `${userMenuPaths}MyProfile`,
+              element : <MyProfile />
+            } , 
 
             { index: true, element: <Index /> },
           ],

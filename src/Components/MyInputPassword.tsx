@@ -49,7 +49,7 @@ const MyInputPassword = forwardRef<HTMLInputElement , PropsType>(function MyInpu
              {/* create a password's text */}
         <div className="grid grid-cols-12 gap-1" style={{fontFamily : 'cursive'}}>
             <div className="col-start-1 col-span-1 flex justify-end"></div>
-           <p className=" col-start-2 col-span-11 ml-2 text-teal-400">create a password<span className="text-red-600 ml-1">*</span></p>
+           <p className=" col-start-2 col-span-11 ml-2 text-teal-400">ایجاد رمز عبور<span className="text-red-600 ml-1">*</span></p>
         </div>
              {/* create a password's text */}
 

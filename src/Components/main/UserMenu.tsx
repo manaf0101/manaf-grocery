@@ -93,7 +93,15 @@ function UserMenu () {
                     </li>
 
                     <li
-                        className={`row-start-8 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${checkDomainToBoldRightsidebar(`/TheUserPage/${userId}/main/userMenu/Hamkary`)}`}
+                        className={`row-start-8 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${checkDomainToBoldRightsidebar(`/TheUserPage/${userId}/main/userMenu/MyProfile`)}`}
+                    >
+                        <Link to={`${basePath}MyProfile`}>
+                           پروفایل من
+                        </Link>
+                    </li>
+
+                    <li
+                        className={`row-start-9 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${checkDomainToBoldRightsidebar(`/TheUserPage/${userId}/main/userMenu/Hamkary`)}`}
                     >
                         <Link to={`${basePath}Hamkary`}>
                             درخواست همکاری
