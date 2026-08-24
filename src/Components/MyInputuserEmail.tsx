@@ -21,7 +21,7 @@ const MyInputuserEmail = forwardRef<HTMLInputElement , PropsType>(function MyInp
     return (
         <Stack gap={2}>
         <Row>
-            <Col> <p className="dark:text-teal-400  text-slate-950 ml-2"style={{fontFamily : 'cursive'}}>Enter your email <span className="text-red-600">*</span></p> </Col>
+            <Col> <p className="dark:text-teal-400  text-slate-950 ml-2"style={{fontFamily : 'cursive'}}>ایمیل خود را وارد کنید<span className="text-red-600">*</span></p> </Col>
         </Row>
 
    {/* مربوط به پر کردن ایمیل و دکمه ی continue */}

@@ -7,7 +7,17 @@ import UserMenuLeft from "./main/UserMenuLeft"
 import ClickMenuIcon from "./main/ClickMenuIcon"
 import { Outlet } from "react-router-dom"
 
+// برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
+import { useLocation } from "react-router-dom";
+
+
+
+// برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
 function TheUser () {
+  const location = useLocation();
+  const isMyProfile = location.pathname.includes("MyProfile");
+// برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
+
 
   // برای زمانی که علامت سه خط کنار منوی کاربری را می زنیم و منوی کاربری ظاهر می شود . 
   const [smallAsideVisible , setSmallAsideVisible] = useState('')
@@ -69,14 +79,21 @@ function TheUser () {
            <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">  
                   <UserMenu /> 
            </div>  
-            <div className="  col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
+            <div className="col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
                <Outlet />  
             </div>  
       </div>  
+
       {/* منوی سمت چپ */}
+{/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
+{
+  !isMyProfile && (
     <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
        <UserMenuLeft />
-    </div>  
+    </div>
+  )
+}
+{/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
       {/* منوی سمت چپ */}
   </div>
 </div>
