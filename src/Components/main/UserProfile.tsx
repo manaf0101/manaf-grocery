@@ -1,10 +1,11 @@
 import Image from 'react-bootstrap/Image';
 import imageSrc from '../../../public/pictures/1696162108939.jpg'; 
 import imageIcon from '../../../public/pictures/icon-7797704_1280.png'
-import { useLocalStorage } from "../../Hooks/useLocalStorage" 
 import { useParams } from 'react-router-dom';  
 import useDarkMood from '../../Hooks/useDarkMood';
-import { useEffect } from 'react';
+import { useEffect  , useState} from 'react';
+import axios from 'axios';
+
 
 
   function UserProfile () {
@@ -29,36 +30,47 @@ const [theme]  =  useDarkMood()
     const { userId } = useParams();
     // دریافت آی دی اختصاصی کاربر از دامین سایت که به صورت داینامیک وارد شده بود
 
+    const [username, setUsername] = useState('guest');
 
 //استخراج نام کاربر صاحب اکانت .....................
 
-    // کلیه کاربران را از localStorage می گیرد 
-    const [userNamesValus] = useLocalStorage<any>('users' , '')
-    // کلیه کاربران را از localStorage می گیرد 
+    // نام کاربری را از سرور میگیرد
+useEffect(() => {
 
-    // تابعی که از بین کاربران ، کاربری را پیدا میکند که صفحه متعلق به اوست 
-   const res =  userNamesValus.filter((item : any) => {
-        return item.userId === userId
-    })
-    // تابعی که از بین کاربران ، کاربری را پیدا میکند که صفحه متعلق به اوست 
+    const getUserName = async () => {
 
-    // استخراج نام کاربری کاربر مربوطه
-      function theUserUserName() {
-        let theUser  =  'guest'
-        if (res) {
-            res.forEach((item : any) => {
-                theUser = item.username
-            })
-        } 
-        return theUser
+        try {
+
+            const response = await axios.get(
+                `http://localhost:8000/api/username/${userId}`
+            );
+
+            setUsername(response.data.username);
+
+        } catch (error) {
+
+            console.log("Error getting username:", error);
+
+            setUsername('guest');
+
+        }
+
+    };
+
+    if (userId) {
+        getUserName();
     }
-    // استخراج نام کاربری کاربر مربوطه
+
+}, [userId]);
+        // نام کاربری را از سرور میگیرد
+
+
+
 
     // انتخاب عکس مربوطه
   const userImage = () => {
-        const userName = theUserUserName();
-        return userName === 'guest' ? imageIcon : imageSrc;
-    }
+    return username === 'guest'? imageIcon: imageSrc;
+};
     // انتخاب عکس مربوطه
   
 //استخراج نام کاربر صاحب اکانت .....................
@@ -88,7 +100,7 @@ const [theme]  =  useDarkMood()
                     {/* سطر مربوط به عکس */}
 
                     {/* سطر مربوط به یوزرنیم کاربر */}
-                    <div className="row-start-2 row-span-1 flex justify-center items-center">{theUserUserName()}</div>
+                    <div className="row-start-2 row-span-1 flex justify-center items-center">{username}</div>
                     {/* سطر مربوط به یوزرنیم کاربر */}
                 </div>
                 {/* سطر مرکزی */}
@@ -115,7 +127,7 @@ const [theme]  =  useDarkMood()
                 {/* سطر مربوط به عکس */}
 
                 {/* سطر مربوط به یوزرنیم کابر */}
-                 <div className="row-start-2 row-span-1 flex justify-center items-center">{theUserUserName()}</div>
+                 <div className="row-start-2 row-span-1 flex justify-center items-center">{username}</div>
                 {/* سطر مربوط به یوزرنیم کابر */}
                </div>
                 {/* سطر های مرکزی */}

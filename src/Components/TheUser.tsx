@@ -5,6 +5,7 @@ import UserMenu from "./main/UserMenu"
 import BottomMenu from "./main/BottomMenu"
 import UserMenuLeft from "./main/UserMenuLeft"
 import ClickMenuIcon from "./main/ClickMenuIcon"
+import MyProfileLeftMenu from "./main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyProfileLeftMenu"
 import { Outlet } from "react-router-dom"
 
 // برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
@@ -84,8 +85,8 @@ function TheUser () {
             </div>  
       </div>  
 
-      {/* منوی سمت چپ */}
-{/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
+{/* منوی سمت چپ */}
+      {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
 {
   !isMyProfile && (
     <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
@@ -93,8 +94,22 @@ function TheUser () {
     </div>
   )
 }
-{/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
-      {/* منوی سمت چپ */}
+
+   {/* منو مخصوص کامپوننت MyProfile */}
+{
+  isMyProfile && (
+    <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
+       <MyProfileLeftMenu />
+    </div>
+  )
+}
+   {/* منو مخصوص کامپوننت MyProfile */}
+
+      {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
+{/* منوی سمت چپ */}
+
+
+
   </div>
 </div>
     {/* row 2 */}
