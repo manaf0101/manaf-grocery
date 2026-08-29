@@ -1,10 +1,134 @@
+import { Button } from "react-bootstrap"
+import axios from "axios"
+import { useParams, useLocation } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { FaHome } from "react-icons/fa";
+import { FaShoppingBasket } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+
+
 
 function MyProfileLeftMenu() {
+
+
+
+    const [profile, setProfile] = useState({
+        username: "",
+        firstNameAndLastName: "",
+        phoneNumber: "",
+        userEmail: ""
+    });
+
+    const { userId } = useParams()
+    const location = useLocation()
+    // برای خط قرمز رنگ کنار آیتم های خلاصه فعالیت ها و .. استفاده خواهد شد . 
+    const isActiveMyProfile = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile`
+    const isActiveMyOrders = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders`
+    const isActiveMyLists = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyLists`
+    // برای خط قرمز رنگ کنار آیتم های خلاصه فعالیت ها و .. استفاده خواهد شد . 
+
+    const getProfile = async () => {
+        try {
+
+            const response = await axios.get(
+                `http://localhost:8000/api/profile/${userId}`
+            )
+
+            setProfile(response.data)
+
+        } catch (err) {
+            console.error("خطا در دریافت پروفایل:", err);
+        }
+    }
+
+    // هنگام Mount شدن کامپوننت اجرا می‌شود
+    useEffect(() => {
+        getProfile();
+        console.log(profile);
+    }, []);
+
+
     return (
         <>
-        <aside>
-            
-        </aside>
+            {/* استایل برای دکمه ی ویرایش */}
+            <style>
+                {`
+    .btn-editButton {
+      background-color: rgb(203 213 225);
+    }
+
+    .dark .btn-editButton {
+      background-color: rgb(128 144 166);
+    }
+
+    .btn-editButton:hover {
+      background-color: rgb(152 159 169);
+    }
+
+    .dark .btn-editButton:hover {
+      background-color: rgb(22 78 99);
+    }
+  `}
+            </style>
+            {/* استایل برای دکمه ی ویرایش */}
+
+
+
+            <aside className="h-screen ">
+                {/* مربوط یه کادر نام کاربری و ... */}
+                <section className="flex flex-col items-center justify-center border  h-auto mt-4 p-2 gap-2">
+                    {/* نام کاربری */}
+                    <p className="font-bold text-stone-400">نام کاربری</p>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.username || "ناموجود"}</div>
+                    {/* نام کاربری */}
+
+                    {/* نام و نام خانوادگی */}
+                    <p className="font-bold text-stone-400">نام و نام خانوادگی</p>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.firstNameAndLastName || "ناموجود"} </div>
+                    {/* نام و نام خانوادگی */}
+
+                    {/* شماره همراه */}
+                    <p className="font-bold text-stone-400">شماره همراه</p>
+                    <div className="p-1 border  w-full text-gray-500 flex justify-center"> {profile.phoneNumber || "ناموجود"}</div>
+                    {/* شماره همراه */}
+
+                    {/* ایمیل */}
+                    <p className="font-bold text-stone-400">ایمیل</p>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.userEmail || 'ناموجود'}</div>
+                    {/* ایمیل */}
+
+                    <Button variant="editButton">ویرایش</Button>
+                </section>
+                {/* مربوط یه کادر نام کاربری و ... */}
+
+                {/* مربوط به خلاصه فعالیت ها ... */}
+                <section className="[direction:rtl] flex flex-col items-start  border h-auto">
+                    {/* فعالیت ها */}
+                    <div className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyProfile ? 'border-r-4 border-r-blue-800' : ''}`}>
+                        <FaHome className="dark:text-white ml-2 size-5 group-hover:size-6 transition-all duration-200" />
+                        <p className="text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200">خلاصه فعالیت ها</p>
+                    </div>
+                    {/* فعالیت ها */}
+
+                    {/* سفارش های من */}
+                    <div className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyOrders ? 'border-r-4 border-r-blue-800' : ''}`}>
+                        <FaShoppingBasket className="dark:text-white ml-2 size-5 group-hover:size-6 transition-all duration-200" />
+                        <p className="text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200">سفارش ها</p>
+                    </div>
+                    {/* سفارش های من */}
+
+
+                    {/* لیست های من  */}
+                    <div className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyLists ? 'border-r-4 border-r-blue-800' : ''}`}>
+                        <FaRegHeart className="dark:text-white ml-2 size-5 group-hover:size-6 transition-all duration-200" />
+                        <p className="text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200">لیست های من</p>
+                    </div>
+                    {/* لیست های من  */}
+
+
+                </section>
+                {/* مربوط به خلاصه فعالیت ها ... */}
+            </aside>
         </>
     )
 }

@@ -5,6 +5,11 @@ import MyInput from "./Components/MyInput";
 import TheUser from "./Components/TheUser";
 import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
+import { profileLoader } from "./Loaders/profileLoader";
+// کامپوننت های MyProfile
+import SummaryOfActivities from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/SummaryOfActivities";
+import EditMyProfile from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/EditMyProfile";
+// کامپوننت های MyProfile
 
 // کامپوننت های قسمت میانی Theuser
 import RahnemayehSite from "./Components/main/MiddlePlaceComponenets/right-userMenu/rahnemayeh-site/RahnemayehSite";
@@ -92,11 +97,21 @@ function App () {
             {
               path : `${userMenuPaths}Hamkary` ,
               element : <Hamkary />
-            } ,
+            } , 
 
             {
               path : `${userMenuPaths}MyProfile`,
-              element : <MyProfile />
+              element : <MyProfile />,
+              loader : profileLoader , 
+              children : [
+                {
+                  path : `${userMenuPaths}MyProfile/edit`,
+                  element : <EditMyProfile />
+                } , 
+                {
+                  index : true , element : <SummaryOfActivities/>
+                }
+              ]
             } , 
 
             { index: true, element: <Index /> },

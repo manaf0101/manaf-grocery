@@ -44,7 +44,7 @@ function ClickMenuIcon({visable , showCart , closeIt} : ClickMenuIcon) {
                  </div>
                 {/* نوشته و سرتیتر منوی کاربری */}
               {/* لیست منو */}
-                        <ul className="grid grid-rows-8 cursor-pointer text-stone-400 mt-2 mr-2 ">
+                        <ul className="grid grid-rows-9 cursor-pointer text-stone-400 mt-2 mr-2 ">
                             <li className="row-start-1 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
                                 <Link onClick={closeIt} to={`${basePath}rahnemayeh-site`}>
                                     راهنمای سایت
@@ -80,7 +80,13 @@ function ClickMenuIcon({visable , showCart , closeIt} : ClickMenuIcon) {
                                     تنظیمات
                                 </Link>
                             </li>
-                            <li className="row-start-8 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
+                                                        <li className="row-start-8 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
+                                <Link onClick={closeIt} to={`${basePath}MyProfile`}>
+                                     پروفایل من
+                                </Link>
+                            </li>
+
+                            <li className="row-start-9 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white">
                                 <Link onClick={closeIt} to={`${basePath}Hamkary`}>
                                     درخواست همکاری
                                 </Link>
