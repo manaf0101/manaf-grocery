@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap"
 import axios from "axios"
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation , useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { FaHome } from "react-icons/fa";
 import { FaShoppingBasket } from "react-icons/fa";
@@ -11,6 +11,7 @@ import { FaRegHeart } from "react-icons/fa";
 function MyProfileLeftMenu() {
 
 
+    const navigate = useNavigate()
 
     const [profile, setProfile] = useState({
         username: "",
@@ -76,7 +77,7 @@ function MyProfileLeftMenu() {
 
             <aside className="h-screen ">
                 {/* مربوط یه کادر نام کاربری و ... */}
-                <section className="flex flex-col items-center justify-center border  h-auto mt-4 p-2 gap-2">
+                <section className="flex flex-col items-center justify-center border  h-auto mt-4 p-2 gap-2 rounded-md">
                     {/* نام کاربری */}
                     <p className="font-bold text-stone-400">نام کاربری</p>
                     <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.username || "ناموجود"}</div>
@@ -97,7 +98,9 @@ function MyProfileLeftMenu() {
                     <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.userEmail || 'ناموجود'}</div>
                     {/* ایمیل */}
 
-                    <Button variant="editButton">ویرایش</Button>
+                    <Button
+                    onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/MyProfile/edit`)}
+                    variant="editButton">ویرایش</Button>
                 </section>
                 {/* مربوط یه کادر نام کاربری و ... */}
 

@@ -39,7 +39,7 @@ export default function ProgressionBar() {
     // درصد فیلد های تکمیل شده
     return (
         <>
-            <div className="p-4 flex items-center flex-col border-1 ">
+            <div className="p-4 flex items-center flex-col border-1 rounded-md ">
                 <div className="flex justify-between mb-2">
 
 
