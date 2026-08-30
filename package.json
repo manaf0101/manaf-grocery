@@ -15,6 +15,7 @@
     "aos": "^2.3.4",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "canvas-confetti": "^1.9.4",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-circular-progressbar": "^2.2.0",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/aos": "^3.0.7",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@types/react-slick": "^0.23.13",
