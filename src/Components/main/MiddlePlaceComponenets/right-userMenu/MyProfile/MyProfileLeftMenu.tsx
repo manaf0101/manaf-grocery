@@ -8,6 +8,7 @@ import { FaRegHeart } from "react-icons/fa";
 
 
 
+
 function MyProfileLeftMenu() {
 
 
@@ -15,8 +16,8 @@ function MyProfileLeftMenu() {
 
     const [profile, setProfile] = useState({
         username: "",
-        firstNameAndLastName: "",
-        phoneNumber: "",
+        fullName: "",
+        userPhone: "",
         userEmail: ""
     });
 
@@ -85,12 +86,12 @@ function MyProfileLeftMenu() {
 
                     {/* نام و نام خانوادگی */}
                     <p className="font-bold text-stone-400">نام و نام خانوادگی</p>
-                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.firstNameAndLastName || "ناموجود"} </div>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.fullName || "ناموجود"} </div>
                     {/* نام و نام خانوادگی */}
 
                     {/* شماره همراه */}
                     <p className="font-bold text-stone-400">شماره همراه</p>
-                    <div className="p-1 border  w-full text-gray-500 flex justify-center"> {profile.phoneNumber || "ناموجود"}</div>
+                    <div className="p-1 border  w-full text-gray-500 flex justify-center"> {profile.userPhone || "ناموجود"}</div>
                     {/* شماره همراه */}
 
                     {/* ایمیل */}

@@ -6,10 +6,13 @@ type User = {
     username: string;
     password: string;
     userId: string;
+    fullName?: string;
     userPhone?: number;
     userBirth?: string;
     userNationalityCode?: number;
-    userProfileImage?: string ; 
+    job?: string; 
+    shebaNumber?:string
+    userProfileImage?: string ;
 };
 
 export default function ProgressionBar() {
@@ -20,9 +23,12 @@ export default function ProgressionBar() {
         user.userEmail,
         user.username,
         user.password,
+        user.fullName , 
         user.userPhone,
         user.userBirth,
         user.userNationalityCode,
+        user.job , 
+        user.shebaNumber , 
         user.userProfileImage ,
     ];
 

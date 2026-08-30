@@ -7,6 +7,7 @@ import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
 // کامپوننت های MyProfile
+import { editProfileAction } from "./Actions/editProfileAction"
 import SummaryOfActivities from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/SummaryOfActivities";
 import EditMyProfile from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/EditMyProfile";
 import MyOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyOrders";
@@ -15,7 +16,7 @@ import MyLists from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyP
 import { profileLoader } from "./Loaders/profileLoader";
 import { ordersLoader } from "./Loaders/ordersLoader";
 import { listsLoader } from "./Loaders/listsLoader";
-import { editProfileAction } from "./Actions/editProfileAction";
+// import { editProfileAction } from "./Actions/editProfileAction";
 // کامپوننت های MyProfile
 
 // کامپوننت های قسمت میانی Theuser
