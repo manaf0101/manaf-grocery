@@ -1,7 +1,8 @@
 import { Button } from "react-bootstrap"
-import axios from "axios"
 import { useParams, useLocation , useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react";
+//بعد از آوردن context سراسری این قسمت نیازی نیست 
+// import axios from "axios"
+// import { useState, useEffect } from "react";
 import { FaHome } from "react-icons/fa";
 import { FaShoppingBasket } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";

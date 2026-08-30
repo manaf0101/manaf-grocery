@@ -11,7 +11,9 @@ type User = {
     userBirth?: string;
     userNationalityCode?: number;
     job?: string; 
-    shebaNumber?:string
+    refundMethod?: {
+        shebaNumber?: string;
+    };
     userProfileImage?: string ;
 };
 
@@ -22,13 +24,12 @@ export default function ProgressionBar() {
     const profileFields = [
         user.userEmail,
         user.username,
-        user.password,
         user.fullName , 
         user.userPhone,
         user.userBirth,
         user.userNationalityCode,
         user.job , 
-        user.shebaNumber , 
+        user?.refundMethod?.shebaNumber , 
         user.userProfileImage ,
     ];
 

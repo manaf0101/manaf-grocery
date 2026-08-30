@@ -30,6 +30,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     const { userId } = useParams()
     const [profile, setProfile] = useState<ProfileData | null>(null)
 
+
     const refetchProfile = async () => {
         try {
             const response = await axios.get(`http://localhost:8000/api/profile/${userId}`)
