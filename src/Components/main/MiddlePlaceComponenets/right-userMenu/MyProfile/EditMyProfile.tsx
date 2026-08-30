@@ -3,6 +3,7 @@ import { FaPen } from "react-icons/fa"
 import { useState, useEffect } from "react"
 import { Modal, Button, Form } from "react-bootstrap"
 import axios from "axios"
+import { useProfile } from "../../../../contexts/ProfileContext"
 // تقویم شمسی برای انتخاب تاریخ تولد
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
@@ -74,9 +75,12 @@ function EditMyProfile() {
     // برای زمانی که کاربر روی دکمه ثبت تغییرات کلیک کرد و تغییرات موفقیت آمیز بودند
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
+    const { setProfile } = useProfile()
+
     useEffect(() => {
         if (fetcher.state === "idle" && fetcher.data?.success) {
             setShowSuccessModal(true)
+            setProfile(fetcher.data.profile)
         }
     }, [fetcher.state, fetcher.data])
     // برای زمانی که کاربر روی دکمه ثبت تغییرات کلیک کرد و تغییرات موفقیت آمیز بودند

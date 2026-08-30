@@ -6,6 +6,11 @@ import { FaHome } from "react-icons/fa";
 import { FaShoppingBasket } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 
+// context  سراسری برای هماهنگ بودن به روزرسانی این کامپوننت با EditMyProfile.tsx
+import { useProfile } from "../../../../contexts/ProfileContext";
+// context  سراسری برای هماهنگ بودن به روزرسانی این کامپوننت با EditMyProfile.tsx
+
+
 
 
 
@@ -13,13 +18,15 @@ function MyProfileLeftMenu() {
 
 
     const navigate = useNavigate()
+    const { profile } = useProfile()
 
-    const [profile, setProfile] = useState({
-        username: "",
-        fullName: "",
-        userPhone: "",
-        userEmail: ""
-    });
+//بعد از آوردن context سراسری این قسمت نیازی نیست 
+    // const [profile, setProfile] = useState({
+    //     username: "",
+    //     fullName: "",
+    //     userPhone: "",
+    //     userEmail: ""
+    // });
 
     const { userId } = useParams()
     const location = useLocation()
@@ -29,25 +36,32 @@ function MyProfileLeftMenu() {
     const isActiveMyLists = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyLists`
     // برای خط قرمز رنگ کنار آیتم های خلاصه فعالیت ها و .. استفاده خواهد شد . 
 
-    const getProfile = async () => {
-        try {
+//بعد از آوردن context سراسری این قسمت نیازی نیست 
+    // const getProfile = async () => {
+    //     try {
 
-            const response = await axios.get(
-                `http://localhost:8000/api/profile/${userId}`
-            )
+    //         const response = await axios.get(
+    //             `http://localhost:8000/api/profile/${userId}`
+    //         )
 
-            setProfile(response.data)
+    //         setProfile(response.data)
 
-        } catch (err) {
-            console.error("خطا در دریافت پروفایل:", err);
-        }
-    }
+    //     } catch (err) {
+    //         console.error("خطا در دریافت پروفایل:", err);
+    //     }
+    // }
 
-    // هنگام Mount شدن کامپوننت اجرا می‌شود
-    useEffect(() => {
-        getProfile();
-        console.log(profile);
-    }, []);
+        // // هنگام Mount شدن کامپوننت اجرا می‌شود
+    // useEffect(() => {
+    //     getProfile();
+    //     console.log(profile);
+    // }, []);
+//بعد از آوردن context سراسری این قسمت نیازی نیست 
+
+
+
+
+
 
 
     return (
@@ -81,22 +95,22 @@ function MyProfileLeftMenu() {
                 <section className="flex flex-col items-center justify-center border  h-auto mt-4 p-2 gap-2 rounded-md">
                     {/* نام کاربری */}
                     <p className="font-bold text-stone-400">نام کاربری</p>
-                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.username || "ناموجود"}</div>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile?.username || "ناموجود"}</div>
                     {/* نام کاربری */}
 
                     {/* نام و نام خانوادگی */}
                     <p className="font-bold text-stone-400">نام و نام خانوادگی</p>
-                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.fullName || "ناموجود"} </div>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile?.fullName || "ناموجود"} </div>
                     {/* نام و نام خانوادگی */}
 
                     {/* شماره همراه */}
                     <p className="font-bold text-stone-400">شماره همراه</p>
-                    <div className="p-1 border  w-full text-gray-500 flex justify-center"> {profile.userPhone || "ناموجود"}</div>
+                    <div className="p-1 border  w-full text-gray-500 flex justify-center"> {profile?.userPhone || "ناموجود"}</div>
                     {/* شماره همراه */}
 
                     {/* ایمیل */}
                     <p className="font-bold text-stone-400">ایمیل</p>
-                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile.userEmail || 'ناموجود'}</div>
+                    <div className="p-1 border w-full text-gray-500 flex justify-center">{profile?.userEmail || 'ناموجود'}</div>
                     {/* ایمیل */}
 
                     <Button

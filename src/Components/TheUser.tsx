@@ -8,130 +8,133 @@ import ClickMenuIcon from "./main/ClickMenuIcon"
 import MyProfileLeftMenu from "./main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyProfileLeftMenu"
 import { Outlet } from "react-router-dom"
 
+import { ProfileProvider } from "./contexts/ProfileContext"
+
 // برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
 import { useLocation } from "react-router-dom";
 
 
 
 // برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
-function TheUser () {
+function TheUser() {
   const location = useLocation();
   const isMyProfile = location.pathname.includes("MyProfile");
-// برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
+  // برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
 
 
   // برای زمانی که علامت سه خط کنار منوی کاربری را می زنیم و منوی کاربری ظاهر می شود . 
-  const [smallAsideVisible , setSmallAsideVisible] = useState('')
+  const [smallAsideVisible, setSmallAsideVisible] = useState('')
   // برای زمانی که علامت سه خط کنار منوی کاربری را می زنیم و منوی کاربری ظاهر می شود . 
 
   // برای کارکردن حالت ترنزیشن در منوی کاربری 
-  const [showRightCart , setShowRightCart] = useState('cart')
+  const [showRightCart, setShowRightCart] = useState('cart')
   // برای کارکردن حالت ترنزیشن در منوی کاربری 
 
   // تابع باز وبستن منوی کاربری
-     function smallAside () {
-      if (smallAsideVisible === '') {
-       setSmallAsideVisible('transparentBcg')
-       setShowRightCart ('showCart')
-      } else {
-        setSmallAsideVisible('')
-        setShowRightCart('cart')
-      }
-     }
-     
+  function smallAside() {
+    if (smallAsideVisible === '') {
+      setSmallAsideVisible('transparentBcg')
+      setShowRightCart('showCart')
+    } else {
+      setSmallAsideVisible('')
+      setShowRightCart('cart')
+    }
+  }
 
 
-    return (
-        <>
 
-  <div className="h-full w-full relative">
-    {/* header سایت */}
-      <header>
-        {/*عکس و پروفایل*/}
-          <UserProfile /> 
-        {/*عکس و پروفایل*/}     
-      </header>
-    {/* header سایت */}
+  return (
 
-{/* ----------------------------------------------------------------------------------------------------------*/}
-   
-    {/* میانی */}
-    {/* برای بزرگتر از lg */}
-{/*rowwwwwwwwwwwwwwwwwwwww*/}
-  <div className="grid  grid-rows-[auto_1fr]  gap-0 relative">
-    {/* row 1 */}
-    <div className="row-start-1 sticky top-0 z-50">
-        {/*منوی بالا - زیر کامپوننت عکس و پروفایل*/}
-           <div className="hidden sm:grid relative">
-             <div className="sticky top-0 z-40"><UpperMenu openUserMenu={smallAside}/></div>
-             <div className="w-full h-full z-20 lg:hidden dark:bg-slate-950" dir="rtl"><Outlet /></div>
-             <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible}/>
-           </div>
-        {/*منوی بالا - زیر کامپوننت عکس و پروفایل*/}        
-    </div>
-    {/* row 1 */}
+    <>
+      <ProfileProvider>
+        <div className="h-full w-full relative">
+          {/* header سایت */}
+          <header>
+            {/*عکس و پروفایل*/}
+            <UserProfile />
+            {/*عکس و پروفایل*/}
+          </header>
+          {/* header سایت */}
 
-    {/* row 2 */}
-<div className="row-start-2 relative dark:bg-slate-950">
-  <div className="hidden relative dark:bg-slate-950 lg:grid md:grid-cols-5 h-auto" dir="rtl">  
-     <div className="relative col-start-1 col-span-4 grid grid-cols-subgrid dark:bg-slate-950  h-auto">  
-{/*...................این کد : h-[calc(100vh-5rem)] باعث می شود ویژگی sticky , به طور صحیح 
+          {/* ----------------------------------------------------------------------------------------------------------*/}
+
+          {/* میانی */}
+          {/* برای بزرگتر از lg */}
+          {/*rowwwwwwwwwwwwwwwwwwwww*/}
+          <div className="grid  grid-rows-[auto_1fr]  gap-0 relative">
+            {/* row 1 */}
+            <div className="row-start-1 sticky top-0 z-50">
+              {/*منوی بالا - زیر کامپوننت عکس و پروفایل*/}
+              <div className="hidden sm:grid relative">
+                <div className="sticky top-0 z-40"><UpperMenu openUserMenu={smallAside} /></div>
+                <div className="w-full h-full z-20 lg:hidden dark:bg-slate-950" dir="rtl"><Outlet /></div>
+                <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible} />
+              </div>
+              {/*منوی بالا - زیر کامپوننت عکس و پروفایل*/}
+            </div>
+            {/* row 1 */}
+
+            {/* row 2 */}
+            <div className="row-start-2 relative dark:bg-slate-950">
+              <div className="hidden relative dark:bg-slate-950 lg:grid md:grid-cols-5 h-auto" dir="rtl">
+                <div className="relative col-start-1 col-span-4 grid grid-cols-subgrid dark:bg-slate-950  h-auto">
+                  {/*...................این کد : h-[calc(100vh-5rem)] باعث می شود ویژگی sticky , به طور صحیح 
 ......................عمل کند و با رسیدن اسکرول به انتهای صفحه ، ابن ویژگی قطع نشود*/}
-           <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">  
-                  <UserMenu /> 
-           </div>  
-            <div className="col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">  
-               <Outlet />  
-            </div>  
-      </div>  
+                  <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">
+                    <UserMenu />
+                  </div>
+                  <div className="col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">
+                    <Outlet />
+                  </div>
+                </div>
 
-{/* منوی سمت چپ */}
-      {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
-{
-  !isMyProfile && (
-    <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
-       <UserMenuLeft />
-    </div>
+                {/* منوی سمت چپ */}
+                {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
+                {
+                  !isMyProfile && (
+                    <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
+                      <UserMenuLeft />
+                    </div>
+                  )
+                }
+
+                {/* منو مخصوص کامپوننت MyProfile */}
+                {
+                  isMyProfile && (
+                    <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
+                      <MyProfileLeftMenu />
+                    </div>
+                  )
+                }
+                {/* منو مخصوص کامپوننت MyProfile */}
+
+                {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
+                {/* منوی سمت چپ */}
+
+
+
+              </div>
+            </div>
+            {/* row 2 */}
+          </div>
+          {/*rowwwwwwwwwwwwwwwwwwwww*/}
+          {/* برای بزرگتر از lg */}
+
+          {/* برای زمانی که کوچکتر از lg باشد و روی علامت منوی سه خط کلیک شود */}
+          <div className="sm:hidden relative w-full ">
+            <div className="sticky top-0 z-40"><UpperMenu openUserMenu={smallAside} /></div>
+            <div className="w-full h-auto dark:bg-slate-950" dir="rtl"><Outlet /></div>
+            <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible} />
+            {/* منوی پایینی برای کوچکتر از sm */}
+            <BottomMenu />
+            {/* منوی پایینی برای کوچکتر از sm */}
+          </div>
+          {/* برای زمانی که کوچکتر از lg باشد و روی علامت منوی سه خط کلیک شود */}
+        </div>
+        {/* میانی */}
+      </ProfileProvider>
+    </>
   )
-}
-
-   {/* منو مخصوص کامپوننت MyProfile */}
-{
-  isMyProfile && (
-    <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
-       <MyProfileLeftMenu />
-    </div>
-  )
-}
-   {/* منو مخصوص کامپوننت MyProfile */}
-
-      {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
-{/* منوی سمت چپ */}
-
-
-
-  </div>
-</div>
-    {/* row 2 */}
-  </div>
-{/*rowwwwwwwwwwwwwwwwwwwww*/}
-    {/* برای بزرگتر از lg */}
-
-    {/* برای زمانی که کوچکتر از lg باشد و روی علامت منوی سه خط کلیک شود */}
-    <div className="sm:hidden relative w-full ">
-      <div className="sticky top-0 z-40"><UpperMenu openUserMenu={smallAside}/></div>
-      <div className="w-full h-auto dark:bg-slate-950" dir="rtl"><Outlet /></div>
-      <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible}/>
-    {/* منوی پایینی برای کوچکتر از sm */}
-    <BottomMenu />
-    {/* منوی پایینی برای کوچکتر از sm */}
-    </div>
-    {/* برای زمانی که کوچکتر از lg باشد و روی علامت منوی سه خط کلیک شود */}
-</div>   
-    {/* میانی */}
-
-        </>
-    )
 }
 
 export default TheUser
