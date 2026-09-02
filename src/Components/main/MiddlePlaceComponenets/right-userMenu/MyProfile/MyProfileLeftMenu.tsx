@@ -33,7 +33,11 @@ function MyProfileLeftMenu() {
     const location = useLocation()
     // برای خط قرمز رنگ کنار آیتم های خلاصه فعالیت ها و .. استفاده خواهد شد . 
     const isActiveMyProfile = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile`
-    const isActiveMyOrders = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders`
+    const isActiveMyOrders =
+        location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders` ||
+        location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders/deliveredOrders` ||
+        location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders/returnedOrders` ||
+        location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders/canceledOrders`
     const isActiveMyLists = location.pathname === `/TheUserPage/${userId}/main/userMenu/MyProfile/MyLists`
     // برای خط قرمز رنگ کنار آیتم های خلاصه فعالیت ها و .. استفاده خواهد شد . 
 
@@ -54,7 +58,7 @@ function MyProfileLeftMenu() {
 
         // // هنگام Mount شدن کامپوننت اجرا می‌شود
     // useEffect(() => {
-    //     getProfile();
+    //     getProfile(); 
     //     console.log(profile);
     // }, []);
 //بعد از آوردن context سراسری این قسمت نیازی نیست 
@@ -123,24 +127,48 @@ function MyProfileLeftMenu() {
                 {/* مربوط به خلاصه فعالیت ها ... */}
                 <section className="[direction:rtl] flex flex-col items-start  border h-auto">
                     {/* فعالیت ها */}
-                    <div className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyProfile ? 'border-r-4 border-r-blue-800' : ''}`}>
-                        <FaHome className="dark:text-white ml-2 size-5 group-hover:size-6 transition-all duration-200" />
-                        <p className="text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200">خلاصه فعالیت ها</p>
+                    <div
+                    onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/MyProfile`)}
+                    className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyProfile ? 'border-r-4 border-r-blue-800' : ''}`}>
+                        <FaHome className={`dark:text-white ml-2 transition-all duration-200 ${isActiveMyProfile ? 'size-6' : 'size-5'} group-hover:size-6`} />
+                        <p className={`hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200 ${
+                            isActiveMyProfile
+                                ? 'font-bold text-black dark:text-white'
+                                : 'text-gray-500'
+                        }`}>
+                            خلاصه فعالیت ها
+                        </p>
                     </div>
                     {/* فعالیت ها */}
 
-                    {/* سفارش های من */}
-                    <div className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyOrders ? 'border-r-4 border-r-blue-800' : ''}`}>
-                        <FaShoppingBasket className="dark:text-white ml-2 size-5 group-hover:size-6 transition-all duration-200" />
-                        <p className="text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200">سفارش ها</p>
-                    </div>
-                    {/* سفارش های من */}
+{/* سفارش های من */}
+<div
+    onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders`)}
+    className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyOrders ? 'border-r-4 border-r-blue-800' : ''}`}>
+    <FaShoppingBasket 
+        className={`dark:text-white ml-2 size-5 group-hover:size-6 group-active:size-6 transition-all duration-200 ${isActiveMyOrders ? 'size-6' : ''}`} 
+    />
+    <p className={`hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200 ${
+        isActiveMyOrders 
+            ? 'font-bold text-black dark:text-white' 
+            : 'text-gray-500'
+    }`}>
+        سفارش ها
+    </p>
+</div>
+{/* سفارش های من */}
 
 
                     {/* لیست های من  */}
                     <div className={`group flex border-b-2 w-full p-2 cursor-pointer ${isActiveMyLists ? 'border-r-4 border-r-blue-800' : ''}`}>
-                        <FaRegHeart className="dark:text-white ml-2 size-5 group-hover:size-6 transition-all duration-200" />
-                        <p className="text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200">لیست های من</p>
+                        <FaRegHeart className={`dark:text-white ml-2 transition-all duration-200 ${isActiveMyLists ? 'size-6' : 'size-5'} group-hover:size-6`} />
+                        <p className={`hover:text-black group-hover:font-bold group-hover:text-black dark:group-hover:text-white dark:hover:text-white transition-all duration-200 ${
+                            isActiveMyLists
+                                ? 'font-bold text-black dark:text-white'
+                                : 'text-gray-500'
+                        }`}>
+                            لیست های من
+                        </p>
                     </div>
                     {/* لیست های من  */}
 

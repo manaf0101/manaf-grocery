@@ -12,7 +12,7 @@ function MyProfile() {
         <div className="flex flex-col gap-4 p-4">
             <ProgressionBar />
             {/* تمامی route های myProfile */}
-            <div className="flex w-full min-h-[400px] md:min-h-[500px] border rounded-md p-4">
+            <div className="flex w-full h-fit border rounded-md p-4">
                 {isLoading ? (
                     <span className="text-gray-400 text-2xl animate-pulse">...</span>
                 ) : (

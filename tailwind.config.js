@@ -47,7 +47,10 @@ export default {
       } ,
       width : {
         '6.5' : '6.5rem'
-      }
+      } ,
+      fontSize: {
+      sm: '0.7rem',
+    }
     },
   },
   plugins: [

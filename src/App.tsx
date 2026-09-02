@@ -12,6 +12,10 @@ import SummaryOfActivities from "./Components/main/MiddlePlaceComponenets/right-
 import EditMyProfile from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/EditMyProfile";
 import MyOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyOrders";
 import MyLists from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyLists";
+import MyCurrentOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyCurrentOrders";
+import DeliveredOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/DeliveredOrders";
+import ReturnedOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/ReturnedOrders";
+import CanceledOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/CanceledOrders";
 
 import { profileLoader } from "./Loaders/profileLoader";
 import { ordersLoader } from "./Loaders/ordersLoader";
@@ -121,7 +125,25 @@ function App() {
             {
               path: `${userMenuPaths}MyProfile/MyOrders`,
               element: <MyOrders />,
-              loader: ordersLoader,
+              // loader: ordersLoader,
+              children :[ 
+                {
+                  path: `${userMenuPaths}MyProfile/MyOrders/deliveredOrders`,
+                  element: <DeliveredOrders />,
+                  // loader: ordersLoader,
+                },
+                {
+                  path: `${userMenuPaths}MyProfile/MyOrders/returnedOrders`,
+                  element: <ReturnedOrders />,
+                  // loader: ordersLoader,
+                },
+                {
+                  path: `${userMenuPaths}MyProfile/MyOrders/canceledOrders`,
+                  element: <CanceledOrders />,
+                  // loader: ordersLoader,
+                },
+                {index : true , element : <MyCurrentOrders />}
+              ]
             },
             {
               path: `${userMenuPaths}MyProfile/MyLists`,

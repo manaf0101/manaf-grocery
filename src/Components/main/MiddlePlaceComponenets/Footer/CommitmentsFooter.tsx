@@ -41,7 +41,7 @@ function CommitmentsFooter() {
                 <div className="grid grid-rows-2 relative w-auto h-auto">
                     <div className="row-start-1  flex justify-center items-center">
                     <img src="/pictures/manaf-support.svg" className="size-28" title="تضمین بازگشت وجه" />
-                    </div>
+                    </div> 
                     <div className="row-start-2 flex justify-center items-start">
                     <p className="dark:text-white" style={{fontFamily: 'VAZIR'}}>پشتیبانی آنلاین و تلفنی </p>
                     </div>
