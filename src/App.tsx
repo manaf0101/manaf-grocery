@@ -17,9 +17,14 @@ import DeliveredOrders from "./Components/main/MiddlePlaceComponenets/right-user
 import ReturnedOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/ReturnedOrders";
 import CanceledOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/CanceledOrders";
 
+
 import { profileLoader } from "./Loaders/profileLoader";
-import { ordersLoader } from "./Loaders/ordersLoader";
+import {ordersLoaderCounting} from "./Loaders/ordersLoaderCounting";
 import { listsLoader } from "./Loaders/listsLoader";
+import { currentOrdersLoader } from "./Loaders/currentOrdersLoader";
+import { deliveredOrdersLoader } from "./Loaders/deliveredOrdersLoader";
+import { returnedOrdersLoader } from "./Loaders/returnedOrdersLoader";
+import { canceledOrdersLoader } from "./Loaders/canceledOrdersLoader";
 // import { editProfileAction } from "./Actions/editProfileAction";
 // کامپوننت های MyProfile
 
@@ -125,24 +130,27 @@ function App() {
             {
               path: `${userMenuPaths}MyProfile/MyOrders`,
               element: <MyOrders />,
-              // loader: ordersLoader,
+              loader : ordersLoaderCounting ,
               children :[ 
                 {
                   path: `${userMenuPaths}MyProfile/MyOrders/deliveredOrders`,
                   element: <DeliveredOrders />,
-                  // loader: ordersLoader,
+                  loader: deliveredOrdersLoader,
                 },
                 {
                   path: `${userMenuPaths}MyProfile/MyOrders/returnedOrders`,
                   element: <ReturnedOrders />,
-                  // loader: ordersLoader,
+                  loader: returnedOrdersLoader,
                 },
                 {
                   path: `${userMenuPaths}MyProfile/MyOrders/canceledOrders`,
                   element: <CanceledOrders />,
-                  // loader: ordersLoader,
+                  loader: canceledOrdersLoader,
                 },
-                {index : true , element : <MyCurrentOrders />}
+                {index : true ,
+                 element : <MyCurrentOrders /> ,
+                 loader : currentOrdersLoader , 
+                }
               ]
             },
             {
@@ -151,7 +159,9 @@ function App() {
               loader: listsLoader,
             },
             {
-              index: true, element: <SummaryOfActivities />
+              index: true,
+              element: <SummaryOfActivities /> ,
+              loader : ordersLoaderCounting , 
             }
           ]
         },

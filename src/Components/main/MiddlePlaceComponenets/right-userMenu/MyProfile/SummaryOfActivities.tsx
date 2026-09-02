@@ -1,7 +1,16 @@
-import { useParams , useNavigate } from "react-router-dom";
+import { useParams , useNavigate , useLoaderData } from "react-router-dom";
 
+
+interface OrdersSummary {
+    current: number
+    delivered: number
+    returned: number
+    canceled: number
+}
 
 function SummaryOfActivities() {
+
+    const orders = useLoaderData() as OrdersSummary
 
     // برای فارسی نمایش دادن اعداد
     function toPersianDigits(num: number | string): string {
@@ -32,11 +41,11 @@ function SummaryOfActivities() {
                             style={{ backgroundImage: "url('/pictures/Cloud-Icon.svg')", backgroundOrigin: 'border-box', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
                         >
                             <div className="lg:hidden absolute flex justify-center items-center bottom-0 left-0 w-3 h-3 bg-gray-300 dark:bg-gray-500 rounded-sm">
-                                <p>{toPersianDigits(0)}</p>
+                                <p>{toPersianDigits(orders.current)}</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
-                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(0)}</span><p className="font-bold">سفارش</p></div>
+                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(orders.current)}</span><p className="font-bold">سفارش</p></div>
                             <div><p className="text-sm">جاری</p></div>
                         </div>
                     </div>
@@ -53,7 +62,7 @@ function SummaryOfActivities() {
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
-                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(0)}</span> <p className="font-bold">سفارش</p></div>
+                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(orders.delivered)}</span> <p className="font-bold">سفارش</p></div>
                             <div ><p className="text-sm">تحویل شده</p></div>
                         </div>
                     </div>
@@ -70,7 +79,7 @@ function SummaryOfActivities() {
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
-                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(0)}</span> <p className="font-bold">سفارش</p></div>
+                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(orders.returned)}</span> <p className="font-bold">سفارش</p></div>
                             <div ><p className="text-sm">مرجوع شده</p></div>
                         </div>
                     </div>
@@ -87,7 +96,7 @@ function SummaryOfActivities() {
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
-                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(0)}</span> <p className="font-bold">سفارش</p></div>
+                            <div className="hidden lg:grid"><span className="text-red-400">{toPersianDigits(orders.canceled)}</span> <p className="font-bold">سفارش</p></div>
                             <div><p className="text-sm">لغو شده</p></div>
                         </div>
                     </div>
