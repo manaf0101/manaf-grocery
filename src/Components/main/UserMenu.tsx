@@ -1,8 +1,37 @@
 import { Link } from "react-router-dom"
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate } from 'react-router-dom';
+// برای بررسی تکمیل بودن پروفایل 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import {useState } from 'react';
+import { useProfile } from "../contexts/ProfileContext";
+// برای بررسی تکمیل بودن پروفایل 
+
 
 
 function UserMenu () {
+
+    // مربوط به بررسی تکمیل بودن پروفایل
+    const [showIncompleteModal, setShowIncompleteModal] = useState(false)
+    const navigate = useNavigate()
+    const {profileProgress} = useProfile()
+
+        const handleMyMarketButton = () => {
+        if (profileProgress === 100) {
+            navigate(`${basePath}mine-market`)
+        } else {
+            setShowIncompleteModal(true)
+        }
+    }
+
+        // با کلیک روی دکمه‌ی «تکمیل پروفایل» داخل مودال
+    const handleGoToProfile = () => {
+        setShowIncompleteModal(false)
+        navigate(`${basePath}MyProfile`)
+    }
+    // مربوط به بررسی تکمیل بودن پروفایل
+
+
     // دستیابی به userId کاربر
     const { userId } = useParams<{ userId: string }>();
     // دستیابی به userId کاربر
@@ -55,9 +84,11 @@ function UserMenu () {
                     <li
                         className={`row-start-3 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${checkDomainToBoldRightsidebar(`/TheUserPage/${userId}/main/userMenu/mine-market`)}`}
                     >
-                        <Link to={`${basePath}mine-market`}>
+                        <button 
+                        onClick={handleMyMarketButton}
+                        >
                             مارکت من
-                        </Link>
+                        </button>
                     </li>
 
                     <li
@@ -115,6 +146,23 @@ function UserMenu () {
         </aside>
         {/* aside مربوط به منوی  */}
 {/* --------------------------برای بزگ تر از lg */}
+
+
+            {/* مودال هشدار تکمیل نبودن پروفایل */}
+            <Modal show={showIncompleteModal} onHide={() => setShowIncompleteModal(false)} centered>
+                <Modal.Body className="text-center py-4 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-2">
+                    <p className='mb-2'>! برای استفاده از رابط کاربری مارکت من،ابتدا باید پروفایل خود را کامل کنید </p>
+                    <hr />
+                    <div className="flex flex-row justify-center gap-2 mt-2">
+                        <Button variant="primary" onClick={handleGoToProfile}>
+                            تکمیل پروفایل
+                        </Button>
+                        <Button variant="secondary" onClick={() => setShowIncompleteModal(false)}>
+                            متوجه شدم
+                        </Button>
+                    </div>
+                </Modal.Body>
+            </Modal>
     </>
     )
 }

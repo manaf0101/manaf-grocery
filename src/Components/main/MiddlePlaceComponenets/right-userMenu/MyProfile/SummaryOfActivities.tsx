@@ -58,7 +58,7 @@ function SummaryOfActivities() {
                             style={{ backgroundImage: "url('/pictures/temp_icon.svg')", backgroundOrigin: 'border-box', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
                         >
                             <div className="lg:hidden absolute flex justify-center items-center bottom-0 left-0 w-3 h-3 bg-gray-300 dark:bg-gray-500 rounded-sm">
-                                <p >{toPersianDigits(0)}</p>
+                                <p >{toPersianDigits(orders.delivered)}</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
@@ -75,7 +75,7 @@ function SummaryOfActivities() {
                             style={{ backgroundImage: "url('/pictures/return-bag 1.svg')", backgroundOrigin: 'border-box', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
                         >
                             <div className="lg:hidden absolute flex justify-center items-center bottom-0 left-0 w-3 h-3 bg-gray-300 dark:bg-gray-500 rounded-sm">
-                                <p>{toPersianDigits(0)}</p>
+                                <p>{toPersianDigits(orders.returned)}</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
@@ -92,7 +92,7 @@ function SummaryOfActivities() {
                             style={{ backgroundImage: "url('/pictures/cancel.svg')", backgroundOrigin: 'border-box', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
                         >
                             <div className="lg:hidden absolute flex justify-center items-center bottom-0 left-0 w-3 h-3 bg-gray-300 dark:bg-gray-500 rounded-sm">
-                                <p>{toPersianDigits(0)}</p>
+                                <p>{toPersianDigits(orders.canceled)}</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center">

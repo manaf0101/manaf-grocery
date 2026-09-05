@@ -19,7 +19,9 @@ import { useLocation } from "react-router-dom";
 function TheUser() {
   const location = useLocation();
   const isMyProfile = location.pathname.includes("MyProfile");
+  const isMineMarket = location.pathname.includes("mine-market");
   // برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود 
+
 
 
   // برای زمانی که علامت سه خط کنار منوی کاربری را می زنیم و منوی کاربری ظاهر می شود . 
@@ -77,13 +79,13 @@ function TheUser() {
             {/* row 2 */}
             <div className="row-start-2 relative dark:bg-slate-950">
               <div className="hidden relative dark:bg-slate-950 lg:grid md:grid-cols-5 h-auto" dir="rtl">
-                <div className="relative col-start-1 col-span-4 grid grid-cols-subgrid dark:bg-slate-950  h-auto">
+                <div className={`relative col-start-1 ${isMineMarket ? 'col-span-5' : 'col-span-4'}  grid grid-cols-subgrid dark:bg-slate-950  h-auto`}>
                   {/*...................این کد : h-[calc(100vh-5rem)] باعث می شود ویژگی sticky , به طور صحیح 
 ......................عمل کند و با رسیدن اسکرول به انتهای صفحه ، ابن ویژگی قطع نشود*/}
                   <div className=" col-start-1 sticky top-10 z-10 dark:bg-slate-950  h-[calc(100vh-5rem)]">
                     <UserMenu />
                   </div>
-                  <div className="col-start-2 col-span-3 p-0 dark:bg-slate-950" dir="rtl">
+                  <div className={`col-start-2 ${isMineMarket || isMyProfile ? 'col-span-4' : 'col-span-3'}  p-0 dark:bg-slate-950`} dir="rtl">
                     <Outlet />
                   </div>
                 </div>
@@ -91,7 +93,7 @@ function TheUser() {
                 {/* منوی سمت چپ */}
                 {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
                 {
-                  !isMyProfile && (
+                  !isMyProfile && !isMineMarket &&(
                     <div className="relative col-start-5 col-span-1  dark:bg-slate-950 h-auto" dir="ltr">
                       <UserMenuLeft />
                     </div>
@@ -107,6 +109,7 @@ function TheUser() {
                   )
                 }
                 {/* منو مخصوص کامپوننت MyProfile */}
+
 
                 {/*برای شرطی کردن کامپوننت UserMenuLeft.tsx که در بعضی دامین های مشخصی ظاهر نشود */}
                 {/* منوی سمت چپ */}

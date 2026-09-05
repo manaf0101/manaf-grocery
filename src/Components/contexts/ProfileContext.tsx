@@ -22,6 +22,7 @@ interface ProfileContextType {
     profile: ProfileData | null
     setProfile: (profile: ProfileData) => void
     refetchProfile: () => Promise<void>
+    profileProgress : number
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined)
@@ -29,6 +30,7 @@ const ProfileContext = createContext<ProfileContextType | undefined>(undefined)
 export function ProfileProvider({ children }: { children: ReactNode }) {
     const { userId } = useParams()
     const [profile, setProfile] = useState<ProfileData | null>(null)
+    const [profileProgress, setProfileProgress] = useState(0)
 
 
     const refetchProfile = async () => {
@@ -45,8 +47,31 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
         refetchProfile()
     }, [userId])
 
+// برای محاسبه درصد تکمیل پروفایل و بروزرسانی آن در هر بار تغییر پروفایل
+    useEffect(() => {
+  if (!profile) return
+
+  const fields = [
+    profile.userEmail,
+    profile.username,
+    profile.fullName,
+    profile.userPhone,
+    profile.userBirth,
+    profile.userNationalityCode,
+    profile.job,
+    profile?.refundMethod?.shebaNumber,
+  ]
+
+  const completedFields = fields.filter(
+    field => field !== undefined && field !== null && field !== ""
+  ).length
+
+  const nextProgress = Math.round((completedFields / fields.length) * 100)
+  setProfileProgress(nextProgress)
+}, [profile])
+
     return (
-        <ProfileContext.Provider value={{ profile, setProfile, refetchProfile }}>
+        <ProfileContext.Provider value={{ profile, setProfile, refetchProfile  , profileProgress }}>
             {children}
         </ProfileContext.Provider>
     )
