@@ -6,6 +6,11 @@ import TheUser from "./Components/TheUser";
 import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
+// مایکت من 
+import { storeLoader } from "./Loaders/storeLoader";
+import { storeAction } from "./Actions/storeAction";
+// مایکت من 
+
 // کامپوننت های MyProfile
 import { editProfileAction } from "./Actions/editProfileAction"
 import SummaryOfActivities from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/SummaryOfActivities";
@@ -90,7 +95,9 @@ function App() {
 
         {
           path: `${userMenuPaths}mine-market`,
-          element: <MineMarket />
+          element: <MineMarket />,
+          loader : storeLoader,  
+          action : storeAction , 
         },
         {
           path: `${userMenuPaths}Gavanin`,

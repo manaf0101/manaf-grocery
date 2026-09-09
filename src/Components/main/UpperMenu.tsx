@@ -1,4 +1,4 @@
-import { RiHome2Line } from "react-icons/ri";
+import { RiHome2Line, RiStore2Line } from "react-icons/ri";
 import { FiSun } from "react-icons/fi";
 import { BsMoonStars } from "react-icons/bs";
 import { SlCallIn } from "react-icons/sl";
@@ -7,6 +7,8 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import useDarkMood from "../../Hooks/useDarkMood";
 import { useEffect , useState} from "react";
 import NavUpperUserMenu from "./NavUpperUserMenu";
+import { useSellingPanel } from "../contexts/SellingPanelContext";
+
 
 type UpperMenu = {
     openUserMenu : () => any
@@ -14,7 +16,7 @@ type UpperMenu = {
 
 function UpperMenu ({openUserMenu} : UpperMenu) {
 
-
+const {isSellingPanelEnabled} =  useSellingPanel()
 
 // DARK MOOD
 
@@ -77,7 +79,7 @@ const [theme]  =  useDarkMood() ;
 {/*1*/}
 {/* منوی بالایی برای بزرگتر از sm*/}
 <div>
-    <ul className="hidden sm:grid bg-slate-100 dark:bg-slate-950 gap-2 grid-cols-5 md:grid-cols-7 pb-2" dir="rtl" style={{fontFamily : 'VAZIR'}}>
+    <ul className="hidden sm:grid bg-slate-100 dark:bg-slate-950 gap-2 grid-cols-6 md:grid-cols-8 pb-2" dir="rtl" style={{fontFamily : 'VAZIR'}}>
         {/* لوگوی خانه */}
         <li style={{cursor : "pointer"}} className=" md:col-start-1 md:col-span-1 border-l-2 border-r-2 border-slate-200 mr-2 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
           <p className="dark:text-white "><RiHome2Line className="size-5"/></p>
@@ -117,8 +119,23 @@ const [theme]  =  useDarkMood() ;
         </li>
         {/*سبد خرید*/}
 
+        {/* پنل فروش */}
+{/* پنل فروش */}
+<li
+    style={{ cursor: isSellingPanelEnabled ? "pointer" : "not-allowed" }}
+    className={`md:col-start-6 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center transition duration-200 ease-in-out ${
+        isSellingPanelEnabled
+            ? "hover:bg-gray-300 dark:hover:bg-cyan-900"
+            : "opacity-40 pointer-events-none"
+    }`}
+>
+    <p className="dark:text-white"><RiStore2Line className="size-6 pl-1" /></p>
+    <p className="dark:text-white text-nowrap">پنل فروش</p>
+</li>
+{/* پنل فروش */}
+
         {/* manaf grocery */}
-        <li className=" md:col-span-2 md:col-start-6 md:pl-0 flex justify-end items-center ">
+        <li className="hidden md:grid md:col-span-2 md:col-start-7 md:pl-0 flex justify-end items-center ">
         <p  className= " dark:text-white p-1 bg-slate-300 dark:bg-slate-500  rounded-r-lg" style={{fontFamily : 'cursive'}}>manaf grocery</p>
         </li>
         {/* manaf grocery */}

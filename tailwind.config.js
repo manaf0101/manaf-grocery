@@ -23,6 +23,7 @@ export default {
         'footer-1' : 'rgb(247 247 247)' ,
         'footer-2' : '#172934' ,
         'footer-3' : '#a39e9b' , 
+        'toggle-panel' : '#0d6efd' , 
       } ,
       screens : {
         xsss : '20px' , 

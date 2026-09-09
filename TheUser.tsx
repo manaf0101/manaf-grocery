@@ -9,7 +9,6 @@ import MyProfileLeftMenu from "./main/MiddlePlaceComponenets/right-userMenu/MyPr
 import { Outlet, useLocation } from "react-router-dom"
 
 import { ProfileProvider } from "./contexts/ProfileContext"
-import { SellingPanelProvider } from "./contexts/SellingPanelContext"
 
 function TheUser() {
   const location = useLocation()
@@ -41,7 +40,6 @@ function TheUser() {
 
   return (
     <ProfileProvider>
-      <SellingPanelProvider>
       <div className="h-full w-full relative dark:bg-slate-950">
 
         {/* هدر سایت */}
@@ -71,14 +69,14 @@ function TheUser() {
           </div>
           {/* منوی راست */}
 
-{/* محتوای اصلی صفحه — همان Outlet یکتا */}
-<div
-  className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket ? 'lg:col-span-4' : 'lg:col-span-3'
-    }`}
->
-  <Outlet />
-</div>
-{/* محتوای اصلی صفحه */}
+          {/* محتوای اصلی صفحه — همان Outlet یکتا */}
+          <div
+            className={`w-full min-h-screen dark:bg-slate-950 lg:col-start-2 ${isMineMarket ? 'lg:col-span-4' : 'lg:col-span-3'
+              }`}
+          >
+            <Outlet />
+          </div>
+          {/* محتوای اصلی صفحه */}
 
           {/* منوی چپ — فقط از lg به بالا، و فقط وقتی صفحه‌ی mine-market نیست */}
           {!isMineMarket && (
@@ -98,7 +96,6 @@ function TheUser() {
         {/* منوی پایینی */}
 
       </div>
-      </SellingPanelProvider>
     </ProfileProvider>
   )
 }
