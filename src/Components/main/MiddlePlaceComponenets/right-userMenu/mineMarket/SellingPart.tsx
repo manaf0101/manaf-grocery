@@ -145,7 +145,7 @@ function SelloingPart() {
     return ( 
         <div className="w-full flex flex-col gap-6 dark:text-white"> 
  
-            {/* استایل دارک‌مود مودال */} 
+            {/* استایل دارک‌مود مودال و انیمیشن دکمه*/} 
             <style> 
                 {` 
                     .dark .product-modal .modal-content { 
@@ -305,7 +305,7 @@ function SelloingPart() {
 }
                 `} 
             </style> 
-            {/* استایل دارک‌مود مودال */} 
+            {/* استایل دارک‌مود مودال و انیمیشن دکمه*/} 
  
             <div className="flex justify-between items-center pr-2 pl-2"> 
                 <h3 className="text-lg font-bold border-b-2 border-blue-500 w-fit pb-1">محصولات فروشگاه</h3> 
