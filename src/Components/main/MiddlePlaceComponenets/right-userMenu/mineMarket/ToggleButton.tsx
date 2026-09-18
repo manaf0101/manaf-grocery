@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
+interface ToggleButtonProps {
+    disabled: boolean
+    isOn: boolean
+    onToggle: (nextState: boolean) => void
+}
 
-function ToggleButton({disabled} : {disabled : boolean}) {
+function ToggleButton({ disabled, isOn, onToggle }: ToggleButtonProps) {
 
-    const [isOn, setIsOn] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalText, setModalText] = useState("");
 
     const handleToggle = () => {
         const nextState = !isOn;
-        setIsOn(nextState);
+        onToggle(nextState);
         setModalText(
             nextState
                 ? "با فعال کردن پنل فروش محصولات شما برای مشتریان قابل نمایش خواهد بود ."

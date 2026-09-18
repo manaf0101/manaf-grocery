@@ -9,9 +9,11 @@ import MyProfileLeftMenu from "./main/MiddlePlaceComponenets/right-userMenu/MyPr
 import { Outlet, useLocation } from "react-router-dom"
 
 import { ProfileProvider } from "./contexts/ProfileContext"
-import { SellingPanelProvider } from "./contexts/SellingPanelContext"
+import { SellingPanelProvider, useSellingPanel } from "./contexts/SellingPanelContext"
 
-function TheUser() {
+// کامپوننت داخلی که محتوای اصلی TheUser را رندر می‌کند
+// چون useSellingPanel باید داخل SellingPanelProvider صدا زده شود، نمی‌تواند مستقیم داخل خود TheUser باشد
+function TheUserContent() {
   const location = useLocation()
 
   // برای شرطی کردن کامپوننت‌های منو در صفحات خاص
@@ -39,65 +41,75 @@ function TheUser() {
   }
   // تابع باز و بسته کردن منوی کاربری
 
+  // خواندن مقدار از context، برای پاس دادن به UpperMenu به‌صورت prop
+  const { isSellingPanelEnabled } = useSellingPanel()
+  // خواندن مقدار از context، برای پاس دادن به UpperMenu به‌صورت prop
+
+  return (
+    <div className="h-full w-full relative dark:bg-slate-950">
+
+      {/* هدر سایت */}
+      <header>
+        {/* عکس و پروفایل */}
+        <UserProfile />
+        {/* عکس و پروفایل */}
+      </header>
+      {/* هدر سایت */}
+
+      {/* منوی بالا — فقط یک‌بار رندر می‌شود و در همه‌ی اندازه‌های صفحه ثابت می‌ماند */}
+      <div className="sticky top-0 z-40">
+        <UpperMenu openUserMenu={smallAside} isSellingPanelEnabled={isSellingPanelEnabled} />
+      </div>
+      {/* منوی بالا */}
+
+      {/* آیکون باز/بسته کردن منوی کاربری — فقط یک‌بار رندر می‌شود */}
+      <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible} />
+      {/* آیکون باز/بسته کردن منوی کاربری */}
+
+      {/* بخش میانی: یک Outlet واحد که فقط چیدمانش با اندازه‌ی صفحه تغییر می‌کند */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 relative dark:bg-slate-950" dir="rtl">
+
+        {/* منوی راست — فقط از lg به بالا نمایش داده می‌شود */}
+        <div className="hidden lg:block lg:col-start-1 lg:col-span-1 sticky top-10 z-10 h-[calc(100vh-5rem)] dark:bg-slate-950">
+          <UserMenu />
+        </div>
+        {/* منوی راست */}
+
+        {/* محتوای اصلی صفحه — همان Outlet یکتا */}
+        <div
+          className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket ? 'lg:col-span-4' : 'lg:col-span-3'
+            }`}
+        >
+          <Outlet />
+        </div>
+        {/* محتوای اصلی صفحه */}
+
+        {/* منوی چپ — فقط از lg به بالا، و فقط وقتی صفحه‌ی mine-market نیست */}
+        {!isMineMarket && (
+          <div className="hidden lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950" dir="ltr">
+            {isMyProfile ? <MyProfileLeftMenu /> : <UserMenuLeft />}
+          </div>
+        )}
+        {/* منوی چپ */}
+
+      </div>
+      {/* بخش میانی */}
+
+      {/* منوی پایینی — فقط برای صفحه‌ی کوچک‌تر از sm نمایش داده می‌شود */}
+      <div className="sm:hidden">
+        <BottomMenu />
+      </div>
+      {/* منوی پایینی */}
+
+    </div>
+  )
+}
+
+function TheUser() {
   return (
     <ProfileProvider>
       <SellingPanelProvider>
-      <div className="h-full w-full relative dark:bg-slate-950">
-
-        {/* هدر سایت */}
-        <header>
-          {/* عکس و پروفایل */}
-          <UserProfile />
-          {/* عکس و پروفایل */}
-        </header>
-        {/* هدر سایت */}
-
-        {/* منوی بالا — فقط یک‌بار رندر می‌شود و در همه‌ی اندازه‌های صفحه ثابت می‌ماند */}
-        <div className="sticky top-0 z-40">
-          <UpperMenu openUserMenu={smallAside} />
-        </div>
-        {/* منوی بالا */}
-
-        {/* آیکون باز/بسته کردن منوی کاربری — فقط یک‌بار رندر می‌شود */}
-        <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible} />
-        {/* آیکون باز/بسته کردن منوی کاربری */}
-
-        {/* بخش میانی: یک Outlet واحد که فقط چیدمانش با اندازه‌ی صفحه تغییر می‌کند */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 relative dark:bg-slate-950" dir="rtl">
-
-          {/* منوی راست — فقط از lg به بالا نمایش داده می‌شود */}
-          <div className="hidden lg:block lg:col-start-1 lg:col-span-1 sticky top-10 z-10 h-[calc(100vh-5rem)] dark:bg-slate-950">
-            <UserMenu />
-          </div>
-          {/* منوی راست */}
-
-{/* محتوای اصلی صفحه — همان Outlet یکتا */}
-<div
-  className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket ? 'lg:col-span-4' : 'lg:col-span-3'
-    }`}
->
-  <Outlet />
-</div>
-{/* محتوای اصلی صفحه */}
-
-          {/* منوی چپ — فقط از lg به بالا، و فقط وقتی صفحه‌ی mine-market نیست */}
-          {!isMineMarket && (
-            <div className="hidden lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950" dir="ltr">
-              {isMyProfile ? <MyProfileLeftMenu /> : <UserMenuLeft />}
-            </div>
-          )}
-          {/* منوی چپ */}
-
-        </div>
-        {/* بخش میانی */}
-
-        {/* منوی پایینی — فقط برای صفحه‌ی کوچک‌تر از sm نمایش داده می‌شود */}
-        <div className="sm:hidden">
-          <BottomMenu />
-        </div>
-        {/* منوی پایینی */}
-
-      </div>
+        <TheUserContent />
       </SellingPanelProvider>
     </ProfileProvider>
   )

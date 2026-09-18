@@ -6,6 +6,11 @@ import { useLoaderData, useFetcher } from "react-router-dom"
 import { FaPen, FaChevronDown } from "react-icons/fa"
 import ToggleButton from './ToggleButton';
 import { useSellingPanel } from '../../../../contexts/SellingPanelContext';
+import { useLocalStorage } from '../../../../../Hooks/useLocalStorage';
+// برای قسمت فروش
+import SelloingPart from './SellingPart';
+// برای قسمت فروش
+
 // برای قسمت بررسی تکراری نبودن نام کاربری .   
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -30,8 +35,12 @@ function MineMarket() {
     const store = useLoaderData() as StoreData
     const fetcher = useFetcher()
 
+
+    // وضعیت روشن/خاموش بودن خود پنل فروش (با localStorage ذخیره می‌شود)
+    const [isSellingActive, setIsSellingActive] = useLocalStorage<boolean>('sellingToggle', false)
+
     // جهت فعالسازی پنل فروش
-    const {isSellingPanelEnabled , setSellingPanelEnabled} = useSellingPanel()
+    const { isSellingPanelEnabled, setSellingPanelEnabled } = useSellingPanel()
     // جهت فعالسازی پنل فروش
 
     // نام غرفه و کد یکتای فروشنده — اگر فروشگاه از قبل ساخته شده، با مقدار سرور پر می‌شوند
@@ -109,23 +118,23 @@ function MineMarket() {
     }, [showStoreNameModal, tempStoreName, sellerID])
 
     // نتیجه‌ی نهایی «ثبت تغییرات»
-useEffect(() => {
-    if (fetcher.state === "idle" && fetcher.data) {
-        if (fetcher.data.success) {
-            setShowSuccessModal(true)
+    useEffect(() => {
+        if (fetcher.state === "idle" && fetcher.data) {
+            if (fetcher.data.success) {
+                setShowSuccessModal(true)
 
-            // وضعیت پنل فروش را از داده‌ای که واقعاً سرور ذخیره و برگردانده، تنظیم می‌کنیم
-            const isComplete = !!(
-                fetcher.data.store?.storeName?.trim() &&
-                fetcher.data.store?.username?.trim() &&
-                fetcher.data.store?.contactInfo?.phone1?.trim()
-            )
-            setSellingPanelEnabled(isComplete)
-        } else {
-            setErrorMessage(fetcher.data.message || "خطایی رخ داد، لطفاً دوباره تلاش کنید")
+                // وضعیت پنل فروش را از داده‌ای که واقعاً سرور ذخیره و برگردانده، تنظیم می‌کنیم
+                const isComplete = !!(
+                    fetcher.data.store?.storeName?.trim() &&
+                    fetcher.data.store?.username?.trim() &&
+                    fetcher.data.store?.contactInfo?.phone1?.trim()
+                )
+                setSellingPanelEnabled(isComplete)
+            } else {
+                setErrorMessage(fetcher.data.message || "خطایی رخ داد، لطفاً دوباره تلاش کنید")
+            }
         }
-    }
-}, [fetcher.state, fetcher.data])
+    }, [fetcher.state, fetcher.data])
 
     // باز کردن مودال نام غرفه
     const openStoreNameModal = () => {
@@ -280,15 +289,15 @@ useEffect(() => {
     }
 
 
-// وضعیت پنل فروش را در بارگذاری اولیه‌ی صفحه، بر اساس داده‌ی واقعیِ سرور تنظیم می‌کند
-useEffect(() => {
-    const isComplete = !!(
-        store?.storeName?.trim() &&
-        store?.username?.trim() &&
-        store?.contactInfo?.phone1?.trim()
-    )
-    setSellingPanelEnabled(isComplete)
-}, [])
+    // وضعیت پنل فروش را در بارگذاری اولیه‌ی صفحه، بر اساس داده‌ی واقعیِ سرور تنظیم می‌کند
+    useEffect(() => {
+        const isComplete = !!(
+            store?.storeName?.trim() &&
+            store?.username?.trim() &&
+            store?.contactInfo?.phone1?.trim()
+        )
+        setSellingPanelEnabled(isComplete)
+    }, [])
 
 
     // محاسبات مربوط به رسم دایره‌ی SVG
@@ -503,9 +512,13 @@ useEffect(() => {
                 <div className='flex w-full h-auto flex-row justify-center items-end gap-4'>
 
                     {/* پنل فروش */}
-                    <div className={`flex flex-row px-6 gap-2 bg-gray-200 dark:bg-gray-500 rounded-md ${isSellingPanelEnabled || 'opacity-50'}`} style={{padding : '7px 24px'}}>
-                    <ToggleButton disabled={!isSellingPanelEnabled}/>
-                    <span>پنل فروش</span>
+                    <div className={`flex flex-row px-6 gap-2 bg-gray-200 dark:bg-gray-500 rounded-md ${isSellingPanelEnabled || 'opacity-50'}`} style={{ padding: '7px 24px' }}>
+                        <ToggleButton
+                            disabled={!isSellingPanelEnabled}
+                            isOn={isSellingActive}
+                            onToggle={setIsSellingActive}
+                        />
+                        <span>پنل فروش</span>
                     </div>
                     {/* پنل فروش */}
 
@@ -521,7 +534,7 @@ useEffect(() => {
             </div>
 
             {/* فروش */}
-            <div className='flex flex-col'>پنل فروش</div>
+            {isSellingActive && <SelloingPart />}
             {/* فروش */}
 
             {/* مودال ویرایش نام غرفه */}
