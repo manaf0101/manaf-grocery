@@ -7,8 +7,9 @@ import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
 // مایکت من 
-import { storeLoader } from "./Loaders/storeLoader";
+import { mineMarketLoader } from "./Loaders/mineMarketLoader";
 import { storeAction } from "./Actions/storeAction";
+import { productAction } from "./Actions/productAction";
 // مایکت من 
 
 // کامپوننت های MyProfile
@@ -22,9 +23,9 @@ import DeliveredOrders from "./Components/main/MiddlePlaceComponenets/right-user
 import ReturnedOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/ReturnedOrders";
 import CanceledOrders from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/CanceledOrders";
 
-
+import { usersLoader } from "./Loaders/usersLoader";
 import { profileLoader } from "./Loaders/profileLoader";
-import {ordersLoaderCounting} from "./Loaders/ordersLoaderCounting";
+import { ordersLoaderCounting } from "./Loaders/ordersLoaderCounting";
 import { listsLoader } from "./Loaders/listsLoader";
 import { currentOrdersLoader } from "./Loaders/currentOrdersLoader";
 import { deliveredOrdersLoader } from "./Loaders/deliveredOrdersLoader";
@@ -77,7 +78,8 @@ function App() {
     },
     {
       path: '/signUP',
-      element: <SignUp />
+      element: <SignUp /> ,
+      loader : usersLoader
     },
     {
       path: '/TheUserPage/:userId/main',
@@ -96,8 +98,19 @@ function App() {
         {
           path: `${userMenuPaths}mine-market`,
           element: <MineMarket />,
-          loader : storeLoader,  
-          action : storeAction , 
+          loader: mineMarketLoader,
+          action: storeAction,
+          // fetcher.submit می‌تونه با پارامتر action، درخواست رو به هر 
+          // route دیگه‌ای (نه فقط route فعلی) بفرسته. برای همین یه route
+          //  جدید ساختیم که هیچ elementی نداره
+          //  (پس هیچ‌وقت چیزی رو صفحه رندر نمی‌کنه)، فقط یه action داره — 
+          // این الگوی رایجیه به اسم resource route.
+          children: [
+            {
+              path: `${userMenuPaths}mine-market/products`,
+              action: productAction,   // ← resource route؛ بدون element، فقط برای اکشن محصولات
+            }
+          ]
         },
         {
           path: `${userMenuPaths}Gavanin`,
@@ -137,8 +150,8 @@ function App() {
             {
               path: `${userMenuPaths}MyProfile/MyOrders`,
               element: <MyOrders />,
-              loader : ordersLoaderCounting ,
-              children :[ 
+              loader: ordersLoaderCounting,
+              children: [
                 {
                   path: `${userMenuPaths}MyProfile/MyOrders/deliveredOrders`,
                   element: <DeliveredOrders />,
@@ -154,9 +167,10 @@ function App() {
                   element: <CanceledOrders />,
                   loader: canceledOrdersLoader,
                 },
-                {index : true ,
-                 element : <MyCurrentOrders /> ,
-                 loader : currentOrdersLoader , 
+                {
+                  index: true,
+                  element: <MyCurrentOrders />,
+                  loader: currentOrdersLoader,
                 }
               ]
             },
@@ -167,8 +181,8 @@ function App() {
             },
             {
               index: true,
-              element: <SummaryOfActivities /> ,
-              loader : ordersLoaderCounting , 
+              element: <SummaryOfActivities />,
+              loader: ordersLoaderCounting,
             }
           ]
         },

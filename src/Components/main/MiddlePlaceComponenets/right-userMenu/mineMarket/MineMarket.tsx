@@ -32,7 +32,7 @@ interface StoreData {
 
 function MineMarket() {
 
-    const store = useLoaderData() as StoreData
+const { store } = useLoaderData() as { store: StoreData; products: any[] }
     const fetcher = useFetcher()
 
 
