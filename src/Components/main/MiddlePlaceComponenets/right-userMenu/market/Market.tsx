@@ -9,7 +9,9 @@ import ProductList from "./suggestions/ProductList"
 import Footer from "../../Footer/Footer"
 import { FaCopyright } from "react-icons/fa";
 
+
 function Market() {
+
 
     return (
         <>

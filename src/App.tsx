@@ -12,6 +12,10 @@ import { storeAction } from "./Actions/storeAction";
 import { productAction } from "./Actions/productAction";
 // مایکت من 
 
+// market
+import { usersWithStoreAndAllProducys } from "./Loaders/usersWithStoreAndAllProducys";
+// market
+
 // کامپوننت های MyProfile
 import { editProfileAction } from "./Actions/editProfileAction"
 import SummaryOfActivities from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/SummaryOfActivities";
@@ -82,7 +86,7 @@ function App() {
       loader : usersLoader
     },
     {
-      path: '/TheUserPage/:userId/main',
+      path: '/TheUserPage/:userId/main', 
       element: <TheUser />,
       children: [
         {
@@ -92,7 +96,8 @@ function App() {
 
         {
           path: `${userMenuPaths}market`,
-          element: <Market />
+          element: <Market />,
+          loader : usersWithStoreAndAllProducys
         },
 
         {

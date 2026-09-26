@@ -38,7 +38,7 @@ function Category ({id} : CategoryProps) {
             <div data-aos="fade-up"
      data-aos-anchor-placement="center-bottom" className="flex justify-center items-center dark:text-white text-lg " style={{fontFamily : 'VAZIR'}}>
                <p ref={ref} id={id}  className="bg-gg-5 dark:bg-slate-800 p-2 rounded-md">خرید براساس دسته بندی</p> 
-            </div>
+            </div> 
             {/* نوشته ی خرید بر اساس دسته بندی */}
 
             {/* دسته بندی ها - اسلایدر */}
