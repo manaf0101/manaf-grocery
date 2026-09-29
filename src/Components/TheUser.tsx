@@ -10,27 +10,20 @@ import { Outlet, useLocation } from "react-router-dom"
 
 import { ProfileProvider } from "./contexts/ProfileContext"
 import { SellingPanelProvider, useSellingPanel } from "./contexts/SellingPanelContext"
+import { CartProvider, useCart } from "./contexts/CartContext"
 
 // کامپوننت داخلی که محتوای اصلی TheUser را رندر می‌کند
-// چون useSellingPanel باید داخل SellingPanelProvider صدا زده شود، نمی‌تواند مستقیم داخل خود TheUser باشد
+// چون useSellingPanel و useCart باید داخل Providerهای مربوطه صدا زده شوند، نمی‌توانند مستقیم داخل خود TheUser باشند
 function TheUserContent() {
   const location = useLocation()
 
-  // برای شرطی کردن کامپوننت‌های منو در صفحات خاص
   const isMyProfile = location.pathname.includes("MyProfile")
   const isMineMarket = location.pathname.includes("mine-market")
   const isUsersCard = location.pathname.includes("UsersCard")
-  // برای شرطی کردن کامپوننت‌های منو در صفحات خاص
 
-  // برای زمانی که علامت سه خط کنار منوی کاربری را می‌زنیم و منوی کاربری ظاهر می‌شود
   const [smallAsideVisible, setSmallAsideVisible] = useState('')
-  // برای زمانی که علامت سه خط کنار منوی کاربری را می‌زنیم و منوی کاربری ظاهر می‌شود
-
-  // برای کارکردن حالت ترنزیشن در منوی کاربری
   const [showRightCart, setShowRightCart] = useState('cart')
-  // برای کارکردن حالت ترنزیشن در منوی کاربری
 
-  // تابع باز و بسته کردن منوی کاربری
   function smallAside() {
     if (smallAsideVisible === '') {
       setSmallAsideVisible('transparentBcg')
@@ -40,68 +33,48 @@ function TheUserContent() {
       setShowRightCart('cart')
     }
   }
-  // تابع باز و بسته کردن منوی کاربری
 
-  // خواندن مقدار از context، برای پاس دادن به UpperMenu به‌صورت prop
   const { isSellingPanelEnabled } = useSellingPanel()
-  // خواندن مقدار از context، برای پاس دادن به UpperMenu به‌صورت prop
+  // تعداد سبد خرید، برای پاس دادن به UpperMenu به‌صورت prop
+  const { cartCount } = useCart()
 
   return (
     <div className="h-full w-full relative dark:bg-slate-950">
 
-      {/* هدر سایت */}
       <header>
-        {/* عکس و پروفایل */}
         <UserProfile />
-        {/* عکس و پروفایل */}
       </header>
-      {/* هدر سایت */}
 
-      {/* منوی بالا — فقط یک‌بار رندر می‌شود و در همه‌ی اندازه‌های صفحه ثابت می‌ماند */}
       <div className="sticky top-0 z-40">
-        <UpperMenu openUserMenu={smallAside} isSellingPanelEnabled={isSellingPanelEnabled} />
+        <UpperMenu openUserMenu={smallAside} isSellingPanelEnabled={isSellingPanelEnabled} cartCount={cartCount} />
       </div>
-      {/* منوی بالا */}
 
-      {/* آیکون باز/بسته کردن منوی کاربری — فقط یک‌بار رندر می‌شود */}
       <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible} />
-      {/* آیکون باز/بسته کردن منوی کاربری */}
 
-      {/* بخش میانی: یک Outlet واحد که فقط چیدمانش با اندازه‌ی صفحه تغییر می‌کند */}
       <div className="grid grid-cols-1 lg:grid-cols-5 relative dark:bg-slate-950" dir="rtl">
 
-        {/* منوی راست — فقط از lg به بالا نمایش داده می‌شود */}
         <div className="hidden lg:block lg:col-start-1 lg:col-span-1 sticky top-10 z-10 h-[calc(100vh-5rem)] dark:bg-slate-950">
           <UserMenu />
         </div>
-        {/* منوی راست */}
 
-        {/* محتوای اصلی صفحه — همان Outlet یکتا */}
         <div
           className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket || isUsersCard ? 'lg:col-span-4' : 'lg:col-span-3'
             }`}
         >
           <Outlet />
         </div>
-        {/* محتوای اصلی صفحه */}
 
-        {/* منوی چپ */}
-        {/* منوی چپ — فقط از lg به بالا، و فقط وقتی صفحه‌ی mine-market نیست */}
         {!isMineMarket && !isUsersCard && (
           <div className="hidden lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950" dir="ltr">
             {isMyProfile ? <MyProfileLeftMenu /> : <UserMenuLeft />}
           </div>
         )}
-        {/* منوی چپ */}
 
       </div>
-      {/* بخش میانی */}
 
-      {/* منوی پایینی — فقط برای صفحه‌ی کوچک‌تر از sm نمایش داده می‌شود */}
       <div className="sm:hidden">
         <BottomMenu />
       </div>
-      {/* منوی پایینی */}
 
     </div>
   )
@@ -111,7 +84,9 @@ function TheUser() {
   return (
     <ProfileProvider>
       <SellingPanelProvider>
-        <TheUserContent />
+        <CartProvider>
+          <TheUserContent />
+        </CartProvider>
       </SellingPanelProvider>
     </ProfileProvider>
   )

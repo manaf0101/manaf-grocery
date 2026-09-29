@@ -34,16 +34,17 @@ const ProductList = () => {
   const { allProducts } = useLoaderData() as SellersAndAllProducts;
 
   // قیمت، تخفیف و توضیحات هم لازم شدن، پس دیگه فقط اسم و عکس کافی نیست
-  const products = allProducts.map((product) => ({
+const products = allProducts.map((product) => ({
     _id: product._id,
     name: product.name,
     image: product.imageUrl.startsWith("http")
-      ? product.imageUrl
-      : `http://localhost:8000${product.imageUrl}`,
+        ? product.imageUrl
+        : `http://localhost:8000${product.imageUrl}`,
     price: product.price,
     discountPrice: product.discountPrice,
     description: product.description,
-  }));
+    sellerId: product.sellerId,   // ← این خط اضافه شد، برای اینکه بعداً نام غرفه پیدا بشه
+}));
 
   return (
     <ProductCard

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigation} from "react-router-dom";
+import { useNavigation , useFetcher , useParams} from "react-router-dom";
 
 import { Modal, Button, Spinner } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
@@ -12,6 +12,9 @@ import { useActiveSection } from "../../../../../contexts/ActiveSectionContext";
 import { useInView } from 'react-intersection-observer'
 // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
 
+// برای سبد خرید
+import { useCart } from "../../../../../contexts/CartContext";
+
 
 type product = {
     _id: string
@@ -20,6 +23,7 @@ type product = {
     price: number
     discountPrice?: number
     description?: string
+    sellerId?: string
 }
 
 
@@ -46,6 +50,14 @@ function InvoiceRow({ label, value, valueClassName }: { label: string; value: st
 
 // هر کارت محصول، وضعیت سبد خرید خودش رو جدا از بقیه نگه می‌داره
 function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolean }) {
+
+
+    // جهت پروسه ی افزودن به سبد خرید
+    const userDomainId = useParams<{ userId: string }>().userId || '';
+    const cartFetcher = useFetcher()
+    const { setCartCount } = useCart()
+    // مسیر UsersCard، چون action مربوط به سبد خرید همونجا تعریف شده
+    const cartActionPath = `/TheUserPage/${userDomainId}/main/userMenu/UsersCard`
 
 
 
@@ -98,10 +110,7 @@ function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolea
         setShowInvoiceModal(false)
     }
 
-    // پروسه افزودن به سبد خرید 
-    const addingToCardProcess = () => {
-        setShowInvoiceModal(false)
-    }
+
 
     // مجموع قیمت پایه، بدون هیچ تخفیفی (همون عدد سیاه ضرب در تعداد)
     const totalPrice = quantity * product.price
@@ -143,6 +152,33 @@ function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolea
         } finally {
             setIsCheckingCoupon(false)
         }
+    }
+
+        // پروسه افزودن به سبد خرید 
+    const addingToCardProcess = () => {
+
+// اطلاعاتی که باید تو سبد خرید ذخیره بشه؛ فقط همون‌هایی که بدون کد تخفیف خریدار حساب می‌شن
+const payload: Record<string, string | number> = {
+            intent: "add",
+            productId: product._id,
+            productName: product.name,
+            sellerId: product.sellerId || "",
+            quantity: quantity,
+            totalPrice: totalPrice,
+            sellerDiscountedTotalPrice: sellerDiscountedTotal,
+            productImage: product.image,
+        }
+
+        cartFetcher.submit(payload, {
+            method: "post",
+            action: cartActionPath,
+            encType: "application/json",
+        })
+
+        // بلافاصله عدد بالای آیکون سبد خرید زیاد می‌شه، بدون اینکه منتظر جواب سرور بمونیم
+        setCartCount((prev) => prev + quantity)
+
+        setShowInvoiceModal(false)
     }
 
     return (
@@ -317,7 +353,9 @@ function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolea
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeInvoiceModal}>انصراف</Button>
-                    <Button variant="primary" onClick={addingToCardProcess}>افزودن به سبد خرید</Button>
+                    <Button variant="primary" onClick={addingToCardProcess} disabled={cartFetcher.state !== "idle"}>
+                        {cartFetcher.state !== "idle" ? "در حال ثبت..." : "افزودن به سبد خرید"}
+                    </Button>
                 </Modal.Footer>
             </Modal>
             {/* مدال فاکتور خرید */}

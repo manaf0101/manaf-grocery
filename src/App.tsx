@@ -6,6 +6,11 @@ import TheUser from "./Components/TheUser";
 import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
+// سبد خرید
+import { cartLoader } from "./Loaders/cartLoader";
+import { cartAction } from "./Actions/cartAction"
+// سبد خرید
+
 // مایکت من 
 import { mineMarketLoader } from "./Loaders/mineMarketLoader";
 import { storeAction } from "./Actions/storeAction";
@@ -83,11 +88,11 @@ function App() {
     },
     {
       path: '/signUP',
-      element: <SignUp /> ,
-      loader : usersLoader
+      element: <SignUp />,
+      loader: usersLoader
     },
     {
-      path: '/TheUserPage/:userId/main', 
+      path: '/TheUserPage/:userId/main',
       element: <TheUser />,
       children: [
         {
@@ -98,7 +103,7 @@ function App() {
         {
           path: `${userMenuPaths}market`,
           element: <Market />,
-          loader : usersWithStoreAndAllProducys
+          loader: usersWithStoreAndAllProducys
         },
 
         {
@@ -194,9 +199,11 @@ function App() {
         },
 
         {
-          path : `${userMenuPaths}UsersCard` , 
-          element : <UsersCard />
-        } , 
+          path: `${userMenuPaths}UsersCard`,
+          element: <UsersCard />,
+          loader: cartLoader,
+          action: cartAction,
+        },
 
         { index: true, element: <Index /> },
       ],

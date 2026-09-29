@@ -14,9 +14,10 @@ import { useNavigate, useParams } from "react-router-dom";
 type UpperMenu = {
     openUserMenu: () => any
     isSellingPanelEnabled: boolean
+    cartCount: number
 }
 
-function UpperMenu({ openUserMenu, isSellingPanelEnabled }: UpperMenu) {
+function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount }: UpperMenu) {
 
     // DARK MOOD
 
@@ -93,9 +94,11 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled }: UpperMenu) {
                         style={{ cursor: "pointer" }} className="relative md:col-start-5 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
                         <p className="dark:text-white"><MdOutlineShoppingCart className="size-6 pl-1" /></p>
                         <p className="dark:text-white text-nowrap">سبد خرید</p>
-                        <div className="absolute bg-red-600 dark:bg-red-700  top-0 left-0 pr-1 pl-1 text-sm font-sans rounded-md text-white">            
-                            5
-                        </div>
+                        {cartCount > 0 && (
+                            <div className="absolute bg-red-600 dark:bg-red-700  top-0 left-0 pr-1 pl-1 text-sm font-sans rounded-md text-white">
+                                {cartCount}
+                            </div>
+                        )}
                     </li>
                     {/* سبد خرید */}
 
