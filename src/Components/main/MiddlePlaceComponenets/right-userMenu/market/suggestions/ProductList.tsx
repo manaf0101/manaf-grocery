@@ -12,11 +12,13 @@ interface Seller {
 }
 
 interface AllProducts {
+  _id: string,
   createdAt: string,
   description?: string,
   imageUrl: string,
   name: string,
   price: number,
+  discountPrice?: number,
   sellerId: string,
   tag: string,
   updatedAt: string,
@@ -31,27 +33,17 @@ const ProductList = () => {
 
   const { allProducts } = useLoaderData() as SellersAndAllProducts;
 
-
-  // برای قبل از دیپلوی که استاتیک بود استفاده میشد 
-  // const products = [
-  //   { name: "محصول ۱", image:`${image[0]}`},
-  //   { name: "محصول ۲", image: "../../../../../../../public/pictures/2222.jpg_1080X1920X70.jpg" },
-  //   { name: "محصول ۳", image: "../../../../../../../public/pictures/3333.jpg_1080X1920X70.jpg" },
-  //   { name: "محصول 4", image: "../../../../../../../public/pictures/4444.jpg_512X512X70.jpg" },
-  //   { name: "محصول 5", image: "../../../../../../../public/pictures/5555.jpg_512X512X70.jpg" },
-  //   { name: "محصول 6", image: "../../../../../../../public/pictures/6666.jpg_1080X1920X70.jpg" },
-  //   { name: "محصول 7", image: "../../../../../../../public/pictures/7777.jpg" },
-  //   { name: "محصول 8", image: "../../../../../../../public/pictures/8888.jpg_512X512X70.jpg" },
-  // ];
-
-
+  // قیمت، تخفیف و توضیحات هم لازم شدن، پس دیگه فقط اسم و عکس کافی نیست
   const products = allProducts.map((product) => ({
+    _id: product._id,
     name: product.name,
     image: product.imageUrl.startsWith("http")
       ? product.imageUrl
       : `http://localhost:8000${product.imageUrl}`,
+    price: product.price,
+    discountPrice: product.discountPrice,
+    description: product.description,
   }));
-
 
   return (
     <ProductCard

@@ -7,6 +7,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import useDarkMood from "../../Hooks/useDarkMood";
 import { useEffect, useState } from "react";
 import NavUpperUserMenu from "./NavUpperUserMenu";
+import { useNavigate, useParams } from "react-router-dom";
 // دیگر نیازی به import کردن useSellingPanel نیست، چون مقدار از طریق prop دریافت می‌شود
 
 
@@ -46,6 +47,12 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled }: UpperMenu) {
 
     // DARK MOOD
 
+    // جهت سید خرید
+    const navigate = useNavigate()
+    const userDomainId = useParams<{ userId: string }>().userId || '';
+    // جهت سید خرید
+
+
     return (
         <>
             {/* -----------sm<----------- */}
@@ -77,20 +84,29 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled }: UpperMenu) {
                     <li style={{ cursor: "pointer" }} className="md:col-start-4 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
                         <p className="dark:text-white"><HiUserGroup className="size-7 pl-1" /></p>
                         <p className="dark:text-white">درباره  ما</p>
+
                     </li>
 
                     {/* سبد خرید */}
-                    <li style={{ cursor: "pointer" }} className=" md:col-start-5 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
+                    <li
+                        onClick={() => navigate(`/TheUserPage/${userDomainId}/main/userMenu/UsersCard`)}
+                        style={{ cursor: "pointer" }} className="relative md:col-start-5 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
                         <p className="dark:text-white"><MdOutlineShoppingCart className="size-6 pl-1" /></p>
                         <p className="dark:text-white text-nowrap">سبد خرید</p>
+                        <div className="absolute bg-red-600 dark:bg-red-700  top-0 left-0 pr-1 pl-1 text-sm font-sans rounded-md text-white">            
+                            5
+                        </div>
                     </li>
+                    {/* سبد خرید */}
+
+
 
                     {/* پنل فروش */}
                     <li
                         style={{ cursor: isSellingPanelEnabled ? "pointer" : "not-allowed" }}
                         className={`md:col-start-6 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center transition duration-200 ease-in-out ${isSellingPanelEnabled
-                                ? "hover:bg-gray-300 dark:hover:bg-cyan-900"
-                                : "opacity-40 pointer-events-none"
+                            ? "hover:bg-gray-300 dark:hover:bg-cyan-900"
+                            : "opacity-40 pointer-events-none"
                             }`}
                     >
                         <p className="dark:text-white"><RiStore2Line className="size-6 pl-1" /></p>

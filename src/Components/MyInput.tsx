@@ -2,7 +2,7 @@
 // .نکته ای را بگوید که شاید در هنگام مطالعه کد ، برای خواننده سوال باشد .
 
 
-import axios from "axios";
+import axios from "axios"; 
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { VscArrowSmallRight } from "react-icons/vsc";

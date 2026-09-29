@@ -48,6 +48,7 @@ import EtebarehTejary from "./Components/main/MiddlePlaceComponenets/right-userM
 import Settings from "./Components/main/MiddlePlaceComponenets/right-userMenu/settingss/Settings";
 import Hamkary from "./Components/main/MiddlePlaceComponenets/right-userMenu/hamkary/Hamkary";
 import MyProfile from "./Components/main/MiddlePlaceComponenets/right-userMenu/MyProfile/MyProfile";
+import UsersCard from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/UsersCard/UsersCard";
 // کامپوننت های قسمت میانی Theuser
 
 // CONTEXT بولد شدن ساید بار سمت چپ
@@ -191,6 +192,11 @@ function App() {
             }
           ]
         },
+
+        {
+          path : `${userMenuPaths}UsersCard` , 
+          element : <UsersCard />
+        } , 
 
         { index: true, element: <Index /> },
       ],

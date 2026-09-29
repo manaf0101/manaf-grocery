@@ -19,6 +19,7 @@ function TheUserContent() {
   // برای شرطی کردن کامپوننت‌های منو در صفحات خاص
   const isMyProfile = location.pathname.includes("MyProfile")
   const isMineMarket = location.pathname.includes("mine-market")
+  const isUsersCard = location.pathname.includes("UsersCard")
   // برای شرطی کردن کامپوننت‌های منو در صفحات خاص
 
   // برای زمانی که علامت سه خط کنار منوی کاربری را می‌زنیم و منوی کاربری ظاهر می‌شود
@@ -77,15 +78,16 @@ function TheUserContent() {
 
         {/* محتوای اصلی صفحه — همان Outlet یکتا */}
         <div
-          className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket ? 'lg:col-span-4' : 'lg:col-span-3'
+          className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket || isUsersCard ? 'lg:col-span-4' : 'lg:col-span-3'
             }`}
         >
           <Outlet />
         </div>
         {/* محتوای اصلی صفحه */}
 
+        {/* منوی چپ */}
         {/* منوی چپ — فقط از lg به بالا، و فقط وقتی صفحه‌ی mine-market نیست */}
-        {!isMineMarket && (
+        {!isMineMarket && !isUsersCard && (
           <div className="hidden lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950" dir="ltr">
             {isMyProfile ? <MyProfileLeftMenu /> : <UserMenuLeft />}
           </div>
