@@ -65,7 +65,7 @@ function CartItemCard({ item }: { item: CartItem }) {
                 <div className="flex flex-row justify-between h-auto sm:flex-1 sm:min-h-0 bg-gray-200 dark:bg-gray-600 rounded-t-2xl p-3 dark:text-white">
                     <div className="flex flex-col gap-3 h-full">
                         <div className="flex flex-row gap-3 items-center">
-                            <span className="font-bold">{item.storeName || "غرفه نامشخص"}</span>
+                            <span className="font-bold">{`غرفه ${item.storeName}` || "غرفه نامشخص"}</span>
                         </div>
                         <span className="text-sm sm:text-lg">هزینه ارسال و زمان تحویل  :   وابسته به آدرس</span>
                     </div>
