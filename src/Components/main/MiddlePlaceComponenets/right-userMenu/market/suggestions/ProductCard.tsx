@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigation, useFetcher, useParams } from "react-router-dom";
+import { useNavigation , useFetcher , useParams} from "react-router-dom";
 
 import { Modal, Button, Spinner } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
@@ -55,7 +55,7 @@ function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolea
     // جهت پروسه ی افزودن به سبد خرید
     const userDomainId = useParams<{ userId: string }>().userId || '';
     const cartFetcher = useFetcher()
-    const { refreshCartCount } = useCart()
+    const { setCartCount } = useCart()
     // مسیر UsersCard، چون action مربوط به سبد خرید همونجا تعریف شده
     const cartActionPath = `/TheUserPage/${userDomainId}/main/userMenu/UsersCard`
 
@@ -154,11 +154,11 @@ function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolea
         }
     }
 
-    // پروسه افزودن به سبد خرید 
+        // پروسه افزودن به سبد خرید 
     const addingToCardProcess = () => {
 
-        // اطلاعاتی که باید تو سبد خرید ذخیره بشه؛ فقط همون‌هایی که بدون کد تخفیف خریدار حساب می‌شن
-        const payload: Record<string, string | number> = {
+// اطلاعاتی که باید تو سبد خرید ذخیره بشه؛ فقط همون‌هایی که بدون کد تخفیف خریدار حساب می‌شن
+const payload: Record<string, string | number> = {
             intent: "add",
             productId: product._id,
             productName: product.name,
@@ -167,28 +167,19 @@ function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolea
             totalPrice: totalPrice,
             sellerDiscountedTotalPrice: sellerDiscountedTotal,
             productImage: product.image,
-            finalDiscountedTotalPrice: finalDiscountedTotal ,
         }
 
-        cartFetcher.submit(payload, { 
+        cartFetcher.submit(payload, {
             method: "post",
             action: cartActionPath,
             encType: "application/json",
         })
 
-
+        // بلافاصله عدد بالای آیکون سبد خرید زیاد می‌شه، بدون اینکه منتظر جواب سرور بمونیم
+        setCartCount((prev) => prev + quantity)
 
         setShowInvoiceModal(false)
-
-        // بعد از ثبت موفق در سرور، count واقعی دوباره از سرور خوانده می‌شود
-        // چون submit async است، از Erfolگوی fetcher استفاده می‌کنیم
     }
-
-useEffect(() => {
-  if (cartFetcher.state === "idle" && cartFetcher.data?.success) {
-    void refreshCartCount()
-  }
-}, [cartFetcher.state, cartFetcher.data])
 
     return (
         <div className=" w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.7rem)] lg:w-[calc(25%-0.75rem)] border rounded-md p-3 flex flex-col gap-2 dark:bg-slate-800">

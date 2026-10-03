@@ -26,7 +26,7 @@ interface AllProducts {
 
 interface SellersAndAllProducts {
   usersWithStore: Seller[];
-  allProducts: AllProducts[]; 
+  allProducts: AllProducts[];
 }
 
 const ProductList = () => {

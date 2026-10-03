@@ -11,7 +11,7 @@ export async function productAction({ request, params }: any) {
             await axios.delete(`http://localhost:8000/api/products/${userId}/${productId}`);
             return { success: true, intent: "delete" };
         }
- 
+
         if (intent === "edit") {
             const productId = formData.get("productId");
             const response = await axios.put(

@@ -4,41 +4,24 @@ import { Modal } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import { useLoaderData, useFetcher, useParams } from "react-router-dom";
 
-// برای کم کردن عدد روی آیتم سبد خرید در منوی بالایی
-import { useCart } from "../../../../../contexts/CartContext";
-// برای کم کردن عدد روی آیتم سبد خرید در منوی بالایی
-
 
 interface CartItem {
     _id: string
-    productId?: string
     storeName?: string
     productName?: string
     productImage?: string
     quantity?: number
     totalPrice?: number
     sellerDiscountedTotalPrice?: number
-    finalDiscountedTotalPrice?: number
-
 }
 
-interface ProductsInitialPrice {
-    price: number,
-    discountPrice?: number,
-}
-
-type ProductCatalogItem = ProductsInitialPrice & {
-    _id?: string
-}
 
 // هر ردیف سبد خرید، وضعیت خودش (تعداد نمایشی و مودال حذف) رو جدا نگه می‌داره
-function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: CartItem, ProductsInitialPrice: ProductsInitialPrice, veryFinalPrice: number }) {
+function CartItemCard({ item }: { item: CartItem }) {
 
     const { userId } = useParams<{ userId: string }>()
     const deleteFetcher = useFetcher()
     const cartActionPath = `/TheUserPage/${userId}/main/userMenu/UsersCard`
-
-
 
     // این عدد فقط نمایشیه، به سرور فرستاده نمی‌شه
     const [quantity, setQuantity] = useState(item.quantity ?? 1)
@@ -51,13 +34,10 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
     const askToDelete = () => setShowDeleteModal(true)
     const closeDeleteModal = () => setShowDeleteModal(false)
 
-
-
     const confirmDelete = () => {
         const payload: Record<string, string> = {
             intent: "delete",
             orderId: item._id,
-            productId: item.productId || "",
         }
 
         deleteFetcher.submit(payload, {
@@ -65,7 +45,6 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
             action: cartActionPath,
             encType: "application/json",
         })
-
     }
 
     // بعد از حذف موفق، مودال بسته می‌شه
@@ -77,230 +56,136 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
     }, [deleteFetcher.state, deleteFetcher.data])
 
     return (
-        <>
-            <section className="flex flex-row w-full h-auto justify-center items-stretch">
-                {/* محصول */}
-                <div className="flex flex-col self-stretch rounded-2xl w-3/5 m-2 bg-slate-50">
+     <>
+        <section className="flex flex-row w-full h-auto justify-center items-stretch">
+            {/* محصول */}
+            <div className="flex flex-col self-stretch rounded-2xl w-3/5 m-2 bg-slate-50">
 
 
-                    <div className="flex flex-row justify-between h-auto sm:flex-1 sm:min-h-0 bg-gray-200 dark:bg-gray-600 rounded-t-2xl p-3 dark:text-white">
-                        <div className="flex flex-col gap-3 h-full">
-                            <div className="flex flex-row gap-3 items-center">
-                                <span className="font-bold">{`غرفه ${item.storeName}` || "غرفه نامشخص"}</span>
-                            </div>
-                            <span className="text-sm sm:text-lg">هزینه ارسال و زمان تحویل  :   وابسته به آدرس</span>
+                <div className="flex flex-row justify-between h-auto sm:flex-1 sm:min-h-0 bg-gray-200 dark:bg-gray-600 rounded-t-2xl p-3 dark:text-white">
+                    <div className="flex flex-col gap-3 h-full">
+                        <div className="flex flex-row gap-3 items-center">
+                            <span className="font-bold">{`غرفه ${item.storeName}` || "غرفه نامشخص"}</span>
                         </div>
+                        <span className="text-sm sm:text-lg">هزینه ارسال و زمان تحویل  :   وابسته به آدرس</span>
+                    </div>
+                </div>
 
-                        <div className="flex flex-col sm:flex-row justify-center items-center gap-1 font-bold">
-                            <span className="text-stone-400 text-sm sm:text-lg">تعداد:</span>
-                            <span className="bg-red-500 p-1  text-white rounded-full text-md">{item.quantity}</span>
-                        </div>
+
+                <div className="flex flex-col sm:flex-row h-auto sm:flex-1 sm:min-h-0 bg-gray-100 dark:bg-gray-500 gap-2 rounded-b-2xl p-3 ">
+                    <div className="w-full h-24 sm:w-1/5 sm:h-auto bg-slate-50 rounded-md overflow-hidden">
+                        <img
+                            src={item.productImage ? `http://localhost:8000${item.productImage}` : ""}
+                            alt={item.productName || "محصول"}
+                            className="w-full h-full object-cover"
+                        />
                     </div>
 
 
-                    <div className="flex flex-col sm:flex-row h-auto sm:flex-1 sm:min-h-0 bg-gray-100 dark:bg-gray-500 gap-2 rounded-b-2xl p-3 ">
-                        <div className="w-full h-24 sm:w-1/5 sm:h-auto bg-slate-50 rounded-md overflow-hidden">
-                            <img
-                                src={
-                                    item.productImage
-                                        ? (item.productImage.startsWith('http')
-                                            ? item.productImage
-                                            : `http://localhost:8000${item.productImage}`)
-                                        : ""
-                                }
-                                alt={item.productName || "محصول"}
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
+                    <div className="flex flex-col w-full sm:w-3/5 justify-center gap-2">
+                        <div className="font-bold truncate dark:text-slate-100">{item.productName}</div>
+                        <div className="flex justify-start items-end">
+                            <div className="flex flex-col gap-2 mt-auto w-full sm:w-1/2">
+                                <div dir="rtl" className="dark:text-white flex items-center justify-between border rounded-md p-1 dark:border-slate-600 dark:bg-gray-700">
+                                    <button
+                                        onClick={increase}
+                                        className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
+                                    >
+                                        <FaPlus className="size-3" />
+                                    </button>
 
+                                    <span className="text-sm font-bold">{quantity}</span>
 
-                        <div className="flex flex-col w-full sm:w-3/5 justify-center gap-2">
-                            <div className="font-bold truncate dark:text-slate-100">{item.productName}</div>
-                            <div className="flex justify-start items-end">
-                                <div className="flex flex-col gap-2 mt-auto w-full sm:w-1/2">
-                                    <div dir="rtl" className="dark:text-white flex items-center justify-between border rounded-md p-1 dark:border-slate-600 dark:bg-gray-700">
-                                        <button
-                                            onClick={increase}
-                                            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
-                                        >
-                                            <FaPlus className="size-3" />
-                                        </button>
+                                    <button
+                                        onClick={decrease}
+                                        className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
+                                    >
+                                        <FaMinus className="size-3" />
+                                    </button>
 
-                                        <span className="text-sm font-bold">{quantity}</span>
-
-                                        <button
-                                            onClick={decrease}
-                                            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
-                                        >
-                                            <FaMinus className="size-3" />
-                                        </button>
-
-                                        <button
-                                            onClick={askToDelete}
-                                            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700 text-red-700"
-                                        >
-                                            <FaTrashAlt className="size-3" />
-                                        </button>
-                                    </div>
+                                    <button
+                                        onClick={askToDelete}
+                                        className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700 text-red-700"
+                                    >
+                                        <FaTrashAlt className="size-3" />
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
 
-                        <div className="flex flex-row sm:flex-col items-end gap-2 justify-end sm:p-3 w-full text-sm lg:text-lg">
-                            {/* عینا مشابه قیمت یک محصول بدون درنظر گرفتن مجموع تعداد*/}
-                            <div className={ProductsInitialPrice.price ? "line-through text-gray-400" : ""}>
-                                {(ProductsInitialPrice.price ?? 0).toLocaleString()} تومان
+                    <div className="flex flex-row sm:flex-col items-end gap-2 justify-end sm:p-3 w-full text-sm lg:text-lg">
+                        {/* اگه فروشنده خودش تخفیف گذاشته بود، مجموع قیمت اصلی خط‌خورده می‌شه */}
+                        <div className={item.sellerDiscountedTotalPrice ? "line-through text-gray-400" : ""}>
+                            {(item.totalPrice ?? 0).toLocaleString()} تومان
+                        </div>
+                        {item.sellerDiscountedTotalPrice && (
+                            <div className="text-green-600 font-bold">
+                                {item.sellerDiscountedTotalPrice.toLocaleString()} تومان
                             </div>
-                            {ProductsInitialPrice.discountPrice && (
-                                <div className="text-green-600 font-bold">
-                                    {ProductsInitialPrice.discountPrice?.toLocaleString()} تومان
-                                </div>
-                            )}
-                        </div>
+                        )}
                     </div>
-
-
-
-                    {/* مودال تایید حذف محصول از سبد خرید */}
-                    <Modal show={showDeleteModal} onHide={closeDeleteModal} centered>
-                        <Modal.Body className="text-center py-4 dark:bg-slate-700 text-white ">
-                            <p className="mb-0">آیا می‌خواهید محصول از سبد خرید شما حذف شود؟</p>
-                        </Modal.Body>
-                        <Modal.Footer className="flex justify-center items-center dark:bg-slate-600">
-                            <Button variant="secondary" onClick={closeDeleteModal}>انصراف</Button>
-                            <Button variant="danger" onClick={confirmDelete} disabled={deleteFetcher.state !== "idle"}>
-                                {deleteFetcher.state !== "idle" ? "در حال حذف..." : "تایید"}
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
                 </div>
-                {/* محصول */}
 
 
-                {/* جزیات */}
-                <div className=" flex flex-col justify-between p-3 w-2/5 rounded-2xl m-2 sm:text-lg text-sm bg-gray-100 dark:text-white dark:bg-gray-500  ">
-                    <div className="w-full flex justify-center items-center mb-3">
-                        <span className="font-bold">جزئیات قیمت</span>
-                    </div>
-                    {/*  */}
-                    <hr className="dark:text-white mb-3" />
-                    {/*  */}
-                    <div className="flex flex-row justify-between mb-3">
-                        <span>قیمت تمام شده</span>
-                        <span>{veryFinalPrice?.toLocaleString()} تومان</span>
-                    </div>
-                    {/*  */}
-                    <hr className="dark:text-white mb-3" />
-                    {/*  */}
-                    <div className="flex flex-row justify-between mb-3">
-                        <span>وضعیت پرداخت</span>
-                        <span className="text-red-500">پرداخت نشده</span>
-                    </div>
-                    {/*  */}
-                    <hr className="dark:text-white mb-3" />
-                    {/*  */}
 
-                    <div className="flex flex-col sm:flex-row gap-1 justify-center items-start   ">
-                        <div className="flex justify-center items-center w-full h-auto">
-                            <Button
-                                variant="danger">تایید و ادامه
-                            </Button>
-                        </div>
-                        <div className="collapse flex justify-center items-center w-full h-auto">
-                            <Button
-                                variant="primary">پیگیری سفارش
-                            </Button>
-                        </div>
-                    </div>
+                {/* مودال تایید حذف محصول از سبد خرید */}
+                <Modal show={showDeleteModal} onHide={closeDeleteModal} centered>
+                    <Modal.Body className="text-center py-4">
+                        <p className="mb-0">آیا می‌خواهید محصول از سبد خرید شما حذف شود؟</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={closeDeleteModal}>انصراف</Button>
+                        <Button variant="danger" onClick={confirmDelete} disabled={deleteFetcher.state !== "idle"}>
+                            {deleteFetcher.state !== "idle" ? "در حال حذف..." : "تایید"}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+            {/* محصول */}
 
+
+            {/* جزیات */}
+            <div className=" flex flex-col justify-between p-3 w-2/5 rounded-2xl m-2 sm:text-lg text-sm bg-gray-100 dark:text-white dark:bg-gray-500 ">
+                <div className="w-full flex justify-center items-center mb-3">
+                    <span className="font-bold">جزئیات قیمت</span>
                 </div>
-                {/* جزیات */}
+{/*  */}
+                <hr className="dark:text-white mb-3" />
+{/*  */}
+                <div className="flex flex-row justify-between mb-3">
+                    <span>قیمت تمام شده</span>
+                    <span>ل تومان</span>
+                </div>
+{/*  */}
+                <hr className="dark:text-white mb-3" />
+{/*  */}
+                <div className="flex flex-row justify-between mb-3">
+                    <span>هزینه ارسال</span>
+                    <span className="text-red-500">نامشخص</span>
+                </div>
+{/*  */}
+                <hr className="dark:text-white mb-3" />
+{/*  */}
+                <div className="flex justify-center items-start   ">
+                    <Button variant="danger">تایید و ادامه</Button>
+                </div>
+            </div>
+            {/* جزیات */}
 
 
-            </section>
-            <hr className="mb-2 mt-2 dark:text-white" />
-        </>
+        </section>
+        <hr className="mb-2 mt-2 dark:text-white" />
+     </>
     )
 }
 
 
 function UsersCard() {
 
-    const loaderData = useLoaderData() as {
-        getCart?: CartItem[]
-        getAllProducts?: ProductCatalogItem[]
-    }
-
-    const cartItems = loaderData.getCart ?? []
-    const productPrice = loaderData.getAllProducts ?? []
-
-
-
-    console.log(cartItems);
-
-
-
-    const { setCartCount } = useCart()
-    const cartCount = cartItems.reduce((sum, item) => sum + (item.quantity ?? 0), 0)
-
-
-    // محاسبه قیمت تمام شده
-    const veryFinalPrice = (productId?: string): number => {
-        return cartItems
-            .filter((item) => item.productId === productId)
-            .reduce((sum, item) => {
-                const price =
-                    item.finalDiscountedTotalPrice ??
-                    item.sellerDiscountedTotalPrice ??
-                    item.totalPrice ??
-                    0
-                return sum + price
-            }, 0)
-    }
-
-    // console.log(veryFinalPrice());
-
-
-
-
-    // محاسبه قیمت تمام شده
-
-
-    // برای گروه بندی محصولات که 
-    // محصولات تکراری را در یک کارت نشان دهد . 
-    const groupedProductsIds: any[] = [];
-
-
-    cartItems.forEach((item) => {
-
-        const existingProductsIds = groupedProductsIds.find((group) => {
-            return group.productId === item.productId
-        })
-
-        if (existingProductsIds) {
-            existingProductsIds.quantity += item.quantity
-
-        } else {
-            groupedProductsIds.push({
-                ...item,
-                quantity: item.quantity
-            })
-        }
-    })
-    // برای گروه بندی محصولات که 
-    // محصولات تکراری را در یک کارت نشان دهد . 
-
-
-    // sdfgsdfsdfsdf
-
-
-    useEffect(() => {
-        setCartCount(cartCount)
-    }, [cartCount, setCartCount])
-
-
+    const cartItems = useLoaderData() as CartItem[]
 
     return (
         <section className="flex flex-col p-3">
@@ -311,27 +196,14 @@ function UsersCard() {
 
             <hr className="mb-3 mt-3 dark:text-blue-400" />
 
-            {groupedProductsIds.length === 0 ? (
+            {cartItems.length === 0 ? (
                 <p className="text-gray-400 text-center py-10">سبد خرید شما خالی است</p>
             ) : (
                 <>
                     <div className="flex flex-col w-full h-auto">
-                        {groupedProductsIds.map((item) => {
-                            const selectedProduct = productPrice.find((product) => product._id === item.productId)
-                            const productInitialPrice: ProductsInitialPrice = {
-                                price: selectedProduct?.price ?? 0,
-                                discountPrice: selectedProduct?.discountPrice,
-                            }
-
-                            return (
-                                <CartItemCard
-                                    key={item._id}
-                                    item={item}
-                                    ProductsInitialPrice={productInitialPrice}
-                                    veryFinalPrice={veryFinalPrice(item.productId)}
-                                />
-                            )
-                        })}
+                        {cartItems.map((item) => (
+                            <CartItemCard key={item._id} item={item} />
+                        ))}
                     </div>
                 </>
             )}
