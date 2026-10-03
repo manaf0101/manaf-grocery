@@ -7,4 +7,4 @@ export async function ordersLoaderCounting({ params }: any) {
     );
 
     return response.data;
-}
+} 

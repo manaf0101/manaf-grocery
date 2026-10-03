@@ -10,7 +10,7 @@ import Index from "./Components/main/MiddlePlaceComponenets/Index";
 import { cartLoader } from "./Loaders/cartLoader";
 import { cartAction } from "./Actions/cartAction"
 // سبد خرید
-
+ 
 // مایکت من 
 import { mineMarketLoader } from "./Loaders/mineMarketLoader";
 import { storeAction } from "./Actions/storeAction";

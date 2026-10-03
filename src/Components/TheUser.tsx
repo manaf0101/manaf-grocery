@@ -1,7 +1,7 @@
 import { useState } from "react"
 import UserProfile from "./main/UserProfile"
 import UpperMenu from "./main/UpperMenu"
-import UserMenu from "./main/UserMenu"
+import UserMenu from "./main/UserMenu" 
 import BottomMenu from "./main/BottomMenu"
 import UserMenuLeft from "./main/UserMenuLeft"
 import ClickMenuIcon from "./main/ClickMenuIcon"
@@ -35,8 +35,11 @@ function TheUserContent() {
   }
 
   const { isSellingPanelEnabled } = useSellingPanel()
+
   // تعداد سبد خرید، برای پاس دادن به UpperMenu به‌صورت prop
   const { cartCount } = useCart()
+
+  
 
   return (
     <div className="h-full w-full relative dark:bg-slate-950">
