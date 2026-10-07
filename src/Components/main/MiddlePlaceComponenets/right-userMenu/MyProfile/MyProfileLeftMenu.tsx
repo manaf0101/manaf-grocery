@@ -11,7 +11,7 @@ import { useProfile } from "../../../../contexts/ProfileContext";
 function MyProfileLeftMenu() {
 
     const navigate = useNavigate()
-    const { profile } = useProfile()
+    const { profile } = useProfile() 
 
     const { userId } = useParams()
     const location = useLocation()

@@ -8,6 +8,8 @@ interface Order {
     totalPrice: number
     productImage?: string
     invoiceUrl?: string
+    finalDiscountedTotalPrice? : string 
+    sellerDiscountedTotalPrice? :string
 }
 
 // برای فارسی نمایش دادن اعداد
@@ -23,8 +25,12 @@ function formatOrderDate(isoDate: string) {
 }
 // تبدیل تاریخ ISO دریافتی از سرور به فرمت قابل‌خواندن فارسی
 
-function MyCurrentOrders() {
+function MyCurrentOrders() { 
     const orders = useLoaderData() as Order[]
+    
+    console.log(orders);
+    
+    
 
     return (
         <>
@@ -50,7 +56,12 @@ function MyCurrentOrders() {
                                         <p className="text-gray-200 lg:flex lg:flex-row gap-1">تاریخ:<p className="text-gray-400">{formatOrderDate(order.orderDate)}</p></p>
                                         <p className="text-gray-200 lg:flex lg:flex-row gap-1">کد سفارش:<p className="text-gray-400">{order.orderCode}</p></p>
                                         <p className="text-gray-200 lg:flex lg:flex-row gap-1">
-                                            مبلغ:<p className="text-gray-400">{toPersianDigits(order.totalPrice.toLocaleString())} تومان</p> 
+                                            مبلغ:<p className="text-gray-400">
+                                                {toPersianDigits((order.finalDiscountedTotalPrice ??
+                                                                  order.sellerDiscountedTotalPrice??
+                                                                  order.totalPrice ??
+                                                                  0).toLocaleString())} تومان
+                                                </p> 
                                         </p>
                                     </div>
 

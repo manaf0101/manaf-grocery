@@ -1,8 +1,8 @@
-import { FaPlus, FaMinus, FaTrashAlt } from "react-icons/fa";
+import { FaPlus, FaMinus, FaTrashAlt, FaCheckCircle } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
 import { useState, useEffect } from "react";
-import { useLoaderData, useFetcher, useParams } from "react-router-dom";
+import { useLoaderData, useFetcher, useParams  , useNavigate } from "react-router-dom";
 
 // برای کم کردن عدد روی آیتم سبد خرید در منوی بالایی
 import { useCart } from "../../../../../contexts/CartContext";
@@ -18,8 +18,8 @@ interface CartItem {
     quantity?: number
     totalPrice?: number
     sellerDiscountedTotalPrice?: number
-    finalDiscountedTotalPrice?: number
-
+    finalDiscountedTotalPrice?: number 
+    isCart?: boolean  
 }
 
 interface ProductsInitialPrice {
@@ -34,9 +34,15 @@ type ProductCatalogItem = ProductsInitialPrice & {
 // هر ردیف سبد خرید، وضعیت خودش (تعداد نمایشی و مودال حذف) رو جدا نگه می‌داره
 function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: CartItem, ProductsInitialPrice: ProductsInitialPrice, veryFinalPrice: number }) {
 
+
     const { userId } = useParams<{ userId: string }>()
+    const navigate = useNavigate()
     const deleteFetcher = useFetcher()
     const cartActionPath = `/TheUserPage/${userId}/main/userMenu/UsersCard`
+
+    // جهت پروسه ی پرداخت
+    const payFetcher = useFetcher()
+    // جهت پروسه ی پرداخت
 
 
 
@@ -75,6 +81,50 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
             closeDeleteModal()
         }
     }, [deleteFetcher.state, deleteFetcher.data])
+
+
+    // جهت پروسه ی پرداخت
+
+    // مودال فاکتور پرداخت، که با کلیک روی «تایید و ادامه» باز می‌شه
+    const [showInvoiceModal, setShowInvoiceModal] = useState(false)
+
+    // مودال نمایش موفقیت‌آمیز بودن پرداخت
+    const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false)
+
+
+    // برای پروسه دکمه ی پیگیری سفارش
+const findPaidProducts = item.isCart === true;
+
+
+    
+    const openInvoiceModal = () => setShowInvoiceModal(true)
+    const closeInvoiceModal = () => setShowInvoiceModal(false)
+    const closePaymentSuccessModal = () => setShowPaymentSuccessModal(false)
+
+    const confirmPayment = () => {
+        const payload: Record<string, string> = {
+            intent: "pay",
+            productId: item.productId || "",
+        }
+
+        payFetcher.submit(payload, {
+            method: "post",
+            action: cartActionPath,
+            encType: "application/json",
+        })
+    }
+
+    // بعد از پرداخت موفق، مودال فاکتور بسته می‌شه، وضعیت پرداخت‌شده فعال می‌شه و مودال موفقیت باز می‌شه
+    useEffect(() => {
+        if (payFetcher.state === "idle" && payFetcher.data?.success && payFetcher.data?.intent === "pay") {
+            closeInvoiceModal()
+            setShowPaymentSuccessModal(true)
+        }
+    }, [payFetcher.state, payFetcher.data])
+
+    // جهت پروسه ی پرداخت
+
+
 
     return (
         <>
@@ -118,7 +168,7 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
                             <div className="font-bold truncate dark:text-slate-100">{item.productName}</div>
                             <div className="flex justify-start items-end">
                                 <div className="flex flex-col gap-2 mt-auto w-full sm:w-1/2">
-                                    <div dir="rtl" className="dark:text-white flex items-center justify-between border rounded-md p-1 dark:border-slate-600 dark:bg-gray-700">
+                                    <div dir="rtl" className={`${findPaidProducts  ? '' : 'collapse'} dark:text-white flex items-center justify-between border rounded-md p-1 dark:border-slate-600 dark:bg-gray-700`}>
                                         <button
                                             onClick={increase}
                                             className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
@@ -175,6 +225,43 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
                             </Button>
                         </Modal.Footer>
                     </Modal>
+
+                    {/* مودال فاکتور پرداخت — کلاس‌هاش عیناً مثل مودال حذف بالاست */}
+                    <Modal show={showInvoiceModal} onHide={closeInvoiceModal} centered>
+                        <Modal.Body className="text-center py-4 dark:bg-slate-700 dark:text-white">
+                            <p className="font-bold mb-3">فاکتور پرداخت</p>
+                            <div className="flex flex-col gap-2 text-right">
+                                <div className="flex justify-between">
+                                    <span className="font-bold">{item.productName}</span>
+                                    <span>نام محصول</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="font-bold">{item.productId}</span>
+                                    <span>کد محصول</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="font-bold text-green-600">{veryFinalPrice?.toLocaleString()} تومان</span>
+                                    <span>مجموع قیمت با تخفیف</span>
+                                </div>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer className="flex justify-center items-center dark:bg-slate-600">
+                            <Button variant="secondary" onClick={closeInvoiceModal}>انصراف</Button>
+                            <Button variant="danger" onClick={confirmPayment} disabled={payFetcher.state !== "idle"}>
+                                {payFetcher.state !== "idle" ? "در حال پرداخت..." : "پرداخت"}
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    {/* مودال نمایش موفقیت‌آمیز بودن پرداخت */}
+                    <Modal show={showPaymentSuccessModal} onHide={closePaymentSuccessModal} centered>
+                        <Modal.Body className="text-center py-4 dark:bg-slate-700 text-white ">
+                            <p className="mb-0 text-green-600 font-bold">پرداخت موفق بود</p>
+                        </Modal.Body>
+                        <Modal.Footer className="flex justify-center items-center dark:bg-slate-600">
+                            <Button variant="secondary" onClick={closePaymentSuccessModal}>باشه</Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
                 {/* محصول */}
 
@@ -194,22 +281,30 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
                     {/*  */}
                     <hr className="dark:text-white mb-3" />
                     {/*  */}
-                    <div className="flex flex-row justify-between mb-3">
+                    <div className="flex flex-row justify-between mb-3 items-center">
                         <span>وضعیت پرداخت</span>
-                        <span className="text-red-500">پرداخت نشده</span>
+                        { !findPaidProducts ? (
+                            <span className="flex items-center gap-1 text-green-600">
+                                <FaCheckCircle className="size-4" />
+                                پرداخت شده
+                            </span>
+                        ) : (
+                            <span className="text-red-500">پرداخت نشده</span>
+                        )}
                     </div>
                     {/*  */}
                     <hr className="dark:text-white mb-3" />
                     {/*  */}
 
                     <div className="flex flex-col sm:flex-row gap-1 justify-center items-start   ">
-                        <div className="flex justify-center items-center w-full h-auto">
+                        <div className={`${findPaidProducts  ? '' : 'collapse'} flex justify-center items-center w-full h-auto`}>
                             <Button
-                                variant="danger">تایید و ادامه
+                                variant="danger" onClick={openInvoiceModal}>تایید و ادامه
                             </Button>
                         </div>
-                        <div className="collapse flex justify-center items-center w-full h-auto">
-                            <Button
+                        <div className={`${findPaidProducts ? 'collapse' : ''} flex justify-center items-center w-full h-auto`}>
+                            <Button 
+                                onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders`)}
                                 variant="primary">پیگیری سفارش
                             </Button>
                         </div>
@@ -236,20 +331,14 @@ function UsersCard() {
     const cartItems = loaderData.getCart ?? []
     const productPrice = loaderData.getAllProducts ?? []
 
-
-
-    console.log(cartItems);
-
-
-
     const { setCartCount } = useCart()
     const cartCount = cartItems.reduce((sum, item) => sum + (item.quantity ?? 0), 0)
 
 
     // محاسبه قیمت تمام شده
-    const veryFinalPrice = (productId?: string): number => {
+    const veryFinalPrice = (productId?: string , isCart?:boolean): number => {
         return cartItems
-            .filter((item) => item.productId === productId)
+            .filter((item) => item.productId === productId && item.isCart === isCart)
             .reduce((sum, item) => {
                 const price =
                     item.finalDiscountedTotalPrice ??
@@ -260,13 +349,6 @@ function UsersCard() {
             }, 0)
     }
 
-    // console.log(veryFinalPrice());
-
-
-
-
-    // محاسبه قیمت تمام شده
-
 
     // برای گروه بندی محصولات که 
     // محصولات تکراری را در یک کارت نشان دهد . 
@@ -276,7 +358,10 @@ function UsersCard() {
     cartItems.forEach((item) => {
 
         const existingProductsIds = groupedProductsIds.find((group) => {
-            return group.productId === item.productId
+            return (
+            group.productId === item.productId &&
+            group.isCart === item.isCart
+        )
         })
 
         if (existingProductsIds) {
@@ -293,14 +378,9 @@ function UsersCard() {
     // محصولات تکراری را در یک کارت نشان دهد . 
 
 
-    // sdfgsdfsdfsdf
-
-
     useEffect(() => {
         setCartCount(cartCount)
     }, [cartCount, setCartCount])
-
-
 
     return (
         <section className="flex flex-col p-3">
@@ -328,7 +408,7 @@ function UsersCard() {
                                     key={item._id}
                                     item={item}
                                     ProductsInitialPrice={productInitialPrice}
-                                    veryFinalPrice={veryFinalPrice(item.productId)}
+                                    veryFinalPrice={veryFinalPrice(item.productId , item.isCart)}
                                 />
                             )
                         })}

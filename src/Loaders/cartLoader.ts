@@ -14,4 +14,4 @@ export const cartLoader = async ({params} : any) => {
         getAllProducts : getAllProductsResponse.data ,
     }
 }
-    
+     

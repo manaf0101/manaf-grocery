@@ -8,6 +8,9 @@ import useDarkMood from "../../Hooks/useDarkMood";
 import { useEffect, useState } from "react";
 import NavUpperUserMenu from "./NavUpperUserMenu";
 import { useNavigate, useParams } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useProfile } from "../contexts/ProfileContext";
 // دیگر نیازی به import کردن useSellingPanel نیست، چون مقدار از طریق prop دریافت می‌شود
 
 
@@ -48,10 +51,26 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount }: UpperMenu
 
     // DARK MOOD
 
-    // جهت سید خرید
+    // جهت بررسی تکمیل بودن پروفایل
+    const [showIncompleteModal, setShowIncompleteModal] = useState(false)
     const navigate = useNavigate()
     const userDomainId = useParams<{ userId: string }>().userId || '';
-    // جهت سید خرید
+    const { profileProgress } = useProfile()
+    const basePath = `/TheUserPage/${userDomainId}/main/userMenu/`
+
+    const handleMyMarketButton = () => {
+        if (profileProgress === 100) {
+            navigate(`${basePath}mine-market`)
+        } else {
+            setShowIncompleteModal(true)
+        }
+    }
+
+    const handleGoToProfile = () => {
+        setShowIncompleteModal(false)
+        navigate(`${basePath}MyProfile`)
+    }
+    // جهت بررسی تکمیل بودن پروفایل
 
 
     return (
@@ -106,14 +125,18 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount }: UpperMenu
 
                     {/* پنل فروش */}
                     <li
+                        onClick={isSellingPanelEnabled ? handleMyMarketButton : undefined}
                         style={{ cursor: isSellingPanelEnabled ? "pointer" : "not-allowed" }}
-                        className={`md:col-start-6 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center transition duration-200 ease-in-out ${isSellingPanelEnabled
+                        className={`relative md:col-start-6 md:col-span-1 border-l-2 border-r-2 border-slate-200 flex justify-center items-center transition duration-200 ease-in-out ${isSellingPanelEnabled
                             ? "hover:bg-gray-300 dark:hover:bg-cyan-900"
                             : "opacity-40 pointer-events-none"
                             }`}
                     >
                         <p className="dark:text-white"><RiStore2Line className="size-6 pl-1" /></p>
                         <p className="dark:text-white text-nowrap">پنل فروش</p>
+                        <div className="absolute bg-red-600 dark:bg-red-700 top-0 left-0 pr-1 pl-1 text-sm font-sans rounded-md text-white">
+                            5
+                        </div>
                     </li>
                     {/* پنل فروش */}
 
@@ -125,6 +148,21 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount }: UpperMenu
             </div>
 
             <NavUpperUserMenu openUserMenu={openUserMenu} />
+
+            <Modal show={showIncompleteModal} onHide={() => setShowIncompleteModal(false)} centered>
+                <Modal.Body className="text-center py-4 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-2">
+                    <p className='mb-2'>! برای استفاده از رابط کاربری مارکت من،ابتدا باید پروفایل خود را کامل کنید </p>
+                    <hr />
+                    <div className="flex flex-row justify-center gap-2 mt-2">
+                        <Button variant="primary" onClick={handleGoToProfile}>
+                            تکمیل پروفایل
+                        </Button>
+                        <Button variant="secondary" onClick={() => setShowIncompleteModal(false)}>
+                            متوجه شدم
+                        </Button>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

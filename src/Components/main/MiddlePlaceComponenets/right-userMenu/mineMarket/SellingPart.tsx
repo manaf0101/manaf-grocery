@@ -417,7 +417,7 @@ function SelloingPart() {
                         100% { transform: translate(0, 0) rotate(0deg); }
                     }
                 `}
-            </style>
+            </style> 
 
             <div className="flex justify-between items-center pr-2 pl-2">
                 <h3 className="text-lg font-bold border-b-2 border-blue-500 w-fit pb-1">محصولات فروشگاه</h3>
