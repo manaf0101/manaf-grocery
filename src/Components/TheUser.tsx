@@ -72,7 +72,10 @@ function TheUserContent() {
         </div>
 
         {!isMineMarket && !isUsersCard && (
-          <div className="hidden lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950" dir="ltr">
+          <div
+            className={`${isMyProfile ? 'block' : 'hidden'} lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950`}
+            dir="ltr"
+          >
             {isMyProfile ? <MyProfileLeftMenu /> : <UserMenuLeft />}
           </div>
         )}
