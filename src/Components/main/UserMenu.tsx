@@ -27,7 +27,7 @@ function UserMenu () {
         // با کلیک روی دکمه‌ی «تکمیل پروفایل» داخل مودال
     const handleGoToProfile = () => {
         setShowIncompleteModal(false)
-        navigate(`${basePath}MyProfile`)
+        navigate(`${basePath}MyProfile/edit`)
     }
     // مربوط به بررسی تکمیل بودن پروفایل
 

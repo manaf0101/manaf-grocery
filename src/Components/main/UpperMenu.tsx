@@ -69,7 +69,7 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount, receivedOrd
 
     const handleGoToProfile = () => {
         setShowIncompleteModal(false)
-        navigate(`${basePath}MyProfile`)
+        navigate(`${basePath}MyProfile/edit`)
     }
     // جهت بررسی تکمیل بودن پروفایل
 

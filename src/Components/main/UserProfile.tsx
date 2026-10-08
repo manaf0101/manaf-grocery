@@ -1,11 +1,11 @@
 import Image from 'react-bootstrap/Image';
 import { FaGear } from "react-icons/fa6";
-import imageSrc from '../../../public/pictures/1696162108939.jpg';
 import imageIcon from '../../../public/pictures/icon-7797704_1280.png'
 import { useParams } from 'react-router-dom';
 import useDarkMood from '../../Hooks/useDarkMood';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { useProfile } from '../contexts/ProfileContext';
 
 
 
@@ -33,8 +33,10 @@ function UserProfile() {
     // دریافت آی دی اختصاصی کاربر از دامین سایت که به صورت داینامیک وارد شده بود
 
     const [username, setUsername] = useState('guest');
+    const { profile, setProfile, refetchProfile } = useProfile();
 
     const [profileImage, setProfileImage] = useState<string | null>(null); // مسیر عکس از سرور
+    const [profileImageVersion, setProfileImageVersion] = useState<number>(0)
     const fileInputRef = useRef<HTMLInputElement>(null); // برای باز کردن input فایل با کلیک روی چرخ دنده
 
     //استخراج نام کاربر صاحب اکانت .....................
@@ -70,31 +72,52 @@ function UserProfile() {
     // نام کاربری را از سرور میگیرد
 
 
-    // عکس پروفایل را از سرور می‌گیرد
+    // عکس پروفایل را از context و سرور می‌گیرد
     useEffect(() => {
+        const contextImage = profile?.userProfileImage || null;
+        if (contextImage !== profileImage) {
+            setProfileImage(contextImage);
+            setProfileImageVersion(Date.now());
+        }
+    }, [profile?.userProfileImage]);
+
+    useEffect(() => {
+        if (profile?.userProfileImage || !userId) return;
+
         const getProfileImage = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/profile/${userId}`);
                 setProfileImage(response.data.userProfileImage || null);
+                setProfile(response.data);
+                setProfileImageVersion(Date.now());
             } catch (error) {
                 console.log("Error getting profile image:", error);
                 setProfileImage(null);
             }
         };
 
-        if (userId) {
-            getProfileImage();
-        }
-    }, [userId]);
-    // عکس پروفایل را از سرور می‌گیرد
+        getProfileImage();
+    }, [userId, profile?.userProfileImage, setProfile]);
+    // عکس پروفایل را از context و سرور می‌گیرد
 
 
 
+
+    const buildProfileImageUrl = (image: string | null, cacheBust = false) => {
+        if (!image) return imageIcon;
+
+        const cleanImage = image.replace(/([?&])t=\d+/g, '');
+        const baseUrl = cleanImage.startsWith('http') ? cleanImage : `http://localhost:8000${cleanImage}`;
+        if (!cacheBust) return baseUrl;
+
+        const separator = baseUrl.includes('?') ? '&' : '?';
+        return `${baseUrl}${separator}t=${profileImageVersion}`;
+    };
 
     // عکسی که باید نمایش داده شود: یا از سرور، یا آیکون پیش‌فرض
     const userImage = () => {
         if (profileImage) {
-            return `http://localhost:8000${profileImage}`;
+            return buildProfileImageUrl(profileImage, true);
         }
         return imageIcon;
     };
@@ -121,7 +144,20 @@ function UserProfile() {
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             );
 
-            setProfileImage(response.data.userProfileImage);
+            const uploadedImage = response.data.userProfileImage || null;
+            const cacheBustedImage = uploadedImage
+                ? `${uploadedImage}${uploadedImage.includes('?') ? '&' : '?'}t=${Date.now()}`
+                : null;
+            const nextProfile = {
+                ...(profile || {}),
+                ...(response.data || {}),
+                userProfileImage: cacheBustedImage || undefined,
+            };
+
+            setProfileImage(cacheBustedImage);
+            setProfileImageVersion(Date.now());
+            setProfile(nextProfile);
+            await refetchProfile();
         } catch (error) {
             console.log("Error uploading profile image:", error);
         }

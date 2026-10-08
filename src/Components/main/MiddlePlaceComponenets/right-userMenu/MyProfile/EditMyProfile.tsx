@@ -1,6 +1,6 @@
 import { useLoaderData, useParams, useFetcher } from "react-router-dom"
 import { FaPen } from "react-icons/fa"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Modal, Button, Form } from "react-bootstrap"
 import axios from "axios"
 import { useProfile } from "../../../../contexts/ProfileContext"
@@ -19,10 +19,13 @@ interface ProfileData {
     password?: string
     userBirth?: string
     job?: string
+    userProfileImage?: string
     refundMethod?: {
         shebaNumber?: string
     }
 }
+
+type ProfileFieldKey = keyof FieldValues | "profileImage"
 
 interface FieldValues {
     fullName: string
@@ -71,18 +74,44 @@ function EditMyProfile() {
         job: profile?.job || "",
         shebaNumber: profile?.refundMethod?.shebaNumber || "",
     })
+    const [profileImage, setProfileImage] = useState<string | null>(profile?.userProfileImage || null)
+    const [draftProfileImage, setDraftProfileImage] = useState<string | null>(null)
+    const [selectedProfileFile, setSelectedProfileFile] = useState<File | null>(null)
+    const profileImageInputRef = useRef<HTMLInputElement>(null)
+
+    const buildProfileImageUrl = (image: string | null, useCacheBust = false) => {
+        if (!image) return undefined
+
+        const normalizedImage = image.startsWith("http")
+            ? image
+            : image.startsWith("/")
+                ? `http://localhost:8000${image}`
+                : `http://localhost:8000/${image}`
+
+        const cleanImage = normalizedImage.replace(/([?&])t=\d+/g, "")
+
+        if (!useCacheBust) return cleanImage
+
+        const separator = cleanImage.includes("?") ? "&" : "?"
+        return `${cleanImage}${separator}t=${Date.now()}`
+    }
 
     // برای زمانی که کاربر روی دکمه ثبت تغییرات کلیک کرد و تغییرات موفقیت آمیز بودند
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
-    const { setProfile } = useProfile()
+    const { profile: contextProfile, setProfile: setContextProfile } = useProfile()
+
+    useEffect(() => {
+        const sourceImage = contextProfile?.userProfileImage ?? profile?.userProfileImage
+        setProfileImage(sourceImage || null)
+    }, [contextProfile?.userProfileImage, profile?.userProfileImage])
 
     useEffect(() => {
         if (fetcher.state === "idle" && fetcher.data?.success) {
             setShowSuccessModal(true)
-            setProfile(fetcher.data.profile)
+            setContextProfile(fetcher.data.profile)
         }
-    }, [fetcher.state, fetcher.data])
+    }, [fetcher.state, fetcher.data, setContextProfile])
     // برای زمانی که کاربر روی دکمه ثبت تغییرات کلیک کرد و تغییرات موفقیت آمیز بودند
 
 
@@ -101,7 +130,7 @@ function EditMyProfile() {
     // برای زمانی که کاربر روی دکمه ثبت تغییرات کلیک کرد و تغییرات موفقیت آمیز نبودند
 
 
-    const [editingField, setEditingField] = useState<keyof FieldValues | null>(null)
+    const [editingField, setEditingField] = useState<ProfileFieldKey | null>(null)
     const [tempValue, setTempValue] = useState<string>("")
 
     // state های مخصوص مودال رمز عبور
@@ -114,7 +143,7 @@ function EditMyProfile() {
     const [currentPasswordVerified, setCurrentPasswordVerified] = useState(false)
     const [checkingCurrentPassword, setCheckingCurrentPassword] = useState(false)
 
-    const fieldMeta: { key: keyof FieldValues; label: string; type: string }[] = [
+    const fieldMeta: { key: ProfileFieldKey; label: string; type: string }[] = [
         { key: "fullName", label: "نام و نام خانوادگی", type: "text" },
         { key: "userNationalityCode", label: "کد ملی", type: "text" },
         { key: "userPhone", label: "شماره موبایل", type: "text" },
@@ -123,16 +152,20 @@ function EditMyProfile() {
         { key: "userBirth", label: "تاریخ تولد", type: "date" },
         { key: "job", label: "شغل", type: "text" },
         { key: "shebaNumber", label: "شماره شبا", type: "text" },
+        { key: "profileImage", label: "تصویر پروفایل", type: "text" },
     ]
 
     const activeMeta = fieldMeta.find((f) => f.key === editingField)
 
-    const openModal = (key: keyof FieldValues) => {
+    const openModal = (key: ProfileFieldKey) => {
         setEditingField(key)
         if (key === "password") {
             setPasswordStep({ currentPassword: "", newPassword: "", confirmPassword: "" })
             setPasswordErrors({})
             setCurrentPasswordVerified(false)
+        } else if (key === "profileImage") {
+            setDraftProfileImage(buildProfileImageUrl(profileImage) ?? null)
+            setSelectedProfileFile(null)
         } else {
             setTempValue(values[key])
         }
@@ -141,9 +174,55 @@ function EditMyProfile() {
     const closeModal = () => {
         setEditingField(null)
         setTempValue("")
+        setDraftProfileImage(null)
+        setSelectedProfileFile(null)
         setPasswordStep({ currentPassword: "", newPassword: "", confirmPassword: "" })
         setPasswordErrors({})
         setCurrentPasswordVerified(false)
+    }
+
+    const handleProfileImageSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        if (draftProfileImage?.startsWith("blob:")) {
+            URL.revokeObjectURL(draftProfileImage)
+        }
+
+        setSelectedProfileFile(file)
+        setDraftProfileImage(URL.createObjectURL(file))
+        e.target.value = ""
+    }
+
+    const uploadProfileImage = async () => {
+        if (!selectedProfileFile || !userId) return
+
+        const formData = new FormData()
+        formData.append("profileImage", selectedProfileFile)
+
+        try {
+            const response = await axios.post(
+                `http://localhost:8000/api/upload-profile-image/${userId}`,
+                formData,
+                { headers: { "Content-Type": "multipart/form-data" } }
+            )
+
+            const uploadedImageUrl = response.data.userProfileImage || profileImage
+            const normalizedUploadedImage = uploadedImageUrl?.startsWith("/") ? uploadedImageUrl : uploadedImageUrl ? `/${uploadedImageUrl}` : null
+            const cacheBustedImage = normalizedUploadedImage ? `${normalizedUploadedImage}${normalizedUploadedImage.includes("?") ? "&" : "?"}t=${Date.now()}` : null
+            const nextProfile = {
+                ...(contextProfile || profile || {}),
+                ...(response.data || {}),
+                userProfileImage: cacheBustedImage || undefined,
+            }
+
+            setProfileImage(cacheBustedImage)
+            setContextProfile(nextProfile)
+            setDraftProfileImage(buildProfileImageUrl(cacheBustedImage, false) ?? null)
+            closeModal()
+        } catch (error) {
+            console.log("Error uploading profile image:", error)
+        }
     }
 
     // چک کردن رمز فعلی با سرور - این endpoint بعداً باید سمت Express ساخته بشه
@@ -190,6 +269,15 @@ function EditMyProfile() {
 
     // این تابع برای ذخیره تغییرات در state اصلی استفاده می‌شود. اگر فیلد در حال ویرایش رمز عبور باشد، ابتدا خطاهای مربوط به رمز عبور را بررسی می‌کند و در صورت وجود خطا، از ادامه جلوگیری می‌کند. اگر همه چیز درست بود، مقدار جدید را در state اصلی ذخیره می‌کند و مودال را می‌بندد. برای سایر فیلدها، مقدار موقت را در state اصلی ذخیره می‌کند و مودال را می‌بندد.
     const handleModalSave = () => {
+        if (editingField === "profileImage") {
+            if (selectedProfileFile) {
+                uploadProfileImage()
+            } else {
+                closeModal()
+            }
+            return
+        }
+
         if (editingField === "password") {
 
             const errors: PasswordErrors = {}
@@ -269,23 +357,52 @@ function EditMyProfile() {
                 {fieldMeta.map((field) => (
                     <div
                         key={field.key}
-                        className="border rounded-md p-3 flex items-center justify-between gap-2"
-                    > 
-                        <div className="flex flex-col gap-1 overflow-hidden">
-                            <span className="text-sm font-bold text-stone-400">{field.label}</span>
-                            <span className="text-gray-600 dark:text-white truncate">
-                                {field.key === "password"
-                                    ? "********"
-                                    : field.key === "userBirth"
-                                        ? (formatPersianDate(values.userBirth) || "ثبت نشده")
-                                        : (values[field.key] || "ثبت نشده")}
-                            </span>
-                        </div>
+                        className={field.key === "profileImage"
+                            ? "border rounded-md p-3 flex items-center justify-center gap-2 w-full lg:col-span-2"
+                            : "border rounded-md p-3 flex items-center justify-between gap-2"
+                        }
+                    >
+                        {field.key === "profileImage" ? (
+                            <>
+                                <div className="flex items-center gap-3 overflow-hidden justify-center">
+                                    <span className="text-sm font-bold text-stone-400">ویرایش تصویر پروفایل</span>
+                                    <FaPen
+                                        className="cursor-pointer text-stone-400 hover:text-black dark:hover:text-white shrink-0"
+                                        onClick={() => openModal(field.key)}
+                                    />
+                                </div>
 
-                        <FaPen
-                            className="cursor-pointer text-stone-400 hover:text-black dark:hover:text-white shrink-0"
-                            onClick={() => openModal(field.key)}
-                        />
+                                <div className="flex items-center justify-center shrink-0 rounded-full overflow-hidden border border-stone-300 dark:border-slate-600 bg-stone-100 dark:bg-slate-700">
+                                    {profileImage ? (
+                                        <img
+                                            src={buildProfileImageUrl(profileImage, true)}
+                                            alt="تصویر پروفایل"
+                                            className="size-12 object-cover"
+                                        />
+                                    ) : (
+                                        <div className="size-12 flex items-center justify-center text-xs text-stone-500">بدون عکس</div>
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="flex flex-col gap-1 overflow-hidden">
+                                    <span className="text-sm font-bold text-stone-400">{field.label}</span>
+                                    <span className="text-gray-600 dark:text-white truncate">
+                                        {field.key === "password"
+                                            ? "********"
+                                            : field.key === "userBirth"
+                                                ? (formatPersianDate(values.userBirth) || "ثبت نشده")
+                                                : (values[field.key] || "ثبت نشده")}
+                                    </span>
+                                </div>
+
+                                <FaPen
+                                    className="cursor-pointer text-stone-400 hover:text-black dark:hover:text-white shrink-0"
+                                    onClick={() => openModal(field.key)}
+                                />
+                            </>
+                        )}
                     </div>
                 ))}
             </div>
@@ -361,6 +478,35 @@ function EditMyProfile() {
                                 )}
                             </Form.Group>
                         </div>
+                    ) : editingField === "profileImage" ? (
+                        <Form.Group className="text-center">
+                            <Form.Label className="d-block text-center w-full">تصویر پروفایل</Form.Label>
+                            <div className="flex flex-col items-center justify-center gap-3 text-center">
+                                <div className="w-32 h-32 rounded-full overflow-hidden border border-slate-300 bg-slate-100 dark:bg-slate-700 dark:border-slate-600 flex items-center justify-center mx-auto">
+                                    {(draftProfileImage || profileImage) ? (
+                                        <img
+                                            src={draftProfileImage || buildProfileImageUrl(profileImage, true)}
+                                            alt="پیش‌نمایش تصویر پروفایل"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <span className="text-xs text-stone-500">بدون تصویر</span>
+                                    )}
+                                </div>
+
+                                <Button variant="outline-primary" onClick={() => profileImageInputRef.current?.click()} className="mx-auto">
+                                    انتخاب تصویر
+                                </Button>
+
+                                <input
+                                    ref={profileImageInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleProfileImageSelection}
+                                    className="hidden"
+                                />
+                            </div>
+                        </Form.Group>
                     ) : editingField === "userBirth" ? (
                         <Form.Group>
                             <Form.Label>تاریخ تولد</Form.Label>
@@ -394,12 +540,15 @@ function EditMyProfile() {
 
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>
-                        انصراف
-                    </Button>
-                    <Button variant="primary" onClick={handleModalSave}>
-                        ذخیره
-                    </Button>
+                    <div className="flex w-full justify-center items-center gap-2">
+                        <Button variant="secondary" onClick={closeModal}>
+                            انصراف
+                        </Button>
+                        <Button variant="primary" onClick={handleModalSave}>
+                            ذخیره
+                        </Button>
+                    </div>
+
                 </Modal.Footer>
             </Modal>
 

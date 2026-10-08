@@ -13,6 +13,7 @@ interface ProfileData {
     userEmail: string
     userBirth?: string
     job?: string
+    userProfileImage?: string
     refundMethod?: {
         shebaNumber?: string
     }
