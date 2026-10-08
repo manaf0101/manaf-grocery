@@ -1,7 +1,7 @@
 import { useState } from "react"
 import UserProfile from "./main/UserProfile"
 import UpperMenu from "./main/UpperMenu"
-import UserMenu from "./main/UserMenu" 
+import UserMenu from "./main/UserMenu"
 import BottomMenu from "./main/BottomMenu"
 import UserMenuLeft from "./main/UserMenuLeft"
 import ClickMenuIcon from "./main/ClickMenuIcon"
@@ -11,9 +11,10 @@ import { Outlet, useLocation } from "react-router-dom"
 import { ProfileProvider } from "./contexts/ProfileContext"
 import { SellingPanelProvider, useSellingPanel } from "./contexts/SellingPanelContext"
 import { CartProvider, useCart } from "./contexts/CartContext"
+import { ReceivedOrdersProvider, useReceivedOrders } from "./contexts/ReceivedOrdersContext"
 
 // کامپوننت داخلی که محتوای اصلی TheUser را رندر می‌کند
-// چون useSellingPanel و useCart باید داخل Providerهای مربوطه صدا زده شوند، نمی‌توانند مستقیم داخل خود TheUser باشند
+// چون useSellingPanel ، useCart و useReceivedOrders باید داخل Providerهای مربوطه صدا زده شوند، نمی‌توانند مستقیم داخل خود TheUser باشند
 function TheUserContent() {
   const location = useLocation()
 
@@ -35,11 +36,9 @@ function TheUserContent() {
   }
 
   const { isSellingPanelEnabled } = useSellingPanel()
-
-  // تعداد سبد خرید، برای پاس دادن به UpperMenu به‌صورت prop
   const { cartCount } = useCart()
-
-  
+  // تعداد سفارش‌های دریافتی، برای پاس دادن به UpperMenu به‌صورت prop
+  const { receivedOrdersCount } = useReceivedOrders()
 
   return (
     <div className="h-full w-full relative dark:bg-slate-950">
@@ -49,7 +48,12 @@ function TheUserContent() {
       </header>
 
       <div className="sticky top-0 z-40">
-        <UpperMenu openUserMenu={smallAside} isSellingPanelEnabled={isSellingPanelEnabled} cartCount={cartCount} />
+        <UpperMenu
+          openUserMenu={smallAside}
+          isSellingPanelEnabled={isSellingPanelEnabled}
+          cartCount={cartCount}
+          receivedOrdersCount={receivedOrdersCount}
+        />
       </div>
 
       <ClickMenuIcon showCart={showRightCart} closeIt={smallAside} visable={smallAsideVisible} />
@@ -88,7 +92,9 @@ function TheUser() {
     <ProfileProvider>
       <SellingPanelProvider>
         <CartProvider>
-          <TheUserContent />
+          <ReceivedOrdersProvider>
+            <TheUserContent />
+          </ReceivedOrdersProvider>
         </CartProvider>
       </SellingPanelProvider>
     </ProfileProvider>

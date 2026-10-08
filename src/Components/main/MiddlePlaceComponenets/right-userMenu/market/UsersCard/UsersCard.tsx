@@ -6,6 +6,7 @@ import { useLoaderData, useFetcher, useParams  , useNavigate } from "react-route
 
 // برای کم کردن عدد روی آیتم سبد خرید در منوی بالایی
 import { useCart } from "../../../../../contexts/CartContext";
+import { useReceivedOrders } from "../../../../../contexts/ReceivedOrdersContext";
 // برای کم کردن عدد روی آیتم سبد خرید در منوی بالایی
 
 
@@ -38,10 +39,11 @@ function CartItemCard({ item, ProductsInitialPrice, veryFinalPrice }: { item: Ca
     const { userId } = useParams<{ userId: string }>()
     const navigate = useNavigate()
     const deleteFetcher = useFetcher()
+    const payFetcher = useFetcher()
+    const { refreshReceivedOrdersCount } = useReceivedOrders()
     const cartActionPath = `/TheUserPage/${userId}/main/userMenu/UsersCard`
 
     // جهت پروسه ی پرداخت
-    const payFetcher = useFetcher()
     // جهت پروسه ی پرداخت
 
 
@@ -119,8 +121,9 @@ const findPaidProducts = item.isCart === true;
         if (payFetcher.state === "idle" && payFetcher.data?.success && payFetcher.data?.intent === "pay") {
             closeInvoiceModal()
             setShowPaymentSuccessModal(true)
+            void refreshReceivedOrdersCount()
         }
-    }, [payFetcher.state, payFetcher.data])
+    }, [payFetcher.state, payFetcher.data, refreshReceivedOrdersCount])
 
     // جهت پروسه ی پرداخت
 
@@ -332,6 +335,7 @@ function UsersCard() {
     const productPrice = loaderData.getAllProducts ?? []
 
     const { setCartCount } = useCart()
+    const { refreshReceivedOrdersCount } = useReceivedOrders()
     const cartCount = cartItems.reduce((sum, item) => sum + (item.quantity ?? 0), 0)
 
 
@@ -381,6 +385,10 @@ function UsersCard() {
     useEffect(() => {
         setCartCount(cartCount)
     }, [cartCount, setCartCount])
+
+    useEffect(() => {
+        void refreshReceivedOrdersCount()
+    }, [refreshReceivedOrdersCount])
 
     return (
         <section className="flex flex-col p-3">

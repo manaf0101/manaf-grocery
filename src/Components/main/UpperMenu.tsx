@@ -18,9 +18,10 @@ type UpperMenu = {
     openUserMenu: () => any
     isSellingPanelEnabled: boolean
     cartCount: number
+    receivedOrdersCount: number
 }
 
-function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount }: UpperMenu) {
+function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount, receivedOrdersCount }: UpperMenu) {
 
     // DARK MOOD
 
@@ -134,9 +135,11 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount }: UpperMenu
                     >
                         <p className="dark:text-white"><RiStore2Line className="size-6 pl-1" /></p>
                         <p className="dark:text-white text-nowrap">پنل فروش</p>
-                        <div className="absolute bg-red-600 dark:bg-red-700 top-0 left-0 pr-1 pl-1 text-sm font-sans rounded-md text-white">
-                            5
-                        </div>
+                        {receivedOrdersCount > 0 && (
+                            <div className="absolute bg-red-600 dark:bg-red-700 top-0 left-0 pr-1 pl-1 text-sm font-sans rounded-md text-white">
+                                {receivedOrdersCount}
+                            </div>
+                        )}
                     </li>
                     {/* پنل فروش */}
 

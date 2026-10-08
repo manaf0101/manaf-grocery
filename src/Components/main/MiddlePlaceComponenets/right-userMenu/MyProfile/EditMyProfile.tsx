@@ -270,7 +270,7 @@ function EditMyProfile() {
                     <div
                         key={field.key}
                         className="border rounded-md p-3 flex items-center justify-between gap-2"
-                    >
+                    > 
                         <div className="flex flex-col gap-1 overflow-hidden">
                             <span className="text-sm font-bold text-stone-400">{field.label}</span>
                             <span className="text-gray-600 dark:text-white truncate">

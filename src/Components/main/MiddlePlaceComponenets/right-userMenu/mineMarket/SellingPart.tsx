@@ -15,6 +15,20 @@ interface Product {
     imageUrl: string
 }
 
+// هر سفارشی که از سبد خرید یک خریدار پرداخت شده و مربوط به محصولات همین فروشگاه است
+interface ReceivedOrder {
+    _id: string
+    orderCode: string
+    orderDate: string
+    productName?: string
+    productImage?: string
+    productId? :string
+    quantity?: number
+    totalPrice?: number
+    sellerDiscountedTotalPrice?: number
+    finalDiscountedTotalPrice?: number
+}
+
 // برای منوی کشویی محصول
 const CustomToggle = React.forwardRef<
     HTMLAnchorElement,
@@ -85,7 +99,7 @@ const CustomMenu = React.forwardRef<
 CustomMenu.displayName = "CustomMenu"
 
 function SelloingPart() {
-    const { products } = useLoaderData() as { store: any; products: Product[] }
+    const { products, receivedOrders } = useLoaderData() as { store: any; products: Product[]; receivedOrders: ReceivedOrder[] }
     const { userId } = useParams()
     const productFetcher = useFetcher()
 
@@ -105,6 +119,7 @@ function SelloingPart() {
     const [discountPrice, setDiscountPrice] = useState("")
     const [description, setDescription] = useState("")
     const [formError, setFormError] = useState("")
+    const [errorField, setErrorField] = useState<"tag" | "name" | "price" | "image" | "description" | null>(null)
     const [tag, setTag] = useState("")
 
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -128,6 +143,7 @@ function SelloingPart() {
         setDiscountPrice("")
         setDescription("")
         setFormError("")
+        setErrorField(null)
         setTag("")
         setEditingProductId(null)
     }
@@ -155,6 +171,7 @@ function SelloingPart() {
 
         setDescription(product.description)
         setFormError("")
+        setErrorField(null)
         setShowModal(true)
     }
 
@@ -172,6 +189,10 @@ function SelloingPart() {
         if (!file) return
         setImageFile(file)
         setImagePreview(URL.createObjectURL(file))
+        if (errorField === "image") {
+            setErrorField(null)
+            setFormError("")
+        }
     }
 
     const pupUpDeletModal = () => {
@@ -197,19 +218,29 @@ function SelloingPart() {
     const handleSaveProduct = () => {
 
         if (!tag) {
+            setErrorField("tag")
             setFormError('انتخاب تگ محصول اجباری است')
             return
         }
         if (!name.trim()) {
+            setErrorField("name")
             setFormError("نام محصول الزامی است")
             return
         }
         if (!price || isNaN(Number(price))) {
+            setErrorField("price")
             setFormError("قیمت محصول را به‌درستی وارد کنید")
             return
         }
         if (!imagePreview) {
+            setErrorField("image")
             setFormError("افزودن عکس محصول الزامی است")
+            return
+        }
+
+        if (!description.trim()) {
+            setErrorField("description")
+            setFormError('توضیحات محصول الزامی است')
             return
         }
 
@@ -417,7 +448,62 @@ function SelloingPart() {
                         100% { transform: translate(0, 0) rotate(0deg); }
                     }
                 `}
-            </style> 
+            </style>
+
+            {/* تست */}
+            {/* سفارشات دریافتی */}
+            <div className="flex flex-col gap-4 mt-8 pr-2 pl-2">
+                <h3 className="text-lg font-bold border-b-2 border-blue-500 w-fit pb-1 ">سفارشات دریافتی</h3>
+
+                {receivedOrders.length > 0 ? (
+                    <div className="flex justify-center flex-wrap gap-4">
+                        {receivedOrders.map((order) => (
+                            <div
+                                key={order._id}
+                                className="w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.7rem)] lg:w-[calc(25%-0.75rem)] border rounded-md p-3 flex flex-col gap-2 dark:bg-slate-800"
+                            >
+                                {/* عکس محصول */}
+                                <div className="w-full h-32 rounded-md overflow-hidden bg-gray-100 dark:bg-slate-700">
+                                    <img
+                                        src={
+                                            order.productImage
+                                                ? (order.productImage.startsWith('http')
+                                                    ? order.productImage
+                                                    : `http://localhost:8000${order.productImage}`)
+                                                : ""
+                                        }
+                                        alt={order.productName || "محصول"}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+
+                                {/* نام محصول و تعداد */}
+                                <div className="flex items-center justify-between">
+                                    <span className="font-bold truncate dark:text-white">{order.productName}</span>
+                                    <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full shrink-0">{order.quantity}</span>
+                                </div>
+
+                                {/* کد سفارش و تاریخ ثبت */}
+                                <div className="text-xs text-stone-400 dark:text-stone-300 flex justify-between">
+                                    <span>{order.productId}</span>
+                                    <span>{new Date(order.orderDate).toLocaleDateString('fa-IR')}</span>
+                                </div>
+
+                                {/* مبلغ نهایی که خریدار پرداخت کرده */}
+                                <div className="font-bold text-green-600 text-sm">
+                                    {(order.finalDiscountedTotalPrice ?? order.sellerDiscountedTotalPrice ?? order.totalPrice ?? 0).toLocaleString()} تومان
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-gray-400 text-center py-6">هنوز هیچ سفارش دریافتی ندارید</p>
+                )}
+            </div>
+            {/* سفارشات دریافتی */}
+            {/* تست */}
+
+
 
             <div className="flex justify-between items-center pr-2 pl-2">
                 <h3 className="text-lg font-bold border-b-2 border-blue-500 w-fit pb-1">محصولات فروشگاه</h3>
@@ -495,6 +581,9 @@ function SelloingPart() {
                 <p className="text-gray-400 text-center py-6">هنوز محصولی اضافه نکرده‌اید</p>
             )}
 
+
+
+
             {/* مودال افزودن / ویرایش محصول */}
             <Modal show={showModal} onHide={closeModal} centered dialogClassName="product-modal">
                 <Modal.Header closeButton>
@@ -508,14 +597,22 @@ function SelloingPart() {
                                 {'(جهت دسته بندی) تگ محصول '}
                             </label>
                             <section className="grid grid-cols-2 gap-2">
-                                <div className="border rounded-md flex justify-end items-center">
+                                <div className={`border rounded-md flex justify-end items-center ${errorField === "tag" ? "border-red-600 ring-1 ring-red-600 focus-within:ring-red-600" : ""}`}>
                                     <Dropdown
                                         onSelect={(eventKey) => {
-                                            if (eventKey) setTag(eventKey)
+                                            if (eventKey) {
+                                                setTag(eventKey)
+                                                if (errorField === "tag") {
+                                                    setErrorField(null)
+                                                    setFormError("")
+                                                }
+                                            }
                                         }}
                                     >
                                         <Dropdown.Toggle as={CustomToggle as any} id="dropdown-custom-components">
-                                            <span className="category-toggle-text text-sm font-bold text-blue-600 dark:text-blue-300">دسته‌ بندی</span>
+                                            <span className={`category-toggle-text text-sm font-bold ${errorField === "tag" ? "text-red-600 dark:text-red-400" : "text-blue-600 dark:text-blue-300"}`}>
+                                                دسته‌ بندی
+                                            </span>
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu
@@ -544,8 +641,14 @@ function SelloingPart() {
                                     readOnly
                                     value={tag}
                                     dir="rtl"
-                                    onChange={(e) => setTag(e.target.value)}
-                                    className="category-tag-input p-2 border rounded-md dark:bg-slate-800 dark:text-white"
+                                    onChange={(e) => {
+                                        setTag(e.target.value)
+                                        if (errorField === "tag") {
+                                            setErrorField(null)
+                                            setFormError("")
+                                        }
+                                    }}
+                                    className={`category-tag-input p-2 border rounded-md dark:bg-slate-800 dark:text-white focus-visible:outline-none ${errorField === "tag" ? "border-red-600 focus-visible:border-red-600 ring-1 ring-red-600" : ""}`}
                                     style={{ textAlign: 'right', fontSize: '0.875rem', lineHeight: '1.25rem', fontWeight: '700' }}
                                 />
                             </section>
@@ -554,8 +657,15 @@ function SelloingPart() {
                         <div className="flex flex-col gap-1">
                             <label className="text-sm font-bold text-stone-400">عکس محصول</label>
                             <div
+                                tabIndex={0}
                                 onClick={() => fileInputRef.current?.click()}
-                                className="w-full h-40 rounded-md border-2 border-dashed flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50 dark:bg-slate-700"
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault()
+                                        fileInputRef.current?.click()
+                                    }
+                                }}
+                                className={`w-full h-40 rounded-md border-2 border-dashed flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50 dark:bg-slate-700 focus-visible:outline-none ${errorField === "image" ? "border-red-600 focus-visible:border-red-600 ring-2 ring-red-600" : ""}`}
                             >
                                 {imagePreview ? (
                                     <img src={imagePreview} alt="پیش‌نمایش" className="w-full h-full object-cover" />
@@ -577,8 +687,14 @@ function SelloingPart() {
                             <input
                                 type="text"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="p-2 border rounded-md dark:bg-slate-800 dark:text-white"
+                                onChange={(e) => {
+                                    setName(e.target.value)
+                                    if (errorField === "name") {
+                                        setErrorField(null)
+                                        setFormError("")
+                                    }
+                                }}
+                                className={`p-2 border rounded-md dark:bg-slate-800 dark:text-white focus-visible:outline-none ${errorField === "name" ? "border-red-600 focus-visible:border-red-600 ring-1 ring-red-600" : ""}`}
                             />
                         </div>
 
@@ -587,8 +703,14 @@ function SelloingPart() {
                             <input
                                 type="number"
                                 value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                className="p-2 border rounded-md dark:bg-slate-800 dark:text-white"
+                                onChange={(e) => {
+                                    setPrice(e.target.value)
+                                    if (errorField === "price") {
+                                        setErrorField(null)
+                                        setFormError("")
+                                    }
+                                }}
+                                className={`p-2 border rounded-md dark:bg-slate-800 dark:text-white focus-visible:outline-none ${errorField === "price" ? "border-red-600 focus-visible:border-red-600 ring-1 ring-red-600" : ""}`}
                             />
                         </div>
 
@@ -645,9 +767,15 @@ function SelloingPart() {
                             <label className="text-sm font-bold text-stone-400">توضیحات محصول</label>
                             <textarea
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                onChange={(e) => {
+                                    setDescription(e.target.value)
+                                    if (errorField === "description") {
+                                        setErrorField(null)
+                                        setFormError("")
+                                    }
+                                }}
                                 rows={3}
-                                className="p-2 border rounded-md dark:bg-slate-800 dark:text-white resize-none"
+                                className={`p-2 border rounded-md dark:bg-slate-800 dark:text-white resize-none focus-visible:outline-none ${errorField === "description" ? "border-red-600 focus-visible:border-red-600 ring-1 ring-red-600" : ""}`}
                             />
                         </div>
 

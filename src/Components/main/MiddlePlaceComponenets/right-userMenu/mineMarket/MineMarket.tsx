@@ -533,8 +533,6 @@ const { store } = useLoaderData() as { store: StoreData; products: any[] }
                 {/* دکمه‌ی ثبت نهایی   ,  پنل فروش */}
             </div>
 
-           
-
             {/* فروش */}
             {isSellingActive && <SelloingPart />}
             {/* فروش */}
