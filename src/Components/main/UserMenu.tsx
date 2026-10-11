@@ -42,9 +42,12 @@ function UserMenu () {
 
 
 // جهت بولد کردن ساید بار سمت راست با توجه به این که کاربر در کدام صفحه است
-    const checkDomainToBoldRightsidebar = (relatedDomain: string) => {
+    const checkDomainToBoldRightsidebar = (relatedDomains: string | string[]) => {
         const domain = window.location.pathname;
-        return domain === relatedDomain ? 'text-stone-800 border-stone-800 dark:border-stone-600 dark:text-white dark:border-white' : '';
+        const domains = Array.isArray(relatedDomains) ? relatedDomains : [relatedDomains];
+        return domains.includes(domain)
+            ? 'text-stone-800 border-stone-800 dark:border-stone-600 dark:text-white dark:border-white'
+            : '';
     };
 // جهت بولد کردن ساید بار سمت راست با توجه به این که کاربر در کدام صفحه است
 
@@ -124,7 +127,10 @@ function UserMenu () {
                     </li>
 
                     <li
-                        className={`row-start-8 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${checkDomainToBoldRightsidebar(`/TheUserPage/${userId}/main/userMenu/MyProfile`)}`}
+                        className={`row-start-8 row-span-1 border-r-2 pr-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${checkDomainToBoldRightsidebar([
+                            `/TheUserPage/${userId}/main/userMenu/MyProfile`,
+                            `/TheUserPage/${userId}/main/userMenu/MyProfile/edit`,
+                        ])}`}
                     >
                         <Link to={`${basePath}MyProfile`}>
                            پروفایل من

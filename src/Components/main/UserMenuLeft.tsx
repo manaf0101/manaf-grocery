@@ -16,7 +16,18 @@ function UserMenuLeft() {
 
 
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
-    const { activeSection } = useActiveSection();
+    const { activeSection, setActiveSection } = useActiveSection();
+
+    const handleSectionClick = (sectionId: string) => {
+        const element = document.getElementById(sectionId);
+        if (!element) return;
+
+        setActiveSection(sectionId);
+
+        const offset = 140;
+        const top = element.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: "smooth" });
+    };
     // برای بولد شدن ساید بار سمت چپ بار رسیدن کاربر به بخش مربوطه
 
     return (
@@ -36,24 +47,25 @@ function UserMenuLeft() {
 
                             {isMarketPage && (
                                 <ul className="grid grid-rows-8 cursor-pointer text-stone-400 mt-2 mr-2 ">
-                                    {[
-                                        "ایجاد فروشگاه",
-                                        "خرید بر اساس دسته بندی",
-                                        "فروشندگان برتر",
-                                        "پیشنهادات",
-                                        "تخفیف و راه های ارتباطی",
-                                        "پشتیبانی",
+                                     {[
+                                        { label: "ایجاد فروشگاه", id: "marketSection1" },
+                                        { label: "خرید بر اساس دسته بندی", id: "marketSection2" },
+                                        { label: "فروشندگان برتر", id: "marketSection3" },
+                                        { label: "پیشنهادات", id: "marketSection4" },
+                                        { label: "تخفیف و راه های ارتباطی", id: "marketSection5" },
+                                        { label: "پشتیبانی", id: "marketSection6" },
                                     ].map((item, index) => (
                                         <li
-                                            key={index}
+                                            key={item.id}
+                                            onClick={() => handleSectionClick(item.id)}
                                             className={`row-start-${index + 1
-                                                } row-span-1 border-l-2 pl-3 pb-2 pt-2 dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${activeSection ===
-                                                    `marketSection${index + 1}`
-                                                    ? "text-stone-800  border-stone-800 dark:text-white dark:border-white"
+                                                } row-span-1 border-l-2 pl-3 pb-2 pt-2 cursor-pointer dark:border-stone-600 hover:text-stone-800 dark:hover:text-white hover:border-stone-800 hover:dark:border-white ${activeSection ===
+                                                    item.id
+                                                    ? "text-stone-800 border-stone-800 dark:text-white dark:border-white"
                                                     : ""
                                                 }`}
                                         >
-                                            {item}
+                                            {item.label}
                                         </li>
                                     ))}
                                 </ul>

@@ -6,7 +6,7 @@ export const usersWithStoreAndAllProducys = async () => {
 
         const [usersWithStoreResponse , allProductsResponse] = await Promise.all([
             axios.get("http://localhost:8000/api/users-with-store") ,
-            axios.get("http://localhost:8000/api/gerAllproducts")
+            axios.get("http://localhost:8000/api/getAllProducts")
         ]) ;
         return {
             usersWithStore : usersWithStoreResponse.data  , 

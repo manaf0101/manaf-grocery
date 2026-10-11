@@ -195,7 +195,7 @@ function SelloingPart() {
         }
     }
 
-    const pupUpDeletModal = () => {
+    const pupUpDeletModal = () => { 
         setDeleteModal(true)
     }
 

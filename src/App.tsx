@@ -6,6 +6,13 @@ import TheUser from "./Components/TheUser";
 import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
+
+import AllProducts from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/AllProducts";
+import SellerMarket from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/SellerMarket";
+import { sellerMarketLoader } from "./Loaders/sellerMarketLoader";
+import { getUserNameLoader } from "./Loaders/getUserNameLoader";
+
+
 // سبد خرید
 import { cartLoader } from "./Loaders/cartLoader";
 import { cartAction } from "./Actions/cartAction"
@@ -91,6 +98,7 @@ function App() {
       element: <SignUp />,
       loader: usersLoader
     },
+    
     {
       path: '/TheUserPage/:userId/main',
       element: <TheUser />,
@@ -205,7 +213,18 @@ function App() {
           action: cartAction,
         },
 
-        { index: true, element: <Index /> },
+      {
+      path : `${userMenuPaths}all-products` , 
+      element : <AllProducts /> ,
+      loader: usersWithStoreAndAllProducys,   // همون لودری که Market.tsx استفاده می‌کنه
+     } , 
+    {
+      path : `${userMenuPaths}seller-Market/:sellerID` , 
+      element : <SellerMarket /> , 
+      loader : sellerMarketLoader
+    } ,
+
+        { index: true, element: <Index /> , loader : getUserNameLoader },
       ],
     }
   ]);

@@ -15,8 +15,9 @@ import { useInView } from 'react-intersection-observer'
 // برای سبد خرید
 import { useCart } from "../../../../../contexts/CartContext";
 
-
-type product = {
+// این تایپ رو export می‌کنیم تا AllProducts.tsx هم بتونه ازش استفاده کنه
+// فیلد tag هم اضافه شد: همون تگ دسته‌بندی که فروشنده هنگام افزودن محصول انتخاب می‌کنه
+export type product = {
     _id: string
     image: string
     name: string
@@ -24,6 +25,7 @@ type product = {
     discountPrice?: number
     description?: string
     sellerId?: string
+    tag?: string
 }
 
 
@@ -48,8 +50,11 @@ function InvoiceRow({ label, value, valueClassName }: { label: string; value: st
 }
 
 
+// این کامپوننت رو export می‌کنیم تا AllProducts.tsx بتونه عیناً همینو استفاده کنه
+// (به‌جای کپی کردن رفتار سبد خرید و فاکتور تو یک فایل جدید)
+
 // هر کارت محصول، وضعیت سبد خرید خودش رو جدا از بقیه نگه می‌داره
-function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolean }) {
+export function ProductTile({ product, isLoaded }: { product: product; isLoaded: boolean }) {
 
 
     // جهت پروسه ی افزودن به سبد خرید
@@ -191,6 +196,25 @@ useEffect(() => {
 }, [cartFetcher.state, cartFetcher.data])
 
     return (
+
+        <>
+
+                    {/* استایل دارک‌مود مدال فاکتور خرید */}
+            <style>
+                {`
+                    .dark .invoice-modal .modal-content {
+                        background-color: rgb(30 41 59);
+                        color: white;
+                        border: 1px solid rgb(51 65 85);
+                    }
+                    .dark .invoice-modal .modal-footer {
+                        border-top: 1px solid rgb(51 65 85);
+                    }
+                `}
+            </style>
+            {/* استایل دارک‌مود مدال فاکتور خرید */}
+
+
         <div className=" w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.7rem)] lg:w-[calc(25%-0.75rem)] border rounded-md p-3 flex flex-col gap-2 dark:bg-slate-800">
 
             <div className="w-full h-40 rounded-md overflow-hidden bg-gray-100 dark:bg-slate-700">
@@ -206,7 +230,7 @@ useEffect(() => {
                 <img
                     className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? "visible" : "collapse"
                         }`}
-                    src={product.image}
+                    src={product.image || "/pictures/document-list.svg"}
                     alt={product.name}
                 />
             </div>
@@ -216,10 +240,10 @@ useEffect(() => {
                 <p className="text-sm font-bold text-stone-400 truncate">{product._id}</p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex dark:text-gray-400 items-center gap-2">
                 {product.discountPrice ? (
                     <>
-                        <span className="text-gray-400 text-sm line-through">
+                        <span className=" text-gray-400 text-sm line-through">
                             {product.price.toLocaleString()} تومان
                         </span>
                         <span className="text-green-600 font-bold text-sm">
@@ -370,7 +394,9 @@ useEffect(() => {
             {/* مدال فاکتور خرید */}
 
         </div>
-    )
+
+        </>
+    ) 
 }
 
 
@@ -399,20 +425,7 @@ const ProductCard = ({ products, id }: ProductCardProps) => {
 
     return (
         <>
-            {/* استایل دارک‌مود مدال فاکتور خرید */}
-            <style>
-                {`
-                    .dark .invoice-modal .modal-content {
-                        background-color: rgb(30 41 59);
-                        color: white;
-                        border: 1px solid rgb(51 65 85);
-                    }
-                    .dark .invoice-modal .modal-footer {
-                        border-top: 1px solid rgb(51 65 85);
-                    }
-                `}
-            </style>
-            {/* استایل دارک‌مود مدال فاکتور خرید */}
+
 
             {/* نوشته ی پیشنهادات */}
             <div

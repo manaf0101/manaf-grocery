@@ -1,16 +1,50 @@
 import { CgProfile } from "react-icons/cg";
 import { RiHome2Line } from "react-icons/ri";
-import { SlCallIn } from "react-icons/sl";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { HiUserGroup } from "react-icons/hi";
-import { IoSettingsOutline } from "react-icons/io5";
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate , useParams} from "react-router";
 import { useProfile } from "../contexts/ProfileContext";
-
+import { BsMoonStars } from "react-icons/bs";
+import useDarkMood from "../../Hooks/useDarkMood";
+ 
 function BottomMenu () {
+
+
+        // DARK MOOD
+
+    const [themes, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) return savedTheme;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    })
+
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', themes === 'dark');
+        localStorage.setItem('theme', themes);
+    }, [themes]);
+
+    function changeMood() {
+        if (themes === 'light') {
+            setTheme('dark')
+        } else {
+            setTheme('light')
+        }
+    }
+
+    const [theme] = useDarkMood();
+
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+    }, [theme])
+
+    // DARK MOOD
+
+
 const {userId} = useParams<{userId: string}>()
+    const userDomainId = useParams<{ userId: string }>().userId || '';
 
         // مسیر پایه
     const basePath = `/TheUserPage/${userId}/main/userMenu/`;
@@ -58,13 +92,16 @@ const {userId} = useParams<{userId: string}>()
             {/* مارکت من */}
 
             {/* تماس با ما */}
-            <div className="col-start-2 dark:text-white flex justify-center item-center pt-2 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">
+            <div
+            onClick={() => navigate(`/TheUserPage/${userDomainId}/main/userMenu/UsersCard`)}
+            style={{ cursor: "pointer" }}
+            className="col-start-2 dark:text-white flex justify-center item-center pt-2 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">
             <div className="grid-rows-2">
                     <div className="row-start-1 flex justify-center items-center">
-                    <p className="dark:text-white "><SlCallIn className="size-5"/></p>
+                    <p className="dark:text-white "><MdOutlineShoppingCart className="size-5"/></p>
                     </div>
                     <div className="row-start-2 flex justify-center items-center">
-                    <p className="dark:text-white">تماس با ما</p>
+                    <p className="dark:text-white">سبد خرید</p>
                     </div>
              </div>
             </div>
@@ -84,20 +121,25 @@ const {userId} = useParams<{userId: string}>()
             {/* درباره ی ما */}
 
             {/* تنظیمات */}
-            <div className="col-start-4 dark:text-white flex justify-center item-center pt-2 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">
+            <div 
+            onClick={changeMood} style={{ cursor: "pointer" }}
+            className="col-start-4 dark:text-white flex justify-center item-center pt-2 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">
             <div className="grid-rows-2">
                     <div className="row-start-1 flex justify-center items-center">
-                    <p className="dark:text-white "><IoSettingsOutline className="size-5"/></p>
+                    <p className="dark:text-white "><BsMoonStars className="size-5"/></p>
                     </div>
                     <div className="row-start-2 flex justify-center items-center">
-                    <p className="dark:text-white">تنظیمات</p>
+                    <p className="dark:text-white">مود</p>
                     </div>
              </div>
             </div>
             {/* تنظیمات */}
 
             {/* خانه */}
-            <div className="col-start-5 dark:text-white flex justify-center item-center pt-2 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">
+            <div
+            onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/market`)}
+            style={{cursor: "pointer"}}
+            className="col-start-5 dark:text-white flex justify-center item-center pt-2 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:bg-gray-300">
             <div className="grid-rows-2">
                     <div className="row-start-1 flex justify-center items-center">
                     <p className="dark:text-white "><RiHome2Line className="size-5"/></p>

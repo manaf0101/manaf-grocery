@@ -52,10 +52,13 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount, receivedOrd
 
     // DARK MOOD
 
+
+
     // جهت بررسی تکمیل بودن پروفایل
     const [showIncompleteModal, setShowIncompleteModal] = useState(false)
     const navigate = useNavigate()
     const userDomainId = useParams<{ userId: string }>().userId || '';
+    const userId = useParams<{ userId: string }>().userId || '';
     const { profileProgress } = useProfile()
     const basePath = `/TheUserPage/${userDomainId}/main/userMenu/`
 
@@ -80,7 +83,9 @@ function UpperMenu({ openUserMenu, isSellingPanelEnabled, cartCount, receivedOrd
             <div>
                 <ul className="hidden sm:grid bg-slate-100 dark:bg-slate-950 gap-2 grid-cols-6 md:grid-cols-8 pb-2" dir="rtl" style={{ fontFamily: 'VAZIR' }}>
                     {/* لوگوی خانه */}
-                    <li style={{ cursor: "pointer" }} className=" md:col-start-1 md:col-span-1 border-l-2 border-r-2 border-slate-200 mr-2 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
+                    <li 
+                    onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/market`)}
+                    style={{ cursor: "pointer" }} className=" md:col-start-1 md:col-span-1 border-l-2 border-r-2 border-slate-200 mr-2 flex justify-center items-center hover:bg-gray-300 dark:hover:bg-cyan-900 hover:transition duration-200 ease-in-out hover:rounded-md">
                         <p className="dark:text-white "><RiHome2Line className="size-5" /></p>
                         <p className="dark:text-white pr-1">خانه</p>
                     </li>

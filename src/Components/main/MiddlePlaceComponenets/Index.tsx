@@ -1,12 +1,14 @@
 
-import { getUserName } from '../getUserName';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
+import { useLoaderData , useNavigate , useParams } from 'react-router-dom';
 
 function Index() {
 
-    const userName = getUserName();
+    const { username } = useLoaderData() as { username: string };
+    const { userId } = useParams<{ userId: string }>();
+    const navigate = useNavigate();
     
-    const welcomeText = `سلام ${userName === 'guest'?'کاربر':userName} عزیز .`
+    const welcomeText = `سلام ${username === 'guest'?'کاربر':username} عزیز .`
 
     return (
         <>
@@ -51,7 +53,9 @@ function Index() {
                             <br />
                             <br />
                             <p>به بازار آنلاین</p>
-                            <p><a className="text-blue-600" href="...">manaf grocery</a></p>
+                            <div
+                            onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/market`)}
+                            className = 'text-blue-600 cursor-pointer'>manaf grocery</div>
                             <p>خوش آمدید . </p>
                             <p>جهت آشنایی و استفاده از سایت وارد</p>
                             <p><Link className="text-blue-600" to={'/TheUserPage/:userId/main/userMenu/rahnemayeh-site'}>راهنمای سایت </Link>شوید .</p>

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { VscArrowSmallRight } from "react-icons/vsc";
 import useDarkMood from "../Hooks/useDarkMood";
-import { FormEvent, useRef, useState, useEffect } from "react";
+import { FormEvent, useRef, useState, useEffect, ChangeEvent } from "react";
 // * قبلا برای ذخیره سازی مقادیر از localStorage استفاده میشد اما الان از دیتابیس استفاده شده است و این قسمت کامنت شده است
 // import { useLocalStorage } from "../Hooks/useLocalStorage";
 import { v4 as uuidv4 } from 'uuid';
@@ -98,8 +98,24 @@ function MyInput() {
 
         // متن اخطار در صورت تکراری بودن نام کاربری یا کمتر از 4 کاراکتر بودن آن
         const [warningText, setWarningText] = useState("mt-4 text-red-600 hidden")
+        const [usernameErrorMessage, setUsernameErrorMessage] = useState("نام کاربری نباید تکراری ، یا کمتر از چهار کاراکتر باشد !")
         // متن اخطار در صورت تکراری بودن نام کاربری یا کمتر از 4 کاراکتر بودن آن
 
+        const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+            const rawValue = event.target.value
+            const cleanedValue = rawValue.replace(/[^a-zA-Z]/g, "")
+
+            event.target.value = cleanedValue
+
+            if (rawValue !== cleanedValue) {
+                setUsernameErrorMessage("فقط مجاز به استفاده از حروف انگلیسی می باشید .")
+                setWarningText("mt-4 text-red-600")
+                return
+            }
+
+            setWarningText("mt-4 text-red-600 hidden")
+            setUsernameErrorMessage("نام کاربری نباید تکراری ، یا کمتر از چهار کاراکتر باشد !")
+        }
 
         // این تابع برای سیو شدن یوزرنیم بعد از کلیک کردن روی دکمه ی next می باشد
         async function handleButton() {
@@ -113,6 +129,12 @@ function MyInput() {
             // .............یعنی کاربر حتما چیزی تایپ کرده باشد و ما را به مسخره نگرفته 
             // ............. باشد .
             if (newUserName === '') return;
+
+            if (!/^[a-zA-Z]+$/.test(newUserName)) {
+                setUsernameErrorMessage("فقط مجاز به استفاده از حروف انگلیسی می باشید .")
+                setWarningText("mt-4 text-red-600")
+                return;
+            }
 
             //** قبلا برای چک کردن مقادیر از local storage استفاده میشد اما الان از دیتابیس استفاده شده است و این قسمت کامنت شده است
             // بررسی میکند آیا نام کاربری تکراری است یا نه ؟ 
@@ -163,7 +185,7 @@ function MyInput() {
 
             try {
 
-                const response = await axios.post('http://localhost:8000/api/add-users', newUser);
+                await axios.post('http://localhost:8000/api/add-users', newUser);
 
                 // console.log(response.data);
 
@@ -213,7 +235,7 @@ function MyInput() {
                 {/* اینپوت username */}
                 <div className="grid grid-cols-3 md:grid-cols-5 mt-2 gap-1">
                     <div className=" col-start-1 col-span-3 md:col-start-1 md:col-span-4 flex justify-center items-center">
-                        <input onChange={() => setWarningText("mt-4 text-red-600 hidden")} name="ffss" type="text" ref={userNameRef} className="p-1  dark:bg-slate-900 w-full rounded-lg border-2 border-slate-600 focus-visible:outline-none dark:caret-teal-400" />
+                        <input onChange={handleUsernameChange} name="ffss" type="text" ref={userNameRef} className="p-1  dark:bg-slate-900 w-full rounded-lg border-2 border-slate-600 focus-visible:outline-none dark:caret-teal-400" />
                     </div>
                     {/* next button */}
                     <div className="col-start-1 col-span-3 md:col-start-5 md:col-span-1 items-center justify-center flex">
@@ -224,7 +246,7 @@ function MyInput() {
                 {/* اینپوت username */}
 
                 {/* متن اخطار */}
-                <div className={warningText}><p style={{ fontFamily: 'VAZIR' }} dir="rtl">نام کاربری نباید تکراری ، یا کمتر از چهار کاراکتر باشد !</p></div>
+                <div className={warningText}><p style={{ fontFamily: 'VAZIR' }} dir="rtl">{usernameErrorMessage}</p></div>
                 {/* متن اخطار */}
             </>
         )

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import UserProfile from "./main/UserProfile"
 import UpperMenu from "./main/UpperMenu"
 import UserMenu from "./main/UserMenu"
@@ -21,6 +21,26 @@ function TheUserContent() {
   const isMyProfile = location.pathname.includes("MyProfile")
   const isMineMarket = location.pathname.includes("mine-market")
   const isUsersCard = location.pathname.includes("UsersCard")
+  const isAllProducts = location.pathname.includes("all-products")
+  const isSellerMarket = location.pathname.includes("seller-Market")
+  const isHamkary = location.pathname.includes("hamkary")
+  const isRahnemayehSite = location.pathname.includes("rahnemayeh-site")
+
+
+ const [isIndex , setIsindex] = useState(true)
+
+ useEffect(() => {
+   if (location.pathname.includes("userMenu")) {
+  setIsindex(false)  
+ } else {
+  setIsindex(true)
+ }
+ })
+
+ console.log(isIndex);
+ 
+
+  
 
   const [smallAsideVisible, setSmallAsideVisible] = useState('')
   const [showRightCart, setShowRightCart] = useState('cart')
@@ -65,13 +85,13 @@ function TheUserContent() {
         </div>
 
         <div
-          className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket || isUsersCard ? 'lg:col-span-4' : 'lg:col-span-3'
+          className={`w-full min-h-screen pb-20 sm:pb-0 dark:bg-slate-950 lg:col-start-2 ${isMineMarket || isUsersCard || isAllProducts || isSellerMarket || isIndex || isHamkary || isRahnemayehSite ? 'lg:col-span-4' : 'lg:col-span-3'
             }`}
         >
           <Outlet />
         </div>
-
-        {!isMineMarket && !isUsersCard && (
+ 
+        {!isMineMarket && !isUsersCard && !isAllProducts && !isSellerMarket && !isIndex && !isHamkary && !isRahnemayehSite &&(
           <div
             className={`${isMyProfile ? 'block' : 'hidden'} lg:block lg:col-start-5 lg:col-span-1 dark:bg-slate-950`}
             dir="ltr"

@@ -349,7 +349,7 @@ function TopSellersSlider() {
                     <div className="flex justify-center items-center py-10">
                         <p
                             dir="rtl"
-                            className="text-center text-sm font-medium text-slate-400 dark:text-slate-500"
+                            className="text-gray-400 text-center py-6"
                             style={{ fontFamily: 'VAZIR' }}
                         >
                             هنوز فروشنده‌ای ثبت نشده است

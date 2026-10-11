@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from "react-router-dom";
 
 import { MdArrowBackIosNew } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
@@ -79,6 +80,16 @@ function CategorySlider() {
   };
     // تنظیمات دیو اسلایدر
 
+
+    const navigate = useNavigate()
+  const { userId } = useParams<{ userId: string }>()
+
+  // با کلیک روی هر دسته‌بندی، کاربر به صفحه‌ی AllProducts هدایت می‌شه
+  // و تگ انتخاب‌شده به‌صورت query string همراهش می‌ره
+  const goToCategory = (tag: string) => {
+    navigate(`/TheUserPage/${userId}/main/userMenu/all-products?tag=${encodeURIComponent(tag)}`)
+  }
+
   return (
     <>
       <style>
@@ -106,19 +117,48 @@ function CategorySlider() {
      data-aos-anchor-placement="center-bottom" className="w-full h-auto">
         <div className="slider-container">
           <Slider {...settings}>
-            <Items tag="مواد غذایی" children = {<IoFastFood className="size-16"/>}/>
-            <Items tag="مد و پوشاک" children = {<GiClothes className="size-16"/>} />
-            <Items tag="خانه و آشپز خانه" children = {<FaKitchenSet className="size-16"/>} />
-            <Items tag="صنایع دستی" children = {<FaGlassMartini className="size-16"/>} />
-            <Items tag="سلامت و درمان" children = {<GiHealthPotion className="size-16"/>} />
-            <Items tag="آرایشی و بهداشتی" children = {<GiLipstick className="size-16"/>} />
-            <Items tag="فرهنگی،آموزشی" children = {<FaBook className="size-16"/>} />
-            <Items tag="ورزشی" children = {<FaVolleyball className="size-16"/>} />
-            <Items tag="خدمات،کسب وکار" children = {<MdOutlineWork className="size-16"/>} />
-            <Items tag="کالای دیجیتال" children = {<FaPlugCircleBolt className="size-16"/>} />
-            <Items tag="خودرویی" children = {<FaCar className="size-16"/>} />
-            <Items tag="طلا" children = {<GiGoldBar className="size-16"/>} />
-            <Items tag="کتاب" children = {<FaBookOpen className="size-16"/>} />
+<div onClick={() => goToCategory("مواد غذایی")} className="cursor-pointer">
+              <Items tag="مواد غذایی" children={<IoFastFood className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("مد و پوشاک")} className="cursor-pointer">
+              <Items tag="مد و پوشاک" children={<GiClothes className="size-16" />} />
+            </div>
+            {/* تگ اصلاح شد: قبلاً "خانه و آشپز خانه" بود، تا با مقدار واقعی محصولات یکی بشه "خانه و آشپزخانه" شد */}
+            <div onClick={() => goToCategory("خانه و آشپزخانه")} className="cursor-pointer">
+              <Items tag="خانه و آشپزخانه" children={<FaKitchenSet className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("صنایع دستی")} className="cursor-pointer">
+              <Items tag="صنایع دستی" children={<FaGlassMartini className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("سلامت و درمان")} className="cursor-pointer">
+              <Items tag="سلامت و درمان" children={<GiHealthPotion className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("آرایشی و بهداشتی")} className="cursor-pointer">
+              <Items tag="آرایشی و بهداشتی" children={<GiLipstick className="size-16" />} />
+            </div>
+            {/* تگ اصلاح شد: "فرهنگی،آموزشی" -> "فرهنگی آموزشی" */}
+            <div onClick={() => goToCategory("فرهنگی آموزشی")} className="cursor-pointer">
+              <Items tag="فرهنگی آموزشی" children={<FaBook className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("ورزشی")} className="cursor-pointer">
+              <Items tag="ورزشی" children={<FaVolleyball className="size-16" />} />
+            </div>
+            {/* تگ اصلاح شد: "خدمات،کسب وکار" -> "خدمات و کسب و کار" */}
+            <div onClick={() => goToCategory("خدمات و کسب و کار")} className="cursor-pointer">
+              <Items tag="خدمات و کسب و کار" children={<MdOutlineWork className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("کالای دیجیتال")} className="cursor-pointer">
+              <Items tag="کالای دیجیتال" children={<FaPlugCircleBolt className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("خودرویی")} className="cursor-pointer">
+              <Items tag="خودرویی" children={<FaCar className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("طلا")} className="cursor-pointer">
+              <Items tag="طلا" children={<GiGoldBar className="size-16" />} />
+            </div>
+            <div onClick={() => goToCategory("کتاب")} className="cursor-pointer">
+              <Items tag="کتاب" children={<FaBookOpen className="size-16" />} />
+            </div>
           </Slider>
         </div>
       </section>

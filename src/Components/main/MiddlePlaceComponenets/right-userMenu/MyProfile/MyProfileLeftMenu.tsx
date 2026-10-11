@@ -11,7 +11,7 @@ import { useProfile } from "../../../../contexts/ProfileContext";
 function MyProfileLeftMenu() {
 
     const navigate = useNavigate()
-    const { profile } = useProfile() 
+    const { profile } = useProfile()
 
     const { userId } = useParams()
     const location = useLocation()
@@ -32,39 +32,83 @@ function MyProfileLeftMenu() {
             {/* استایل برای دکمه ی ویرایش */}
             <style>
                 {`
-    .btn-editButton {
-      background-color: rgb(203 213 225);
-    }
+                    .btn-editButton {
+                        background-color: rgb(203 213 225);
+                        color: rgb(30 41 59);
+                        border: 1px solid rgb(148 163 184);
+                    }
 
-    .dark .btn-editButton {
-      background-color: rgb(128 144 166);
-    }
+                    .dark .btn-editButton {
+                        background-color: rgb(71 85 105);
+                        color: rgb(248 250 252);
+                        border-color: rgb(100 116 139);
+                    }
 
-    .btn-editButton:hover {
-      background-color: rgb(152 159 169);
-    }
+                    .btn-editButton:hover {
+                        background-color: rgb(186 199 216);
+                        color: rgb(15 23 42);
+                        border-color: rgb(100 116 139);
+                    }
 
-    .dark .btn-editButton:hover {
-      background-color: rgb(22 78 99);
-    }
-  `}
+                    .dark .btn-editButton:hover {
+                        background-color: rgb(22 78 99);
+                        color: rgb(255 255 255);
+                        border-color: rgb(14 116 144);
+                    }
+
+                    .btn-editButton:focus-visible {
+                        outline: 2px solid rgb(59 130 246);
+                        outline-offset: 2px;
+                    }
+
+                    .profile-help-modal .modal-content {
+                        background-color: #ffffff;
+                        color: #1e293b;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 12px;
+                    }
+
+                    .dark .profile-help-modal .modal-content {
+                        background-color: #334155;
+                        color: #f1f5f9;
+                        border-color: #475569;
+                    }
+                `}
             </style>
             {/* استایل برای دکمه ی ویرایش */}
 
-            <aside className="w-full h-auto p-2 lg:h-screen lg:p-0">
+            <aside className="w-full h-auto p-2 text-slate-700 dark:text-slate-100 lg:h-screen lg:p-0">
+
                 {/* مربوط یه کادر نام کاربری و ... */}
-                <section className="flex flex-col items-center justify-center border h-auto mt-2 p-3 gap-2 rounded-xl bg-white dark:bg-slate-800 shadow-sm lg:mt-4 lg:p-2">
-                    <p className="font-bold text-stone-400">نام کاربری</p>
-                    <div className="p-2 border w-full text-gray-500 flex justify-center rounded-md bg-stone-50 dark:bg-slate-700 dark:text-slate-200">{profile?.username || "ناموجود"}</div>
+               <section className="flex flex-col items-center justify-center border border-slate-200 bg-white text-slate-700 h-auto mt-2 p-3 gap-2 rounded-xl shadow-sm dark:!border-slate-600 dark:!bg-slate-800 dark:!text-slate-100 lg:mt-4 lg:p-2">
 
-                    <p className="font-bold text-stone-400">نام و نام خانوادگی</p>
-                    <div className="p-2 border w-full text-gray-500 flex justify-center rounded-md bg-stone-50 dark:bg-slate-700 dark:text-slate-200">{profile?.fullName || "ناموجود"}</div>
+                    <p className="font-bold text-stone-400 dark:text-slate-300">
+                        نام کاربری
+                    </p>
+                    <div className="p-2 border border-slate-200 w-full flex justify-center rounded-md bg-stone-50 text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100">
+                        {profile?.username || "ناموجود"}
+                    </div>
 
-                    <p className="font-bold text-stone-400">شماره همراه</p>
-                    <div className="p-2 border w-full text-gray-500 flex justify-center rounded-md bg-stone-50 dark:bg-slate-700 dark:text-slate-200">{profile?.userPhone || "ناموجود"}</div>
+                    <p className="font-bold text-stone-400 dark:text-slate-300">
+                        نام و نام خانوادگی
+                    </p>
+                    <div className="p-2 border border-slate-200 w-full flex justify-center rounded-md bg-stone-50 text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100">
+                        {profile?.fullName || "ناموجود"}
+                    </div>
 
-                    <p className="font-bold text-stone-400">ایمیل</p>
-                    <div className="p-2 border w-full text-gray-500 flex justify-center rounded-md bg-stone-50 dark:bg-slate-700 dark:text-slate-200">{profile?.userEmail || 'ناموجود'}</div>
+                    <p className="font-bold text-stone-400 dark:text-slate-300">
+                        شماره همراه
+                    </p>
+                    <div className="p-2 border border-slate-200 w-full flex justify-center rounded-md bg-stone-50 text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100">
+                        {profile?.userPhone || "ناموجود"}
+                    </div>
+
+                    <p className="font-bold text-stone-400 dark:text-slate-300">
+                        ایمیل
+                    </p>
+                    <div className="p-2 border border-slate-200 w-full flex justify-center rounded-md bg-stone-50 text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100">
+                        {profile?.userEmail || "ناموجود"}
+                    </div>
 
                     <Button
                         onClick={() => setShowEditInfoModal(true)}
@@ -77,16 +121,28 @@ function MyProfileLeftMenu() {
                 {/* مربوط یه کادر نام کاربری و ... */}
 
                 {/* مربوط به خلاصه فعالیت ها ... */}
-                <section className="[direction:rtl] mt-3 flex flex-col items-start border rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm lg:mt-0">
+                <section className="[direction:rtl] mt-3 flex flex-col items-start border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm dark:!border-slate-600 dark:!bg-slate-800 lg:mt-0">
+
                     {/* فعالیت ها */}
                     <div
                         onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/MyProfile`)}
-                        className={`group flex border-b-2 w-full p-3 cursor-pointer transition-colors ${isActiveMyProfile ? 'bg-slate-100 dark:bg-slate-700 border-r-4 border-r-blue-800' : ''}`}>
-                        <FaHome className={`dark:text-white ml-2 transition-all duration-200 ${isActiveMyProfile ? 'size-6' : 'size-5'} group-hover:size-6`} />
+                        className={`group flex border-b-2 border-slate-200 w-full p-3 cursor-pointer transition-colors dark:border-slate-700 ${
+                            isActiveMyProfile
+                                ? 'bg-slate-100 border-r-4 border-r-blue-800 dark:bg-slate-700 dark:border-r-cyan-400'
+                                : 'dark:hover:bg-slate-700/80'
+                        }`}
+                    >
+                        <FaHome
+                            className={`ml-2 transition-all duration-200 ${
+                                isActiveMyProfile
+                                    ? 'size-6 text-blue-800 dark:text-cyan-300'
+                                    : 'size-5 text-slate-500 group-hover:size-6 group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white'
+                            }`}
+                        />
                         <p className={`transition-all duration-200 ${
                             isActiveMyProfile
-                                ? 'font-bold text-black dark:!text-white'
-                                : 'text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:hover:!text-white dark:group-hover:!text-white'
+                                ? 'font-bold text-slate-900 dark:text-white'
+                                : 'text-slate-500 group-hover:font-bold group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white'
                         }`}>
                             خلاصه فعالیت ها
                         </p>
@@ -96,45 +152,72 @@ function MyProfileLeftMenu() {
                     {/* سفارش های من */}
                     <div
                         onClick={() => navigate(`/TheUserPage/${userId}/main/userMenu/MyProfile/MyOrders`)}
-                        className={`group flex border-b-2 w-full p-3 cursor-pointer transition-colors ${isActiveMyOrders ? 'bg-slate-100 dark:bg-slate-700 border-r-4 border-r-blue-800' : ''}`}>
+                        className={`group flex border-b-2 border-slate-200 w-full p-3 cursor-pointer transition-colors dark:border-slate-700 ${
+                            isActiveMyOrders
+                                ? 'bg-slate-100 border-r-4 border-r-blue-800 dark:bg-slate-700 dark:border-r-cyan-400'
+                                : 'dark:hover:bg-slate-700/80'
+                        }`}
+                    >
                         <FaShoppingBasket
-                            className={`dark:text-white ml-2 size-5 group-hover:size-6 group-active:size-6 transition-all duration-200 ${isActiveMyOrders ? 'size-6' : ''}`}
+                            className={`ml-2 transition-all duration-200 ${
+                                isActiveMyOrders
+                                    ? 'size-6 text-blue-800 dark:text-cyan-300'
+                                    : 'size-5 text-slate-500 group-hover:size-6 group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white'
+                            }`}
                         />
                         <p className={`transition-all duration-200 ${
                             isActiveMyOrders
-                                ? 'font-bold text-black dark:!text-white'
-                                : 'text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:hover:!text-white dark:group-hover:!text-white'
+                                ? 'font-bold text-slate-900 dark:text-white'
+                                : 'text-slate-500 group-hover:font-bold group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white'
                         }`}>
                             سفارش ها
                         </p>
                     </div>
                     {/* سفارش های من */}
 
-                    {/* لیست های من  */}
-                    <div className={`group flex w-full p-3 cursor-pointer transition-colors ${isActiveMyLists ? 'bg-slate-100 dark:bg-slate-700 border-r-4 border-r-blue-800' : ''}`}>
-                        <FaRegHeart className={`dark:text-white ml-2 transition-all duration-200 ${isActiveMyLists ? 'size-6' : 'size-5'} group-hover:size-6`} />
+                    {/* لیست های من */}
+                    <div
+                        className={`group flex w-full p-3 cursor-pointer transition-colors ${
+                            isActiveMyLists
+                                ? 'bg-slate-100 border-r-4 border-r-blue-800 dark:bg-slate-700 dark:border-r-cyan-400'
+                                : 'dark:hover:bg-slate-700/80'
+                        }`}
+                    >
+                        <FaRegHeart
+                            className={`ml-2 transition-all duration-200 ${
+                                isActiveMyLists
+                                    ? 'size-6 text-blue-800 dark:text-cyan-300'
+                                    : 'size-5 text-slate-500 group-hover:size-6 group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white'
+                            }`}
+                        />
                         <p className={`transition-all duration-200 ${
                             isActiveMyLists
-                                ? 'font-bold text-black dark:!text-white'
-                                : 'text-gray-500 hover:text-black group-hover:font-bold group-hover:text-black dark:hover:!text-white dark:group-hover:!text-white'
+                                ? 'font-bold text-slate-900 dark:text-white'
+                                : 'text-slate-500 group-hover:font-bold group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white'
                         }`}>
                             لیست های من
                         </p>
                     </div>
-                    {/* لیست های من  */}
-
-                  
+                    {/* لیست های من */}
 
                 </section>
 
-                  <div className="mt-24 md:collapse"></div>
+                <div className="mt-24 md:collapse"></div>
                 {/* مربوط به خلاصه فعالیت ها ... */}
+
             </aside>
 
             {/* مودال راهنمای ویرایش پروفایل */}
-            <Modal show={showEditInfoModal} onHide={() => setShowEditInfoModal(false)} centered>
-                <Modal.Body className="text-center py-4 dark:bg-slate-700 dark:text-gray-200 p-2">
-                    <p className="mb-4">. بعد از اعمال تغییرات مد نظرتان روی دکمه ثبت تغییرات کلیک کنید</p>
+            <Modal
+                show={showEditInfoModal}
+                onHide={() => setShowEditInfoModal(false)}
+                centered
+                dialogClassName="profile-help-modal"
+            >
+                <Modal.Body className="text-center py-4 p-3">
+                    <p className="mb-4">
+                        بعد از اعمال تغییرات مد نظرتان روی دکمه ثبت تغییرات کلیک کنید.
+                    </p>
                     <Button
                         variant="primary"
                         onClick={() => {

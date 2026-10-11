@@ -6,7 +6,7 @@ import axios from "axios";
 export const cartLoader = async ({params} : any) => {
     const [getCartResponse , getAllProductsResponse] = await Promise.all([
         axios.get(`http://localhost:8000/api/cart/${params.userId}`) , 
-        axios.get("http://localhost:8000/api/gerAllproducts")
+        axios.get("http://localhost:8000/api/getAllProducts")
     ]) ;
 
     return {
