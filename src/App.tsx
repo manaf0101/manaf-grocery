@@ -6,7 +6,7 @@ import TheUser from "./Components/TheUser";
 import SignUp from "./Components/SignUp";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
-
+import { searchLoader } from "./Loaders/searchLoader";
 import AllProducts from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/AllProducts";
 import SellerMarket from "./Components/main/MiddlePlaceComponenets/right-userMenu/market/SellerMarket";
 import { sellerMarketLoader } from "./Loaders/sellerMarketLoader";
@@ -17,7 +17,7 @@ import { getUserNameLoader } from "./Loaders/getUserNameLoader";
 import { cartLoader } from "./Loaders/cartLoader";
 import { cartAction } from "./Actions/cartAction"
 // سبد خرید
- 
+
 // مایکت من 
 import { mineMarketLoader } from "./Loaders/mineMarketLoader";
 import { storeAction } from "./Actions/storeAction";
@@ -98,7 +98,7 @@ function App() {
       element: <SignUp />,
       loader: usersLoader
     },
-    
+
     {
       path: '/TheUserPage/:userId/main',
       element: <TheUser />,
@@ -112,6 +112,12 @@ function App() {
           path: `${userMenuPaths}market`,
           element: <Market />,
           loader: usersWithStoreAndAllProducys
+        },
+
+        // resource route: بدون element، فقط برای fetcher.load صدا زده می‌شه (مثل مسیر محصولات تو mine-market)
+        {
+          path: `${userMenuPaths}search`,
+          loader: searchLoader,
         },
 
         {
@@ -213,18 +219,18 @@ function App() {
           action: cartAction,
         },
 
-      {
-      path : `${userMenuPaths}all-products` , 
-      element : <AllProducts /> ,
-      loader: usersWithStoreAndAllProducys,   // همون لودری که Market.tsx استفاده می‌کنه
-     } , 
-    {
-      path : `${userMenuPaths}seller-Market/:sellerID` , 
-      element : <SellerMarket /> , 
-      loader : sellerMarketLoader
-    } ,
+        {
+          path: `${userMenuPaths}all-products`,
+          element: <AllProducts />,
+          loader: usersWithStoreAndAllProducys,   // همون لودری که Market.tsx استفاده می‌کنه
+        },
+        {
+          path: `${userMenuPaths}seller-Market/:sellerID`,
+          element: <SellerMarket />,
+          loader: sellerMarketLoader
+        },
 
-        { index: true, element: <Index /> , loader : getUserNameLoader },
+        { index: true, element: <Index />, loader: getUserNameLoader },
       ],
     }
   ]);

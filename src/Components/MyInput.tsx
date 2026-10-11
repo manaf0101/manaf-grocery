@@ -413,10 +413,11 @@ function MyInput() {
                     <div className="text-center m-4 text-slate-600 hover:text-slate-950 dark:hover:text-slate-400 dark:text-slate-600">
                         <Link to={'/signUP'}><p className="underline">I have already an account</p></Link>
                         <br />
-                        <Link to={'/TheUserPage/:userId/main'}><p className="underline">I want to use the site as a Guest</p></Link>
-                    </div>
+                        <Link to={`/TheUserPage/${uuidv4()}/main`}><p className="underline">I want to use the site as a Guest</p></Link>
+                    </div> 
 
-                </div>
+                </div> 
+                
 
                 <div className="dark:bg-gradient-to-bl from-regal-blue from-20% to-40% to-slate-900 h-full w-1/6"></div>
 

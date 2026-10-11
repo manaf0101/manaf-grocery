@@ -63,7 +63,7 @@ function TheUserContent() {
   return (
     <div className="h-full w-full relative dark:bg-slate-950">
 
-      <header>
+      <header> 
         <UserProfile />
       </header>
 

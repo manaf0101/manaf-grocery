@@ -1,3 +1,5 @@
+import SearchBar from "./SearchBar"
+
 function Heading () {
     return( 
         <>
@@ -23,21 +25,9 @@ function Heading () {
                 {/* v-1.00 */}
 
                 {/* search-bar */}
-                <div className="col-start-3 mr-2 col-span-9 flex flex-row items-center gap-2 rounded-3xl border border-slate-200/70 bg-white/75 p-2 text-slate-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_8px_22px_rgba(15,23,42,0.06)] transition-all duration-200 hover:border-slate-300 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_12px_28px_rgba(15,23,42,0.08)] dark:border-slate-700/70 dark:bg-slate-900/60 dark:text-slate-200 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_10px_24px_rgba(2,6,23,0.22)] dark:hover:border-slate-600" dir="rtl">
-                       {/* ذره بین */}
-                        <div className="flex h-5 w-5 items-center justify-center text-slate-400">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </div>
-                       {/* ذره بین */}
-
-                       <div className="w-full pr-1">
-                        <form action="" className="w-full">
-                            <input style={{fontFamily:'VAZIR'}} id='search-box' className="w-full border-0 bg-transparent p-0 text-[0.95rem] font-medium leading-6 tracking-[0.01em] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-0 dark:text-slate-100 dark:placeholder:text-slate-400" type="text" placeholder="جستجو . . ." />
-                        </form>
+                       <div className="col-start-3 mr-2 col-span-9 flex flex-row items-center gap-2 rounded-3xl  p-2 text-slate-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_8px_22px_rgba(15,23,42,0.06)] transition-all duration-200 hover:border-slate-300 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_12px_28px_rgba(15,23,42,0.08)] dark:border-slate-700/70  dark:text-slate-200 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_10px_24px_rgba(2,6,23,0.22)] dark:hover:border-slate-600" dir="rtl">
+                        <SearchBar />
                        </div>
-                </div>
                 {/* search-bar */}
 
             </div>
