@@ -2,7 +2,7 @@
 // .نکته ای را بگوید که شاید در هنگام مطالعه کد ، برای خواننده سوال باشد .
 
 
-import axios from "axios"; 
+import axios from "axios";
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { VscArrowSmallRight } from "react-icons/vsc";
@@ -191,11 +191,11 @@ function MyInput() {
 
                 // بعد از ذخیره شدن اطلاعات در دیتابیس ، کاربر به صفحه ی کاربری خودش هدایت می شود
                 navigate(`/TheUserPage/${result}/main`)
-            } catch (error) {  
+            } catch (error) {
                 console.log(error);
-            }   
+            }
 
-        // **قبلا برای ذخیره در localStorage بوده 
+            // **قبلا برای ذخیره در localStorage بوده 
             // await setUsers([...users, newUser])
             // await setValue([...value, newUser])
 
@@ -227,7 +227,7 @@ function MyInput() {
                 {/* مربوط به UserName */}
                 <div className="grid grid-cols-2">
                     <div className="col-start-1 col-span-1">
-                        <p className="dark:text-teal-400  text-slate-950 ml-2" style={{ fontFamily: 'cursive' }}>username<span className="text-red-600 ml-2"> *</span></p>
+                        <p className="dark:text-teal-400  text-slate-950 ml-2" style={{ fontFamily: 'cursive' }}>نام کاربری<span className="text-red-600 ml-2"> *</span></p>
                     </div>
                 </div>
                 {/* مربوط به UserName */}
@@ -285,7 +285,7 @@ function MyInput() {
                 // توسط کاربر به طور کامل انجام شده باشد   
                 // که اگر انجام شده باشد برویم سراغ انتخاب userName
                 // توسط کابر که از طریق کامپوننت MyInputuserName انجام می شود
-                return ; 
+                return;
             }
         }
 
@@ -393,8 +393,8 @@ function MyInput() {
 
                 <div className="justify-center items-center flex flex-col dark:bg-slate-900 h-full w-4/6">
                     {/* کارد کلی فرم */}
-                    <div className="dark:text-white dark:bg-slate-900 bg-slate-300  w-4/5 h-auto rounded-lg border-slate-600 border-2 box-content p-4">
-                        <div className="whitespace-break-spaces mb-4" style={{ fontFamily: 'cursive' }}>hello ! <br />welcome to manaf grocery , let's being the adventure .</div>
+                    <div className="dark:text-white dark:bg-slate-900 bg-slate-300  w-4/5 h-auto rounded-lg border-slate-600 border-2 box-content p-4 ">
+                        <div className="whitespace-break-spaces text-lg font-bold text-slate-300 mb-4 [direction:rtl]" style={{ fontFamily: 'inherit' }}>سلام !<br />به فروشگاه ما خوش آمدید . بریم برای ماجراجویی .</div>
 
                         {/* form */}
                         <MyInputForm setWarningText={setWarningText} setPasswordButtonStyle={setPasswordButtonStyle} handleClick={handleClickuserEmail} setButtonStyle={setButtonStyle} setInputPasswordStyle={setInputPasswordStyle} setInputStyle={setInputStyle} setPasswordWarningStyele={setPasswordWarningStyele} setWarningStle={setWarningStle}>
@@ -410,14 +410,20 @@ function MyInput() {
                     </div>
                     {/* کارد کلی فرم */}
 
-                    <div className="text-center m-4 text-slate-600 hover:text-slate-950 dark:hover:text-slate-400 dark:text-slate-600">
-                        <Link to={'/signUP'}><p className="underline">I have already an account</p></Link>
+                    <div className="text-center m-4 text-slate-600 dark:text-slate-600">
+                        <Link to={'/logIN'}><p className=" hover:text-slate-950 dark:hover:text-slate-400  underline [direction:rtl] text-lg font-bold" style={{ fontFamily: 'inherit' }}>از قبل اکانت دارم .</p></Link>
                         <br />
-                        <Link to={`/TheUserPage/${uuidv4()}/main`}><p className="underline">I want to use the site as a Guest</p></Link>
-                    </div> 
+                        <p
+                            className="hover:text-slate-950 dark:hover:text-slate-400 underline cursor-pointer [direction:rtl] text-lg font-bold"
+                            style={{ fontFamily: 'inherit' }}
+                            onClick={() => navigate(`/TheUserPage/${uuidv4()}/main`)}
+                        >
+                            فقط میخوام به عنوان مهمان بازدید کنم .
+                        </p>
+                    </div>
 
-                </div> 
-                
+                </div>
+
 
                 <div className="dark:bg-gradient-to-bl from-regal-blue from-20% to-40% to-slate-900 h-full w-1/6"></div>
 

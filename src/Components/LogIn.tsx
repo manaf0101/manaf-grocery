@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 
-function SignUp() {
+function LogIn() {
 
     // اطلاعات تمام کاربران که توسط loader از سرور گرفته شده
     const users = useLoaderData() as any[];
@@ -293,7 +293,7 @@ function SignUp() {
 
                     <div className="m-4 text-slate-600 dark:text-slate-600 hover:text-slate-950 dark:hover:text-slate-400">
 
-                        <Link to={"/signUP"}>
+                        <Link to={"/singUP"}>
                             <p className="underline">
                                 Forgot password/username ?
                             </p>
@@ -313,4 +313,4 @@ function SignUp() {
 }
 
 
-export default SignUp;
+export default LogIn;

@@ -143,7 +143,7 @@ function ThemeMood() {
           </Row>  
         </Stack>  
       </div>  
-      <Link to={'/MyInput'}>
+      <Link to={'/MyInput-singIn'}>
       <button className="btn btn-outline-secondary mt-2 " type="button">next</button>
       </Link>
       

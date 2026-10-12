@@ -1,10 +1,17 @@
 import axios from "axios";
 
-export async function getUserNameLoader({ params } : any) {
+export async function getUserNameLoader({ params }: any) {
 
-    const response = await axios.get(
-        `http://localhost:8000/api/username/${params.userId}`
-    );
-    return response.data;
+    try {
+        const response = await axios.get(
+            `http://localhost:8000/api/username/${params.userId}`
+        );
+        return response.data;
+    } catch (error) {
+        // اگه کاربر پیدا نشد (userId نامعتبر، لینک قدیمی، یا مهمان)،
+        // به‌جای کرش کردن کل اپ با صفحه‌ی خطای عمومی روتر،
+        // یه مقدار خالی برمی‌گردونیم و خود Index.tsx تصمیم می‌گیره چی نشون بده
+        console.log("خطا در گرفتن نام کاربری:", error)
+        return { username: null }
+    }
 }
-

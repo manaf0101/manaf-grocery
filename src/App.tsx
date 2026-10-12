@@ -3,7 +3,7 @@ import ErrorPage from "./Components/ErrorPage";
 import ThemeMood from "./Components/ThemeMood";
 import MyInput from "./Components/MyInput";
 import TheUser from "./Components/TheUser";
-import SignUp from "./Components/SignUp";
+import LogIn from "./Components/LogIn";
 import Index from "./Components/main/MiddlePlaceComponenets/Index";
 
 import { searchLoader } from "./Loaders/searchLoader";
@@ -86,7 +86,7 @@ function App() {
       element: < ThemeMood />
     },
     {
-      path: '/MyInput',
+      path: '/MyInput-singIn',
       element: < MyInput />,
     },
     {
@@ -94,8 +94,8 @@ function App() {
       element: < MyInput />,
     },
     {
-      path: '/signUP',
-      element: <SignUp />,
+      path: '/logIN',
+      element: <LogIn />,
       loader: usersLoader
     },
 

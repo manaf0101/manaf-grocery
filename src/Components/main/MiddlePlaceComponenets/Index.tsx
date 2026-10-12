@@ -8,7 +8,8 @@ function Index() {
     const { userId } = useParams<{ userId: string }>();
     const navigate = useNavigate();
     
-    const welcomeText = `سلام ${username === 'guest'?'کاربر':username} عزیز .`
+    // خط welcomeText
+const welcomeText = `سلام ${!username || username === 'guest' ? 'کاربر' : username} عزیز .`
 
     return (
         <>
@@ -58,7 +59,8 @@ function Index() {
                             className = 'text-blue-600 cursor-pointer'>manaf grocery</div>
                             <p>خوش آمدید . </p>
                             <p>جهت آشنایی و استفاده از سایت وارد</p>
-                            <p><Link className="text-blue-600" to={'/TheUserPage/:userId/main/userMenu/rahnemayeh-site'}>راهنمای سایت </Link>شوید .</p>
+{/*  خط لینک راهنمای سایت */}
+<p><Link className="text-blue-600" to={`/TheUserPage/${userId}/main/userMenu/rahnemayeh-site`}>راهنمای سایت </Link>شوید .</p>
                          </div>
                         </div>
                         {/* قسمت نوشته ها  */}
