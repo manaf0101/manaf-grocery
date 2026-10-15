@@ -7,7 +7,7 @@ export async function currentOrdersLoader({ params }: any) {
 
 
     const response = await axios.get(
-        `http://localhost:8000/api/orders/current/${params.userId}`
+        `https://manafgrocey-api.onrender.com/api/orders/current/${params.userId}`
     );
 
     return response.data;

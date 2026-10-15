@@ -11,7 +11,7 @@ export async function searchLoader({ request }: LoaderFunctionArgs) {
         return { stores: [], products: [] }
     }
 
-    const response = await axios.get(`http://localhost:8000/api/search`, {
+    const response = await axios.get(`https://manafgrocey-api.onrender.com/api/search`, {
         params: { q }
     })
 

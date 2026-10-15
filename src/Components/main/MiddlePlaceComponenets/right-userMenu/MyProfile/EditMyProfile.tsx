@@ -85,8 +85,8 @@ function EditMyProfile() {
         const normalizedImage = image.startsWith("http")
             ? image
             : image.startsWith("/")
-                ? `http://localhost:8000${image}`
-                : `http://localhost:8000/${image}`
+                ? `https://manafgrocey-api.onrender.com${image}`
+                : `https://manafgrocey-api.onrender.com/${image}`
 
         const cleanImage = normalizedImage.replace(/([?&])t=\d+/g, "")
 
@@ -202,7 +202,7 @@ function EditMyProfile() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8000/api/upload-profile-image/${userId}`,
+                `https://manafgrocey-api.onrender.com/api/upload-profile-image/${userId}`,
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             )
@@ -231,7 +231,7 @@ function EditMyProfile() {
 
         setCheckingCurrentPassword(true)
         try {
-            const response = await axios.post(`http://localhost:8000/api/check-password`, {
+            const response = await axios.post(`https://manafgrocey-api.onrender.com/api/check-password`, {
                 userId,
                 password: passwordStep.currentPassword,
             })

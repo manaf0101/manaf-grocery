@@ -41,7 +41,7 @@ function SellerMarket() {
         const image = item.imageUrl?.startsWith("http")
             ? item.imageUrl
             : item.imageUrl
-                ? `http://localhost:8000${item.imageUrl}`
+                ? `https://manafgrocey-api.onrender.com${item.imageUrl}`
                 : "/pictures/document-list.svg"
 
         return {
@@ -52,7 +52,7 @@ function SellerMarket() {
     })
 
     const avatarSrc = store?.userProfileImage
-        ? `http://localhost:8000${store.userProfileImage}`
+        ? `https://manafgrocey-api.onrender.com${store.userProfileImage}`
         : "/pictures/icon-7797704_1280.png"
 
     const navigation = useNavigation()

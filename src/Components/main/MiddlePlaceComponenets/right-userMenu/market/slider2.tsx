@@ -6,7 +6,7 @@
 //   return (
 //     <Carousel pause={'hover'} interval={1} prevLabel={null}>
 //       <Carousel.Item>
-//       <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+//       <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
 //       </div>
 //         <Carousel.Caption>
 //           <h3>First slide label</h3>
@@ -14,7 +14,7 @@
 //         </Carousel.Caption>
 //       </Carousel.Item>
 //       <Carousel.Item>
-//       <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+//       <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
 //       </div>
 //         <Carousel.Caption>
 //           <h3>Second slide label</h3>
@@ -22,7 +22,7 @@
 //         </Carousel.Caption>
 //       </Carousel.Item>
 //       <Carousel.Item>
-//       <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+//       <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
 //       </div>
 //         <Carousel.Caption>
 //           <h3>Third slide label</h3>

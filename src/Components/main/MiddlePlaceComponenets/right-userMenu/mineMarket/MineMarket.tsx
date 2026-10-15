@@ -107,7 +107,7 @@ const { store } = useLoaderData() as { store: StoreData; products: any[] }
 
         const fetchSellerId = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/generate-seller-id")
+                const response = await axios.get("https://manafgrocey-api.onrender.com/api/generate-seller-id")
                 setSellerID(response.data.sellerID)
             } catch (error) {
                 console.log("خطا در دریافت کد فروشنده:", error)
@@ -190,7 +190,7 @@ const { store } = useLoaderData() as { store: StoreData; products: any[] }
         setIsCheckingUsername(true)
 
         try {
-            const response = await axios.get("http://localhost:8000/api/check-seller-username", {
+            const response = await axios.get("https://manafgrocey-api.onrender.com/api/check-seller-username", {
                 params: { username: tempUsername }
             })
 

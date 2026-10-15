@@ -6,7 +6,7 @@ export async function profileLoader({ params }: any) {
     const { userId } = params
 
     try {
-        const response = await axios.get(`http://localhost:8000/api/profile/${userId}`)
+        const response = await axios.get(`https://manafgrocey-api.onrender.com/api/profile/${userId}`)
         return response.data
     } catch (error) {
         // برای کاربر مهمان (یا هر userId ناموجود)، سرور ۴۰۴ برمی‌گردونه

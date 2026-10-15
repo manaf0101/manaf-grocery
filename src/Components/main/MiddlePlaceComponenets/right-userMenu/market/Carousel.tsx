@@ -31,17 +31,17 @@ function PauseOnHover() {
   `}
       </style>
       <Slider {...settings}>
-        <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+        <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
         </div>
-        <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+        <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
         </div>
-        <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+        <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
         </div>
-        <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+        <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
         </div>
-        <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+        <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
         </div>
-        <div className="h-52 bg-[url(../../../../../../public/pictures/elegant-smartphone-composition.jpg)] bg-cover">
+        <div className="h-52 bg-[url(/pictures/elegant-smartphone-composition.jpg)] bg-cover">
         </div>
       </Slider>
     </div>

@@ -29,7 +29,7 @@ export function ReceivedOrdersProvider({ children }: { children: ReactNode }) {
         if (!userId) return
 
         try {
-            const response = await axios.get(`http://localhost:8000/api/received-orders/count/${userId}`)
+            const response = await axios.get(`https://manafgrocey-api.onrender.com/api/received-orders/count/${userId}`)
             setReceivedOrdersCount(response.data.count)
         } catch (error) {
             console.log("خطا در دریافت تعداد سفارش‌های دریافتی:", error)

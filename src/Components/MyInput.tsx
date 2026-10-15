@@ -157,7 +157,7 @@ function MyInput() {
             // بررسی تکراری نبودن نام کاربری از طریق دیتابیس و سرور
             try {
                 const response = await axios.get(
-                    'http://localhost:8000/api/check-username',
+                    'https://manafgrocey-api.onrender.com/api/check-username',
                     {
                         params: {
                             username: newUserName
@@ -185,7 +185,7 @@ function MyInput() {
 
             try {
 
-                await axios.post('http://localhost:8000/api/add-users', newUser);
+                await axios.post('https://manafgrocey-api.onrender.com/api/add-users', newUser);
 
                 // console.log(response.data);
 
@@ -201,7 +201,7 @@ function MyInput() {
 
 
             // ارسال اطلاعات به دیتا بیس
-            // axios.post('http://localhost:8000/api/add-users' , {
+            // axios.post('https://manafgrocey-api.onrender.com/api/add-users' , {
             //     userName : newUserName
             // })
             // .then(function (response) {
@@ -309,7 +309,7 @@ function MyInput() {
         //گرفتن اطلاعات از سرور بررسی تکراری نبودن ایمیل
         try {
             const response = await axios.get(
-                'http://localhost:8000/api/check-email',
+                'https://manafgrocey-api.onrender.com/api/check-email',
                 {
                     params: {
                         email: currentEmail

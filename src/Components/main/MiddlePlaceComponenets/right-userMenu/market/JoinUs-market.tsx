@@ -85,7 +85,7 @@ function JoinUs({ id }: JoinUsProps) {
                 </div>
 
                 {/*image*/}
-                <div className="order-1 col-span-1 h-36 w-full overflow-hidden bg-[url(../../../../../../public/pictures/joinUs.jpg)] bg-cover bg-center bg-no-repeat sm:order-2 sm:col-span-2 sm:h-full sm:min-h-48">
+                <div className="order-1 col-span-1 h-36 w-full overflow-hidden bg-[url(/pictures/joinUs.jpg)] bg-cover bg-center bg-no-repeat sm:order-2 sm:col-span-2 sm:h-full sm:min-h-48">
                     <div className="h-full w-full bg-gradient-to-t from-black/30 via-transparent to-transparent sm:bg-gradient-to-l sm:from-transparent sm:via-transparent sm:to-black/10"></div>
                 </div>
             </div>

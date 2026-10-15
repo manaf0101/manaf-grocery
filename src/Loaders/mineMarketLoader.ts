@@ -5,9 +5,9 @@ export async function mineMarketLoader({ params }: any) {
 
     // هر سه درخواست (فروشگاه، محصولات، سفارش‌های دریافتی) به‌صورت موازی گرفته می‌شوند
     const [storeResponse, productsResponse, receivedOrdersResponse] = await Promise.all([
-        axios.get(`http://localhost:8000/api/store/${userId}`),
-        axios.get(`http://localhost:8000/api/products/${userId}`),
-        axios.get(`http://localhost:8000/api/received-orders/${userId}`),
+        axios.get(`https://manafgrocey-api.onrender.com/api/store/${userId}`),
+        axios.get(`https://manafgrocey-api.onrender.com/api/products/${userId}`),
+        axios.get(`https://manafgrocey-api.onrender.com/api/received-orders/${userId}`),
     ]);
 
     return {

@@ -22,7 +22,7 @@ function SellerProfile({ seller }: SellerProfileProps) {
     const { userId } = useParams<{ userId: string }>()
 
     const imageSrc = seller.userProfileImage
-        ? `http://localhost:8000${seller.userProfileImage}`
+        ? `https://manafgrocey-api.onrender.com${seller.userProfileImage}`
         : "/pictures/icon-7797704_1280.png"
 
 

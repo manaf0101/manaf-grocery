@@ -1,9 +1,8 @@
-import { useLoaderData } from "react-router-dom"
+
 
 
 function MyLists() {
 
-    const lists = useLoaderData()
 
 return (
     <>

@@ -8,12 +8,12 @@ export async function editProfileAction({ request, params }: any) {
     try {
         // اگر کاربر رمز عبور رو تغییر داده باشه، جدا ارسال می‌شه
         if (data.password) {
-            await axios.put(`http://localhost:8000/api/change-password/${userId}`, {
+            await axios.put(`https://manafgrocey-api.onrender.com/api/change-password/${userId}`, {
                 newPassword: data.password,
             })
         }
 
-        const response = await axios.put(`http://localhost:8000/api/profile/${userId}`, {
+        const response = await axios.put(`https://manafgrocey-api.onrender.com/api/profile/${userId}`, {
             fullName: data.fullName,
             userNationalityCode: data.userNationalityCode,
             userPhone: data.userPhone,

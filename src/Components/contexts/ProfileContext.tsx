@@ -39,7 +39,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
 
     const refetchProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/profile/${userId}`)
+            const response = await axios.get(`https://manafgrocey-api.onrender.com/api/profile/${userId}`)
             setProfile(response.data)
             // چون درخواست موفق بود، یعنی این کاربر واقعاً تو دیتابیس ثبت‌نام کرده
             setIsGuest(false)

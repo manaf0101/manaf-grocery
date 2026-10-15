@@ -39,7 +39,7 @@ const products = allProducts.map((product) => ({
     name: product.name,
     image: product.imageUrl.startsWith("http")
         ? product.imageUrl
-        : `http://localhost:8000${product.imageUrl}`,
+        : `https://manafgrocey-api.onrender.com${product.imageUrl}`,
     price: product.price,
     discountPrice: product.discountPrice,
     description: product.description,

@@ -13,7 +13,7 @@ export async function sellerMarketLoader({ params }: LoaderFunctionArgs) {
     }
 
     try {
-        const response = await axios.get(`http://localhost:8000/api/seller-market/${encodeURIComponent(sellerID)}`)
+        const response = await axios.get(`https://manafgrocey-api.onrender.com/api/seller-market/${encodeURIComponent(sellerID)}`)
         return response.data
     } catch (error) {
         console.error("Error loading seller market:", error)

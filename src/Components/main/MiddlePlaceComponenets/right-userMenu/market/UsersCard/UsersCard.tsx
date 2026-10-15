@@ -158,7 +158,7 @@ const findPaidProducts = item.isCart === true;
                                     item.productImage
                                         ? (item.productImage.startsWith('http')
                                             ? item.productImage
-                                            : `http://localhost:8000${item.productImage}`)
+                                            : `https://manafgrocey-api.onrender.com${item.productImage}`)
                                         : ""
                                 }
                                 alt={item.productName || "محصول"}

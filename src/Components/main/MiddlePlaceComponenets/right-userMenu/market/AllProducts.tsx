@@ -24,7 +24,7 @@ export default function AllProducts () {
         const imageUrl = item.imageUrl?.startsWith("http")
             ? item.imageUrl
             : item.imageUrl
-                ? `http://localhost:8000${item.imageUrl}`
+                ? `https://manafgrocey-api.onrender.com${item.imageUrl}`
                 : item.image || "/pictures/document-list.svg"
 
         return {

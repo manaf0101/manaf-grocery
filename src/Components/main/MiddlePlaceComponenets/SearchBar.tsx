@@ -229,7 +229,7 @@ function SearchBar() {
                                         const image = product.imageUrl
                                             ? (product.imageUrl.startsWith("http")
                                                 ? product.imageUrl
-                                                : `http://localhost:8000${product.imageUrl}`)
+                                                : `https://manafgrocey-api.onrender.com${product.imageUrl}`)
                                             : "/pictures/document-list.svg"
 
                                         return (

@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const usersLoader = async () => {
     try {
-        const response = await axios.get("http://localhost:8000/api/users");
+        const response = await axios.get("https://manafgrocey-api.onrender.com/api/users");
 
         return response.data;
 

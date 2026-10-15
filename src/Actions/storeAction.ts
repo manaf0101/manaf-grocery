@@ -5,7 +5,7 @@ export async function storeAction({ request, params }: any) {
     const { userId } = params;
  
     try {
-        const response = await axios.put(`http://localhost:8000/api/store/${userId}`, data);
+        const response = await axios.put(`https://manafgrocey-api.onrender.com/api/store/${userId}`, data);
         return { success: true, store: response.data.store };
     } catch (error) {
         console.error("خطا در ثبت اطلاعات فروشگاه:", error);

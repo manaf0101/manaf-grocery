@@ -27,7 +27,7 @@ export function SellingPanelProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const fetchInitialStoreStatus = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/store/${userId}`)
+                const response = await axios.get(`https://manafgrocey-api.onrender.com/api/store/${userId}`)
                 setSellingPanelEnabled(isStoreComplete(response.data))
             } catch (error) {
                 console.log("خطا در دریافت وضعیت اولیه فروشگاه:", error)

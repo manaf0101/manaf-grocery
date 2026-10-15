@@ -1,6 +1,6 @@
 import Image from 'react-bootstrap/Image';
 import { FaGear } from "react-icons/fa6";
-import imageIcon from '../../../public/pictures/icon-7797704_1280.png'
+import imageIcon from '/pictures/icon-7797704_1280.png'
 import { useParams } from 'react-router-dom';
 import useDarkMood from '../../Hooks/useDarkMood';
 import { useEffect, useState, useRef } from 'react';
@@ -49,7 +49,7 @@ function UserProfile() {
             try {
 
                 const response = await axios.get(
-                    `http://localhost:8000/api/username/${userId}`
+                    `https://manafgrocey-api.onrender.com/api/username/${userId}`
                 );
 
                 setUsername(response.data.username);
@@ -86,7 +86,7 @@ function UserProfile() {
 
         const getProfileImage = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/profile/${userId}`);
+                const response = await axios.get(`https://manafgrocey-api.onrender.com/api/profile/${userId}`);
                 setProfileImage(response.data.userProfileImage || null);
                 setProfile(response.data);
                 setProfileImageVersion(Date.now());
@@ -107,7 +107,7 @@ function UserProfile() {
         if (!image) return imageIcon;
 
         const cleanImage = image.replace(/([?&])t=\d+/g, '');
-        const baseUrl = cleanImage.startsWith('http') ? cleanImage : `http://localhost:8000${cleanImage}`;
+        const baseUrl = cleanImage.startsWith('http') ? cleanImage : `https://manafgrocey-api.onrender.com${cleanImage}`;
         if (!cacheBust) return baseUrl;
 
         const separator = baseUrl.includes('?') ? '&' : '?';
@@ -139,7 +139,7 @@ function UserProfile() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8000/api/upload-profile-image/${userId}`,
+                `https://manafgrocey-api.onrender.com/api/upload-profile-image/${userId}`,
                 formData,
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             );

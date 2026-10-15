@@ -156,7 +156,7 @@ function SelloingPart() {
     const openEditModal = (product: Product) => {
         setEditingProductId(product._id)
         setTag(product.tag)
-        setImagePreview(product.imageUrl.startsWith('http') ? product.imageUrl : `http://localhost:8000${product.imageUrl}`)
+        setImagePreview(product.imageUrl.startsWith('http') ? product.imageUrl : `https://manafgrocey-api.onrender.com${product.imageUrl}`)
         setImageFile(null)
         setName(product.name)
         setPrice(product.price.toString())
@@ -469,7 +469,7 @@ function SelloingPart() {
                                             order.productImage
                                                 ? (order.productImage.startsWith('http')
                                                     ? order.productImage
-                                                    : `http://localhost:8000${order.productImage}`)
+                                                    : `https://manafgrocey-api.onrender.com${order.productImage}`)
                                                 : ""
                                         }
                                         alt={order.productName || "محصول"}
@@ -533,7 +533,7 @@ function SelloingPart() {
                         >
                             <div className="w-full h-40 rounded-md overflow-hidden bg-gray-100 dark:bg-slate-700">
                                 <img
-                                    src={product.imageUrl.startsWith('http') ? product.imageUrl : `http://localhost:8000${product.imageUrl}`}
+                                    src={product.imageUrl.startsWith('http') ? product.imageUrl : `https://manafgrocey-api.onrender.com${product.imageUrl}`}
                                     alt={product.name}
                                     className="w-full h-full object-cover"
                                 />
